@@ -254,12 +254,19 @@ button{cursor:pointer;touch-action:manipulation;font-family:-apple-system,system
   <div class="mi" id="mi-form" onclick="go('form')"><span class="ic">💬</span>Formules &amp; Politesse<span class="bx">20Q</span></div>
   <div class="mi" id="mi-temps" onclick="go('temps')"><span class="ic">⏰</span>Expressions de temps<span class="bx">18Q</span></div>
   <div class="mi" id="mi-gram" onclick="go('gram')"><span class="ic">📐</span>Grammaire<span class="bx">20Q</span></div>
+  <div class="mi" id="mi-sent" onclick="go('sent')"><span class="ic">📝</span>Traduction de phrases<span class="bx">30Q</span></div>
   <div class="mdiv"></div>
-  <div class="sec">Verbes</div>
+  <div class="sec">🟢 Verbes — Présent</div>
   <div class="mi" id="mi-vi" onclick="go('vi')"><span class="ic">⚡</span>Irréguliers<span class="bx">30Q+</span></div>
   <div class="mi" id="mi-vm" onclick="go('vm')"><span class="ic">🔧</span>Modaux<span class="bx">20Q+</span></div>
   <div class="mi" id="mi-vr" onclick="go('vr')"><span class="ic">✅</span>Réguliers<span class="bx">25Q+</span></div>
-  <div class="mi" id="mi-va" onclick="go('va')"><span class="ic">🎯</span>Tous les verbes<span class="bx">75Q+</span></div>
+  <div class="mi" id="mi-va" onclick="go('va')"><span class="ic">🎯</span>Tous (présent)<span class="bx">75Q+</span></div>
+  <div class="mdiv"></div>
+  <div class="sec">📅 Verbes — Passato Prossimo</div>
+  <div class="mi" id="mi-pp-vi" onclick="go('pp-vi')"><span class="ic">⚡</span>Irréguliers au passé<span class="bx">30Q+</span></div>
+  <div class="mi" id="mi-pp-vm" onclick="go('pp-vm')"><span class="ic">🔧</span>Modaux au passé<span class="bx">20Q+</span></div>
+  <div class="mi" id="mi-pp-vr" onclick="go('pp-vr')"><span class="ic">✅</span>Réguliers au passé<span class="bx">25Q+</span></div>
+  <div class="mi" id="mi-pp-va" onclick="go('pp-va')"><span class="ic">🎯</span>Tous (passato)<span class="bx">80Q+</span></div>
   <div class="mdiv"></div>
   <div class="sec">Sicile ✨</div>
   <div class="mi" id="mi-resto" onclick="go('resto')"><span class="ic">🍕</span>Restaurant &amp; Café<span class="bx">Nouveau</span></div>
@@ -270,9 +277,10 @@ button{cursor:pointer;touch-action:manipulation;font-family:-apple-system,system
   <div class="mi" id="mi-sic" onclick="go('sic')"><span class="ic">🏖️</span>Culture sicilienne<span class="bx">Nouveau</span></div>
   <div class="mdiv"></div>
   <div class="sec">⚡ Quiz Express (10 Q · chrono)</div>
-  <div class="mi" id="mi-spd-vi" onclick="go('spd-vi')"><span class="ic">⚡</span>Express Irréguliers</div>
-  <div class="mi" id="mi-spd-vr" onclick="go('spd-vr')"><span class="ic">⚡</span>Express Réguliers</div>
-  <div class="mi" id="mi-spd-vm" onclick="go('spd-vm')"><span class="ic">⚡</span>Express Modaux</div>
+  <div class="mi" id="mi-spd-vi" onclick="go('spd-vi')"><span class="ic">⚡</span>Express Irréguliers présent</div>
+  <div class="mi" id="mi-spd-vr" onclick="go('spd-vr')"><span class="ic">⚡</span>Express Réguliers présent</div>
+  <div class="mi" id="mi-spd-vm" onclick="go('spd-vm')"><span class="ic">⚡</span>Express Modaux présent</div>
+  <div class="mi" id="mi-spd-pp" onclick="go('spd-pp')"><span class="ic">📅</span>Express Passato prossimo</div>
   <div class="mi" id="mi-spd-gram" onclick="go('spd-gram')"><span class="ic">⚡</span>Express Grammaire</div>
   <div class="mi" id="mi-spd-form" onclick="go('spd-form')"><span class="ic">⚡</span>Express Formules</div>
   <div class="mi" id="mi-spd-sic" onclick="go('spd-sic')"><span class="ic">⚡</span>Express Sicile</div>
@@ -391,6 +399,7 @@ function speakFeedback(){
   const q=POOL[IDX]; if(!q) return;
   const ans=q.type==='fill'?(q.ans||''):(q.opts&&q.opts[q.ans])||'';
   if(!ans) return;
+  // If it's a full sentence or longer answer, read it
   speakLang(ans,'it-IT');
 }
 
@@ -446,32 +455,27 @@ async function doTranslateAI(){
   const txt=(el('trans-in').value||'').trim();
   if(!txt||transActive)return;
   transActive=true;
-  const srcLang=transDir==='fr'?'français':'italien';
-  const tgtLang=transDir==='fr'?'italien':'français';
-  el('trans-status').textContent='🤖 Traduction IA...';
+  const sl=transDir==='fr'?'fr':'it';
+  const tl=transDir==='fr'?'it':'fr';
+  el('trans-status').textContent='🔄 Traduction...';
+  // Primary: unofficial Google Translate (no key, works offline-ish, CORS-free)
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        messages:[{role:'user',content:'Tu es un traducteur expert. Traduis le texte suivant du '+srcLang+' vers le '+tgtLang+'. Retourne UNIQUEMENT la traduction, sans guillemets, sans explications, sans préambule.\n\nTexte : '+txt}]
-      })
-    });
-    if(!resp.ok)throw new Error('API '+resp.status);
-    const data=await resp.json();
-    const result=(data&&data.content&&data.content[0]&&data.content[0].text||'').trim();
-    if(result){
-      el('trans-out').value=result;
-      el('out-wrap').style.display='block';
-      el('trans-status').textContent='';
-    } else {
-      el('trans-status').textContent='❌ Réponse vide. Réessaie.';
-    }
-  }catch(e){
-    el('trans-status').textContent='❌ Erreur : '+e.message;
-  }
+    const url='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+sl+'&tl='+tl+'&dt=t&q='+encodeURIComponent(txt);
+    const r=await fetch(url);if(!r.ok)throw new Error('google '+r.status);
+    const d=await r.json();
+    let result='';if(d&&d[0])d[0].forEach(s=>{if(s&&s[0])result+=s[0];});
+    if(result){el('trans-out').value=result;el('out-wrap').style.display='block';el('trans-status').textContent='';transActive=false;return;}
+  }catch(e1){}
+  // Fallback: MyMemory (free, CORS-friendly)
+  try{
+    const url2='https://api.mymemory.translated.net/get?q='+encodeURIComponent(txt)+'&langpair='+sl+'|'+tl;
+    const r2=await fetch(url2);if(!r2.ok)throw new Error('mymemory '+r2.status);
+    const d2=await r2.json();
+    const res2=d2&&d2.responseData&&d2.responseData.translatedText;
+    if(res2&&!res2.toLowerCase().includes('please select')){
+      el('trans-out').value=res2;el('out-wrap').style.display='block';el('trans-status').textContent='';
+    }else{el('trans-status').textContent='❌ Traduction indisponible hors ligne.';}
+  }catch(e2){el('trans-status').textContent='❌ Connexion internet requise pour traduire.';}
   transActive=false;
 }
 
@@ -734,31 +738,212 @@ const Q_SIC=[
 const VI=['essere','avere','fare','dire','andare','venire','dare','stare','uscire','bere','rimanere'];
 const VM=['potere','dovere','volere'];
 const VR=['mangiare','prendere','ordinare','pagare','offrire','portare','partire','arrivare','entrare','tornare','restare','seguire','guidare','prenotare','parlare','capire','chiedere'];
+
+// ── PASSATO PROSSIMO DATA ─────────────────────────────────────
+// {aux:'avere'|'essere', pp:'participio', c:[io,tu,lui,noi,voi,loro]}
+const VB_PP={
+  essere:  {it:'Essere', fr:'être',     aux:'essere',pp:'stato', c:['sono stato','sei stato','è stato','siamo stati','siete stati','sono stati'],
+    ph:[{f:"J'ai été en Sicile cet été.",i:'Sono stato in Sicilia quest\'estate.'},{f:'Il a été très gentil.',i:'È stato molto gentile.'},{f:'Nous avons été en vacances deux semaines.',i:'Siamo stati in vacanza due settimane.'},{f:'Elles ont été au marché.',i:'Sono state al mercato.'}]},
+  avere:   {it:'Avere',  fr:'avoir',    aux:'avere', pp:'avuto', c:['ho avuto','hai avuto','ha avuto','abbiamo avuto','avete avuto','hanno avuto'],
+    ph:[{f:"J'ai eu faim toute la journée.",i:'Ho avuto fame tutta la giornata.'},{f:'Tu as eu de la chance.',i:'Hai avuto fortuna.'},{f:'Nous avons eu un problème.',i:'Abbiamo avuto un problema.'}]},
+  fare:    {it:'Fare',   fr:'faire',    aux:'avere', pp:'fatto', c:['ho fatto','hai fatto','ha fatto','abbiamo fatto','avete fatto','hanno fatto'],
+    ph:[{f:"J'ai fait une excursion à l'Etna.",i:"Ho fatto un'escursione all'Etna."},{f:'Nous avons fait la queue.',i:'Abbiamo fatto la fila.'},{f:'Qu\'est-ce que tu as fait hier ?',i:'Cosa hai fatto ieri?'},{f:'Ils ont fait beaucoup de photos.',i:'Hanno fatto tante foto.'}]},
+  dire:    {it:'Dire',   fr:'dire',     aux:'avere', pp:'detto', c:['ho detto','hai detto','ha detto','abbiamo detto','avete detto','hanno detto'],
+    ph:[{f:"J'ai dit la vérité.",i:'Ho detto la verità.'},{f:'Il a dit bonjour.',i:'Ha detto ciao.'},{f:'Nous avons dit au revoir.',i:'Abbiamo detto arrivederci.'}]},
+  andare:  {it:'Andare', fr:'aller',    aux:'essere',pp:'andato',c:['sono andato','sei andato','è andato','siamo andati','siete andati','sono andati'],
+    ph:[{f:'Je suis allé à la plage hier.',i:'Sono andato in spiaggia ieri.'},{f:'Nous sommes allés à Taormina.',i:'Siamo andati a Taormina.'},{f:'Elle est allée au restaurant.',i:'È andata al ristorante.'},{f:'Ils sont allés visiter le château.',i:'Sono andati a visitare il castello.'}]},
+  venire:  {it:'Venire', fr:'venir',    aux:'essere',pp:'venuto',c:['sono venuto','sei venuto','è venuto','siamo venuti','siete venuti','sono venuti'],
+    ph:[{f:'Je suis venu en Sicile pour la première fois.',i:'Sono venuto in Sicilia per la prima volta.'},{f:'Elle est venue avec nous.',i:'È venuta con noi.'},{f:'Ils sont venus du nord.',i:'Sono venuti dal nord.'}]},
+  dare:    {it:'Dare',   fr:'donner',   aux:'avere', pp:'dato',  c:['ho dato','hai dato','ha dato','abbiamo dato','avete dato','hanno dato'],
+    ph:[{f:"J'ai donné mon numéro.",i:'Ho dato il mio numero.'},{f:'Il a donné des informations.',i:'Ha dato informazioni.'},{f:'Vous avez donné trop d\'argent.',i:'Avete dato troppi soldi.'}]},
+  stare:   {it:'Stare',  fr:'rester/être',aux:'essere',pp:'stato',c:['sono stato','sei stato','è stato','siamo stati','siete stati','sono stati'],
+    ph:[{f:'J\'ai été très bien ici.',i:'Sono stato molto bene qui.'},{f:'Nous sommes restés deux jours.',i:'Siamo stati due giorni.'},{f:'Il est resté à l\'hôtel.',i:"È stato all'hotel."}]},
+  potere:  {it:'Potere', fr:'pouvoir',  aux:'avere', pp:'potuto',c:['ho potuto','hai potuto','ha potuto','abbiamo potuto','avete potuto','hanno potuto'],
+    ph:[{f:'J\'ai pu réserver une table.',i:'Ho potuto prenotare un tavolo.'},{f:'Nous avons pu visiter le musée.',i:'Abbiamo potuto visitare il museo.'},{f:'Il n\'a pas pu venir.',i:'Non ha potuto venire.'}]},
+  dovere:  {it:'Dovere', fr:'devoir',   aux:'avere', pp:'dovuto',c:['ho dovuto','hai dovuto','ha dovuto','abbiamo dovuto','avete dovuto','hanno dovuto'],
+    ph:[{f:"J'ai dû partir tôt.",i:'Ho dovuto partire presto.'},{f:'Nous avons dû chercher un autre hôtel.',i:'Abbiamo dovuto cercare un altro hotel.'},{f:'Tu as dû oublier.',i:'Hai dovuto dimenticare.'}]},
+  volere:  {it:'Volere', fr:'vouloir',  aux:'avere', pp:'voluto',c:['ho voluto','hai voluto','ha voluto','abbiamo voluto','avete voluto','hanno voluto'],
+    ph:[{f:'J\'ai voulu essayer la pasta alla Norma.',i:'Ho voluto assaggiare la pasta alla Norma.'},{f:'Nous avons voulu rester encore un jour.',i:'Abbiamo voluto restare ancora un giorno.'}]},
+  uscire:  {it:'Uscire', fr:'sortir',   aux:'essere',pp:'uscito',c:['sono uscito','sei uscito','è uscito','siamo usciti','siete usciti','sono usciti'],
+    ph:[{f:'Je suis sorti hier soir.',i:'Sono uscito ieri sera.'},{f:'Ils sont sortis du restaurant à minuit.',i:'Sono usciti dal ristorante a mezzanotte.'},{f:'Elle est sortie se promener.',i:'È uscita a fare una passeggiata.'}]},
+  bere:    {it:'Bere',   fr:'boire',    aux:'avere', pp:'bevuto',c:['ho bevuto','hai bevuto','ha bevuto','abbiamo bevuto','avete bevuto','hanno bevuto'],
+    ph:[{f:"J'ai bu une granita au citron.",i:'Ho bevuto una granita al limone.'},{f:'Nous avons bu du vin local.',i:'Abbiamo bevuto vino locale.'},{f:'Qu\'est-ce que tu as bu ?',i:'Cosa hai bevuto?'}]},
+  rimanere:{it:'Rimanere',fr:'rester',  aux:'essere',pp:'rimasto',c:['sono rimasto','sei rimasto','è rimasto','siamo rimasti','siete rimasti','sono rimasti'],
+    ph:[{f:'Je suis resté encore un jour à Syracuse.',i:'Sono rimasto ancora un giorno a Siracusa.'},{f:'Nous sommes restés une semaine entière.',i:'Siamo rimasti una settimana intera.'},{f:'Elle est restée à la maison.',i:'È rimasta a casa.'}]},
+  mangiare:{it:'Mangiare',fr:'manger',  aux:'avere', pp:'mangiato',c:['ho mangiato','hai mangiato','ha mangiato','abbiamo mangiato','avete mangiato','hanno mangiato'],
+    ph:[{f:"J'ai mangé une arancina ce matin.",i:"Ho mangiato un'arancina stamattina."},{f:'Nous avons mangé dans un excellent restaurant.',i:'Abbiamo mangiato in un ottimo ristorante.'},{f:'Qu\'est-ce que tu as mangé ?',i:'Cosa hai mangiato?'},{f:'Ils ont mangé dehors tous les soirs.',i:'Hanno mangiato fuori ogni sera.'}]},
+  prendere:{it:'Prendere',fr:'prendre', aux:'avere', pp:'preso',  c:['ho preso','hai preso','ha preso','abbiamo preso','avete preso','hanno preso'],
+    ph:[{f:"J'ai pris le train pour Palerme.",i:'Ho preso il treno per Palermo.'},{f:'Tu as pris quoi comme dessert ?',i:'Cosa hai preso come dolce?'},{f:'Nous avons pris le ferry pour les îles Éoliennes.',i:'Abbiamo preso il traghetto per le isole Eolie.'}]},
+  ordinare:{it:'Ordinare',fr:'commander',aux:'avere',pp:'ordinato',c:['ho ordinato','hai ordinato','ha ordinato','abbiamo ordinato','avete ordinato','hanno ordinato'],
+    ph:[{f:"J'ai commandé la pasta alla Norma.",i:'Ho ordinato la pasta alla Norma.'},{f:'Nous avons commandé pour toute la table.',i:'Abbiamo ordinato per tutto il tavolo.'},{f:'Il a commandé du poisson.',i:'Ha ordinato del pesce.'}]},
+  pagare:  {it:'Pagare', fr:'payer',    aux:'avere', pp:'pagato', c:['ho pagato','hai pagato','ha pagato','abbiamo pagato','avete pagato','hanno pagato'],
+    ph:[{f:"J'ai payé l'addition.",i:'Ho pagato il conto.'},{f:'Nous avons payé séparément.',i:'Abbiamo pagato separati.'},{f:'Combien as-tu payé ?',i:'Quanto hai pagato?'},{f:'Il a payé cash.',i:'Ha pagato in contanti.'}]},
+  offrire: {it:'Offrire',fr:'offrir',   aux:'avere', pp:'offerto',c:['ho offerto','hai offerto','ha offerto','abbiamo offerto','avete offerto','hanno offerto'],
+    ph:[{f:"J'ai offert un verre à tout le monde.",i:'Ho offerto da bere a tutti.'},{f:'Le restaurant nous a offert un digestif.',i:'Il ristorante ci ha offerto un digestivo.'}]},
+  portare: {it:'Portare',fr:'apporter', aux:'avere', pp:'portato',c:['ho portato','hai portato','ha portato','abbiamo portato','avete portato','hanno portato'],
+    ph:[{f:"J'ai apporté les bagages à l'hôtel.",i:"Ho portato i bagagli all'hotel."},{f:'Il nous a apporté le menu.',i:'Ci ha portato il menù.'},{f:'Nous avons apporté des souvenirs.',i:'Abbiamo portato dei souvenir.'}]},
+  partire: {it:'Partire',fr:'partir',   aux:'essere',pp:'partito',c:['sono partito','sei partito','è partito','siamo partiti','siete partiti','sono partiti'],
+    ph:[{f:'Je suis parti à l\'aube.',i:"Sono partito all'alba."},{f:'Le train est parti à l\'heure.',i:'Il treno è partito in orario.'},{f:'Nous sommes partis en Sicile le 10 août.',i:'Siamo partiti in Sicilia il dieci agosto.'}]},
+  arrivare:{it:'Arrivare',fr:'arriver', aux:'essere',pp:'arrivato',c:['sono arrivato','sei arrivato','è arrivato','siamo arrivati','siete arrivati','sono arrivati'],
+    ph:[{f:'Je suis arrivé hier soir.',i:'Sono arrivato ieri sera.'},{f:'Le ferry est arrivé en retard.',i:'Il traghetto è arrivato in ritardo.'},{f:'Nous sommes enfin arrivés !',i:'Siamo finalmente arrivati!'},{f:'À quelle heure est-il arrivé ?',i:'A che ora è arrivato?'}]},
+  tornare: {it:'Tornare',fr:'revenir',  aux:'essere',pp:'tornato',c:['sono tornato','sei tornato','è tornato','siamo tornati','siete tornati','sono tornati'],
+    ph:[{f:'Je suis rentré à l\'hôtel à minuit.',i:"Sono tornato all'hotel a mezzanotte."},{f:'Nous sommes rentrés fatigués mais heureux.',i:'Siamo tornati stanchi ma felici.'},{f:'Elle est revenue de la plage bronzée.',i:'È tornata dalla spiaggia abbronzata.'}]},
+  restare: {it:'Restare',fr:'rester',   aux:'essere',pp:'restato',c:['sono restato','sei restato','è restato','siamo restati','siete restati','sono restati'],
+    ph:[{f:'Je suis resté trois nuits à Agrigente.',i:'Sono restato tre notti ad Agrigento.'},{f:'Nous sommes restés à la plage jusqu\'au coucher du soleil.',i:'Siamo restati in spiaggia fino al tramonto.'}]},
+  guidare: {it:'Guidare',fr:'conduire', aux:'avere', pp:'guidato',c:['ho guidato','hai guidato','ha guidato','abbiamo guidato','avete guidato','hanno guidato'],
+    ph:[{f:"J'ai conduit de Palerme à Catane.",i:'Ho guidato da Palermo a Catania.'},{f:'Il a conduit toute la nuit.',i:'Ha guidato tutta la notte.'},{f:'Nous avons conduit sur les routes de campagne siciliennes.',i:'Abbiamo guidato sulle strade di campagna siciliane.'}]},
+  prenotare:{it:'Prenotare',fr:'réserver',aux:'avere',pp:'prenotato',c:['ho prenotato','hai prenotato','ha prenotato','abbiamo prenotato','avete prenotato','hanno prenotato'],
+    ph:[{f:"J'ai réservé une table pour ce soir.",i:'Ho prenotato un tavolo per stasera.'},{f:'Nous avons réservé deux chambres.',i:'Abbiamo prenotato due camere.'},{f:'As-tu réservé le ferry ?',i:'Hai prenotato il traghetto?'}]},
+  parlare: {it:'Parlare',fr:'parler',   aux:'avere', pp:'parlato',c:['ho parlato','hai parlato','ha parlato','abbiamo parlato','avete parlato','hanno parlato'],
+    ph:[{f:"J'ai parlé avec un pêcheur local.",i:'Ho parlato con un pescatore locale.'},{f:'Nous avons parlé avec le gérant.',i:'Abbiamo parlato con il titolare.'},{f:'Tu as parlé trop vite.',i:'Hai parlato troppo velocemente.'}]},
+  capire:  {it:'Capire', fr:'comprendre',aux:'avere',pp:'capito', c:['ho capito','hai capito','ha capito','abbiamo capito','avete capito','hanno capito'],
+    ph:[{f:"J'ai compris l'explication.",i:'Ho capito la spiegazione.'},{f:'Tu as compris ?',i:'Hai capito?'},{f:'Nous n\'avons pas compris les indications.',i:'Non abbiamo capito le indicazioni.'}]},
+  chiedere:{it:'Chiedere',fr:'demander',aux:'avere', pp:'chiesto',c:['ho chiesto','hai chiesto','ha chiesto','abbiamo chiesto','avete chiesto','hanno chiesto'],
+    ph:[{f:"J'ai demandé le chemin au bar.",i:'Ho chiesto la strada al bar.'},{f:'Nous avons demandé une chambre plus grande.',i:'Abbiamo chiesto una camera più grande.'},{f:'Il a demandé l\'addition.',i:'Ha chiesto il conto.'}]},
+  visitare:{it:'Visitare',fr:'visiter',  aux:'avere', pp:'visitato',c:['ho visitato','hai visitato','ha visitato','abbiamo visitato','avete visitato','hanno visitato'],
+    ph:[{f:"J'ai visité la Valle dei Templi.",i:'Ho visitato la Valle dei Templi.'},{f:'Nous avons visité tous les sites grecs.',i:'Abbiamo visitato tutti i siti greci.'},{f:'Avez-vous visité Taormina ?',i:'Avete visitato Taormina?'}]},
+  incontrare:{it:'Incontrare',fr:'rencontrer',aux:'avere',pp:'incontrato',c:['ho incontrato','hai incontrato','ha incontrato','abbiamo incontrato','avete incontrato','hanno incontrato'],
+    ph:[{f:"J'ai rencontré des gens formidables.",i:'Ho incontrato delle persone fantastiche.'},{f:'Nous avons rencontré le propriétaire.',i:'Abbiamo incontrato il proprietario.'}]},
+  perdere: {it:'Perdere',fr:'perdre/rater',aux:'avere',pp:'perso',c:['ho perso','hai perso','ha perso','abbiamo perso','avete perso','hanno perso'],
+    ph:[{f:"J'ai perdu mon passeport.",i:'Ho perso il passaporto.'},{f:'Nous avons raté le ferry.',i:'Abbiamo perso il traghetto.'},{f:'Il a perdu son téléphone.',i:'Ha perso il telefono.'}]},
+  comprare:{it:'Comprare',fr:'acheter', aux:'avere', pp:'comprato',c:['ho comprato','hai comprato','ha comprato','abbiamo comprato','avete comprato','hanno comprato'],
+    ph:[{f:"J'ai acheté des souvenirs au marché.",i:'Ho comprato dei souvenir al mercato.'},{f:'Nous avons acheté des olives locales.',i:'Abbiamo comprato delle olive locali.'},{f:'Combien as-tu dépensé ?',i:'Quanto hai speso?'}]},
+  dormire: {it:'Dormire',fr:'dormir',   aux:'avere', pp:'dormito',c:['ho dormito','hai dormito','ha dormito','abbiamo dormito','avete dormito','hanno dormito'],
+    ph:[{f:"J'ai bien dormi grâce à la chaleur.",i:'Ho dormito bene grazie al caldo.'},{f:'Avez-vous bien dormi ?',i:'Avete dormito bene?'},{f:'Nous avons dormi sous les étoiles.',i:'Abbiamo dormito sotto le stelle.'}]},
+  vedere:  {it:'Vedere', fr:'voir',     aux:'avere', pp:'visto',  c:['ho visto','hai visto','ha visto','abbiamo visto','avete visto','hanno visto'],
+    ph:[{f:"J'ai vu le coucher de soleil depuis Erice.",i:'Ho visto il tramonto da Erice.'},{f:'Tu as vu la Villa Romana del Casale ?',i:'Hai visto la Villa Romana del Casale?'},{f:'Nous avons vu des dauphins en mer.',i:'Abbiamo visto i delfini in mare.'}]},
+  sentire: {it:'Sentire',fr:'entendre/sentir',aux:'avere',pp:'sentito',c:['ho sentito','hai sentito','ha sentito','abbiamo sentito','avete sentito','hanno sentito'],
+    ph:[{f:"J'ai entendu de la musique traditionnelle.",i:'Ho sentito della musica tradizionale.'},{f:"J'ai senti le parfum des agrumes.",i:'Ho sentito il profumo degli agrumi.'}]},
+  scattare:{it:'Scattare (foto)',fr:'prendre (photo)',aux:'avere',pp:'scattato',c:['ho scattato','hai scattato','ha scattato','abbiamo scattato','avete scattato','hanno scattato'],
+    ph:[{f:"J'ai pris de nombreuses photos.",i:'Ho scattato tante foto.'},{f:'Nous avons pris des photos au coucher du soleil.',i:'Abbiamo scattato foto al tramonto.'}]},
+};
+
+const VI_PP=Object.keys(VB_PP).filter(k=>['essere','avere','fare','dire','andare','venire','dare','stare','uscire','bere','rimanere'].includes(k));
+const VM_PP=Object.keys(VB_PP).filter(k=>['potere','dovere','volere'].includes(k));
+const VR_PP=Object.keys(VB_PP).filter(k=>!VI_PP.includes(k)&&!VM_PP.includes(k));
+
+function makePPQCM(keys){
+  const out=[];const all=Object.keys(VB_PP);
+  keys.forEach(k=>{
+    const v=VB_PP[k];if(!v)return;
+    PRON.forEach((p,pi)=>{
+      const correct=v.c[pi];
+      const wrongs=sh(all.filter(x=>x!==k)).slice(0,4).map(x=>VB_PP[x]&&VB_PP[x].c[pi]).filter(Boolean).filter(x=>x!==correct);
+      if(wrongs.length<3)return;
+      const opts=sh([correct,...wrongs.slice(0,3)]);
+      out.push({type:'qcm',ch:'📅 Passato — '+v.it,q:'<span class="vhl">'+v.it+' (passato prossimo)</span><span class="pron">'+p+'</span>',opts,ans:opts.indexOf(correct),exp:p+' → '+correct+'. Aux: '+v.aux+' + '+v.pp,verb:v.it,pron:p,itText:correct});
+    });
+    // Meaning QCM
+    const wfr=sh(all.filter(x=>x!==k)).slice(0,3).map(x=>VB_PP[x]&&VB_PP[x].fr).filter(Boolean);
+    if(wfr.length>=3){
+      const opts=sh([v.fr,...wfr.slice(0,3)]);
+      out.push({type:'qcm',ch:'📅 Passato — Vocabulaire',q:'Auxiliaire de "'+v.it+'" au passato prossimo ?',opts:sh(['avere (ho/hai/ha...)','essere (sono/sei/è...)','avere ou essere','aucun auxiliaire']),...(()=>{const ao='avere (ho/hai/ha...)';const eo='essere (sono/sei/è...)';const co=v.aux==='avere'?ao:eo;const op=sh([ao,eo,'avere ou essere','aucun auxiliaire']);return{opts:op,ans:op.indexOf(co)}})(),exp:v.it+' utilise "'+v.aux+'" comme auxiliaire. Participe : '+v.pp+'. Verbes de mouvement/état → essere.'});
+    }
+  });
+  return sh(out);
+}
+
+function makePPFull(keys){
+  const fills=[];const qcms=makePPQCM(keys);
+  keys.forEach(k=>{
+    const v=VB_PP[k];if(!v)return;
+    // Fill: each pronoun
+    PRON.forEach((p,pi)=>{
+      fills.push({type:'fill',ch:'📅 Passato — '+v.it,q:'<span class="vhl">'+v.it+'</span><span class="pron">'+p+'</span><br><small style="color:#888;font-size:11px">Passato prossimo</small>',ans:v.c[pi],exp:p+' → '+v.c[pi]+' ('+v.aux+' + '+v.pp+'). '+PRONF[pi]+' '+v.fr+'.',verb:v.it,pron:p,itText:v.c[pi]});
+    });
+    // Fill: phrase blanks
+    v.ph&&v.ph.forEach(ph=>{
+      const form=v.c.find(f=>f.length>3&&ph.i.includes(f));
+      if(form){
+        const blanked=ph.i.replace(form,'___');
+        fills.push({type:'fill',ch:'📅 Passato — '+v.it,q:'Traduis et complète : <em>"'+ph.f+'"</em><br><small style="color:#888">'+blanked+'</small>',ans:form,exp:'<b>'+form+'</b> → '+ph.i,itText:ph.i});
+      }
+      // Full sentence translation fr→it
+      fills.push({type:'fill',ch:'📅 Passato — Traduction',q:'Traduis entièrement en italien :<br><em>"'+ph.f+'"</em>',ans:ph.i,exp:'Traduction : <b>'+ph.i+'</b>',itText:ph.i,fullSentence:true});
+      // Full sentence translation it→fr
+      fills.push({type:'fill',ch:'📅 Passato — Compréhension',q:'Traduis entièrement en français :<br><em>"'+ph.i+'"</em>',ans:ph.f,exp:'Traduction : <b>'+ph.f+'</b>',fullSentence:true});
+    });
+  });
+  return sh([...qcms,...fills]);
+}
+
+// ── SENTENCE TRANSLATION BANKS (présent) ─────────────────────
+// Full fr→it and it→fr sentence exercises — more complex, no blanks
+const Q_SENT_PRES=[
+  fill('💬 Traduction FR→IT','Traduis : <em>"Je vais à la plage tous les matins."</em>','Vado in spiaggia tutte le mattine.','Vado (andare, io). Tutte le mattine = tous les matins.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"Est-ce que tu peux me recommander un bon restaurant ?"</em>',"Puoi consigliarmi un buon ristorante?",'Puoi = tu peux (potere). Consigliarmi = me recommander.'),
+  fill('💬 Traduction IT→FR','Traduis : <em>"Non capisco, parla più lentamente per favore."</em>','Je ne comprends pas, parlez plus lentement s\'il vous plaît.','Capisco = je comprends. Parla più lentamente = parlez plus lentement.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"Je dois réserver une chambre pour deux nuits."</em>','Devo prenotare una camera per due notti.','Devo = je dois (dovere). Prenotare = réserver. Camera = chambre.'),
+  fill('💬 Traduction IT→FR','Traduis : <em>"Voglio provare la pasta alla Norma, è tipica di Catania."</em>',"Je veux essayer la pasta alla Norma, c'est typique de Catane.",'Voglio = je veux. Provare = essayer. Tipica = typique.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"Où se trouve l\'arrêt de bus le plus proche ?"</em>',"Dov'è la fermata del bus più vicina?",'Dov\'è = où est. Più vicina = la plus proche.'),
+  fill('💬 Traduction IT→FR','Traduis : <em>"Siamo in Sicilia da tre giorni e ci piace molto."</em>','Nous sommes en Sicile depuis trois jours et ça nous plaît beaucoup.','Da tre giorni = depuis trois jours. Ci piace = ça nous plaît.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"Je ne comprends pas bien l\'italien, parlez lentement."</em>','Non capisco bene l\'italiano, parli lentamente.','Parli = parlez (vouvoiement). Lentamente = lentement.'),
+  fill('💬 Traduction IT→FR','Traduis : <em>"Quanto costa il biglietto per Taormina con il treno?"</em>','Combien coûte le billet pour Taormina en train ?','Quanto costa = combien ça coûte. Biglietto = billet.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"Nous voulons visiter l\'Etna demain matin."</em>','Vogliamo visitare l\'Etna domani mattina.','Vogliamo = nous voulons. Domani mattina = demain matin.'),
+  fill('💬 Traduction IT→FR','Traduis : <em>"Il ristorante è chiuso il lunedì, dobbiamo cercare un altro posto."</em>',"Le restaurant est fermé le lundi, nous devons chercher un autre endroit.",'Chiuso = fermé. Dobbiamo cercare = nous devons chercher.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"Ma voiture est tombée en panne sur la route."</em>','La mia macchina è rimasta in panne sulla strada.','È rimasta in panne = est tombée en panne (rimanere).'),
+  fill('💬 Traduction IT→FR','Traduis : <em>"Devo trovare una farmacia, ho mal di testa."</em>','Je dois trouver une pharmacie, j\'ai mal à la tête.','Devo trovare = je dois trouver. Ho mal di testa = j\'ai mal à la tête.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"Pouvez-vous nous appeler un taxi, s\'il vous plaît ?"</em>','Può chiamarci un taxi, per favore?','Può = il peut / pouvez-vous (vouvoiement). Chiamarci = nous appeler.'),
+  fill('💬 Traduction IT→FR','Traduis : <em>"Esco ogni sera a fare una passeggiata sul lungomare."</em>','Je sors chaque soir me promener sur le front de mer.','Esco = je sors (uscire). Passeggiata = promenade. Lungomare = front de mer.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"Le marché de Palerme ouvre à huit heures du matin."</em>','Il mercato di Palermo apre alle otto di mattina.','Apre = il ouvre. Alle otto = à huit heures.'),
+  fill('💬 Traduction IT→FR','Traduis : <em>"Beviamo vino locale e mangiamo pesce fresco ogni giorno."</em>','Nous buvons du vin local et mangeons du poisson frais chaque jour.','Beviamo = nous buvons. Mangiamo = nous mangeons. Pesce fresco = poisson frais.'),
+  fill('💬 Traduction FR→IT','Traduis : <em>"J\'ai besoin d\'aide, j\'ai perdu mes clés de voiture."</em>',"Ho bisogno di aiuto, ho perso le chiavi della macchina.",'Ho bisogno di = j\'ai besoin de. Ho perso = j\'ai perdu.'),
+];
+
+const Q_SENT_PP=[
+  fill('📅 Phrases complètes PP','Traduis : <em>"Nous sommes arrivés à Palerme hier matin."</em>','Siamo arrivati a Palermo ieri mattina.','Siamo arrivati (arrivare + essere). Ieri mattina = hier matin.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"J\'ai mangé une arancina et j\'ai bu une granita."</em>','Ho mangiato un\'arancina e ho bevuto una granita.','Ho mangiato (mangiare+avere), ho bevuto (bere+avere).'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Siamo partiti all\'alba e siamo arrivati a Catania nel pomeriggio."</em>',"Nous sommes partis à l'aube et nous sommes arrivés à Catane dans l'après-midi.",'Siamo partiti (partire+essere), siamo arrivati (arrivare+essere).'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Avez-vous réservé une table pour ce soir ?"</em>','Avete prenotato un tavolo per stasera?','Avete prenotato = vous avez réservé (avere+prenotare).'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Ho visto il tramonto dall\'alto di Erice ed è stato magnifico."</em>','J\'ai vu le coucher de soleil depuis les hauteurs d\'Erice et c\'était magnifique.','Ho visto (vedere+avere). È stato = c\'était (essere+essere).'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Nous avons conduit plus de cinq cents kilomètres en deux jours."</em>','Abbiamo guidato più di cinquecento chilometri in due giorni.','Abbiamo guidato (guidare+avere). Chilometri = kilomètres.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Hai prenotato l\'hotel o dormiamo in campeggio?"</em>','As-tu réservé l\'hôtel ou on dort en camping ?','Hai prenotato (avere+prenotare). Campeggio = camping.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Le guide nous a emmenés visiter les temples grecs."</em>','La guida ci ha portato a visitare i templi greci.','Ci ha portato (portare+avere). Templi greci = temples grecs.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Abbiamo perso il traghetto delle dieci, dobbiamo aspettare."</em>','Nous avons raté le ferry de dix heures, nous devons attendre.','Abbiamo perso (perdere+avere). Dobbiamo aspettare = nous devons attendre.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"J\'ai demandé l\'addition et j\'ai payé en liquide."</em>','Ho chiesto il conto e ho pagato in contanti.','Ho chiesto (chiedere+avere). Ho pagato (pagare+avere). In contanti = en liquide.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Siete rimasti soddisfatti del viaggio?"</em>','Êtes-vous restés satisfaits du voyage ?','Siete rimasti (rimanere+essere). Soddisfatti = satisfaits. Viaggio = voyage.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Il pescatore ci ha parlato della storia dell\'isola."</em>','Le pêcheur nous a parlé de l\'histoire de l\'île.','Ci ha parlato (parlare+avere). Pescatore = pêcheur. Isola = île.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Nous avons visité la Valle dei Templi et pris des centaines de photos."</em>','Abbiamo visitato la Valle dei Templi e scattato centinaia di foto.','Abbiamo visitato/scattato (avere). Centinaia = centaines.'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Non ho capito le indicazioni e mi sono perso."</em>','Je n\'ai pas compris les indications et je me suis perdu.','Non ho capito (capire+avere). Mi sono perso (perdersi+essere).'),
+  fill('📅 Phrases complètes PP','Traduis : <em>"Avons-nous bien fait de partir si tôt ?"</em>','Abbiamo fatto bene a partire così presto?','Abbiamo fatto (fare+avere). Così presto = si tôt.'),
+];
+
 function getPool(mode){
   const m={
     phon:Q_PHON,form:Q_FORM,temps:Q_TEMPS,gram:Q_GRAM,
     resto:Q_RESTO,transp:Q_TRANSP,shop:Q_SHOP,urg:Q_URG,num:Q_NUM,sic:Q_SIC,
-    vi:()=>makeVerbFull(VI),vm:()=>makeVerbFull(VM),vr:()=>makeVerbFull(VR),
-    va:()=>makeVerbFull([...VI,...VM,...VR]),
-    tout:()=>sh([...Q_PHON,...Q_FORM,...Q_TEMPS,...Q_GRAM,...Q_RESTO,...Q_TRANSP,...Q_SHOP,...Q_URG,...Q_NUM,...Q_SIC,...makeVerbQCM([...VI,...VM,...VR]).slice(0,40)]),
+    sent:()=>sh([...Q_SENT_PRES,...Q_SENT_PP]),
+    vi:()=>sh([...makeVerbFull(VI),...Q_SENT_PRES.slice(0,5)]),
+    vm:()=>makeVerbFull(VM),
+    vr:()=>sh([...makeVerbFull(VR),...Q_SENT_PRES.slice(0,5)]),
+    va:()=>sh([...makeVerbFull([...VI,...VM,...VR]),...Q_SENT_PRES]),
+    'pp-vi':()=>makePPFull(VI_PP),
+    'pp-vm':()=>makePPFull(VM_PP),
+    'pp-vr':()=>makePPFull(VR_PP),
+    'pp-va':()=>sh([...makePPFull([...VI_PP,...VM_PP,...VR_PP]),...Q_SENT_PP]),
+    tout:()=>sh([...Q_PHON,...Q_FORM,...Q_TEMPS,...Q_GRAM,...Q_RESTO,...Q_TRANSP,...Q_SHOP,...Q_URG,...Q_NUM,...Q_SIC,...makeVerbFull([...VI,...VM,...VR]).slice(0,30),...Q_SENT_PRES,...Q_SENT_PP]),
     'spd-vi':()=>sh(makeVerbQCM(VI)).slice(0,10),
     'spd-vr':()=>sh(makeVerbQCM(VR)).slice(0,10),
     'spd-vm':()=>sh(makeVerbQCM(VM)).slice(0,10),
+    'spd-pp':()=>sh(makePPQCM([...VI_PP,...VM_PP,...VR_PP])).slice(0,10),
     'spd-gram':()=>sh(Q_GRAM.filter(q=>q.type==='qcm')).slice(0,10),
     'spd-form':()=>sh(Q_FORM.filter(q=>q.type==='qcm')).slice(0,10),
     'spd-sic':()=>sh([...Q_SIC,...Q_RESTO,...Q_TRANSP].filter(q=>q.type==='qcm')).slice(0,10),
-    'spd-all':()=>sh([...Q_PHON,...Q_FORM,...Q_TEMPS,...Q_GRAM,...Q_SIC,...makeVerbQCM([...VI,...VM,...VR])].filter(q=>q.type==='qcm')).slice(0,10),
+    'spd-all':()=>sh([...Q_PHON,...Q_FORM,...Q_TEMPS,...Q_GRAM,...Q_SIC,...makeVerbQCM([...VI,...VM,...VR]),...makePPQCM([...VI_PP,...VM_PP,...VR_PP])].filter(q=>q.type==='qcm')).slice(0,10),
   };
   try{const p=m[mode];return p?(typeof p==='function'?p():p):[];}catch(e){return[];}
 }
 const TITLES={
   home:{ic:'🏠',t:'Accueil'},phon:{ic:'🔊',t:'Phonétique & Vocab'},form:{ic:'💬',t:'Formules & Politesse'},
   temps:{ic:'⏰',t:'Expressions de temps'},gram:{ic:'📐',t:'Grammaire'},
-  vi:{ic:'⚡',t:'Verbes irréguliers'},vm:{ic:'🔧',t:'Verbes modaux'},vr:{ic:'✅',t:'Verbes réguliers'},va:{ic:'🎯',t:'Tous les verbes'},
+  sent:{ic:'📝',t:'Traduction de phrases'},
+  vi:{ic:'⚡',t:'Présent — Irréguliers'},vm:{ic:'🔧',t:'Présent — Modaux'},vr:{ic:'✅',t:'Présent — Réguliers'},va:{ic:'🎯',t:'Présent — Tous'},
+  'pp-vi':{ic:'⚡',t:'Passato — Irréguliers'},'pp-vm':{ic:'🔧',t:'Passato — Modaux'},'pp-vr':{ic:'✅',t:'Passato — Réguliers'},'pp-va':{ic:'🎯',t:'Passato — Tous'},
   resto:{ic:'🍕',t:'Restaurant & Café'},transp:{ic:'🚌',t:'Transports'},shop:{ic:'🛒',t:'Shopping'},urg:{ic:'🆘',t:'Urgences'},num:{ic:'🔢',t:'Chiffres & Prix'},sic:{ic:'🏖️',t:'Culture sicilienne'},
   tout:{ic:'🌟',t:'Tout mélangé'},fiche:{ic:'📋',t:'Fiches de cours'},
   'spd-vi':{ic:'⚡',t:'Express Irréguliers'},'spd-vr':{ic:'⚡',t:'Express Réguliers'},'spd-vm':{ic:'⚡',t:'Express Modaux'},
-  'spd-gram':{ic:'⚡',t:'Express Grammaire'},'spd-form':{ic:'⚡',t:'Express Formules'},'spd-sic':{ic:'⚡',t:'Express Sicile'},'spd-all':{ic:'⚡',t:'Express Tout mélangé'},
+  'spd-pp':{ic:'⚡',t:'Express Passato'},'spd-gram':{ic:'⚡',t:'Express Grammaire'},'spd-form':{ic:'⚡',t:'Express Formules'},
+  'spd-sic':{ic:'⚡',t:'Express Sicile'},'spd-all':{ic:'⚡',t:'Express Tout mélangé'},
 };
 
 // ── STATE ─────────────────────────────────────────────────────
@@ -1110,14 +1295,17 @@ function renderHome(){
   const chapters=[
     {k:'phon',ic:'🔊',n:'Phonétique & Vocab',q:'18Q'},{k:'form',ic:'💬',n:'Formules & Politesse',q:'20Q'},
     {k:'temps',ic:'⏰',n:'Expressions de temps',q:'18Q'},{k:'gram',ic:'📐',n:'Grammaire',q:'20Q'},
-    {k:'vi',ic:'⚡',n:'Verbes irréguliers',q:'30Q+'},{k:'vm',ic:'🔧',n:'Verbes modaux',q:'20Q+'},
-    {k:'vr',ic:'✅',n:'Verbes réguliers',q:'25Q+'},{k:'va',ic:'🎯',n:'Tous les verbes',q:'75Q+'},
-    {k:'resto',ic:'🍕',n:'Restaurant & Café',q:'15Q',nw:1},{k:'transp',ic:'🚌',n:'Transports',q:'12Q',nw:1},
-    {k:'shop',ic:'🛒',n:'Shopping',q:'10Q',nw:1},{k:'urg',ic:'🆘',n:'Urgences & Santé',q:'10Q',nw:1},
-    {k:'num',ic:'🔢',n:'Chiffres & Prix',q:'10Q',nw:1},{k:'sic',ic:'🏖️',n:'Culture sicilienne',q:'12Q',nw:1},
+    {k:'sent',ic:'📝',n:'Traduction de phrases',q:'30Q',nw:1},
+    {k:'vi',ic:'⚡',n:'Présent — Irréguliers',q:'30Q+'},{k:'vm',ic:'🔧',n:'Présent — Modaux',q:'20Q+'},
+    {k:'vr',ic:'✅',n:'Présent — Réguliers',q:'25Q+'},{k:'va',ic:'🎯',n:'Présent — Tous',q:'75Q+'},
+    {k:'pp-vi',ic:'📅⚡',n:'Passato — Irréguliers',q:'30Q+',nw:1},{k:'pp-vm',ic:'📅🔧',n:'Passato — Modaux',q:'20Q+',nw:1},
+    {k:'pp-vr',ic:'📅✅',n:'Passato — Réguliers',q:'25Q+',nw:1},{k:'pp-va',ic:'📅🎯',n:'Passato — Tous',q:'80Q+',nw:1},
+    {k:'resto',ic:'🍕',n:'Restaurant & Café',q:'15Q'},{k:'transp',ic:'🚌',n:'Transports',q:'12Q'},
+    {k:'shop',ic:'🛒',n:'Shopping',q:'10Q'},{k:'urg',ic:'🆘',n:'Urgences & Santé',q:'10Q'},
+    {k:'num',ic:'🔢',n:'Chiffres & Prix',q:'10Q'},{k:'sic',ic:'🏖️',n:'Culture sicilienne',q:'12Q'},
     {k:'tout',ic:'🌟',n:'Tout mélangé',q:'200Q+'},{k:'fiche',ic:'📋',n:'Fiches de cours',q:'Référence'},
   ];
-  el('main').innerHTML='<div class="hero"><div class="fl">🇮🇹</div><div><h1>Benvenuto!</h1><p>Choisis un chapitre ci-dessous ou appuie sur ☰ pour le menu. 🔊 = voix · 🔤 = traducteur</p></div></div><div class="cgrid">'+chapters.map(c=>'<div class="cc'+(c.nw?' nw':'')+'" onclick="go(\''+c.k+'\')"><div class="ci">'+c.ic+'</div><div class="cn">'+c.n+'</div><div class="cq">'+c.q+'</div><div class="cb"><div class="cf" style="width:0%"></div></div></div>').join('')+'</div>';
+  el('main').innerHTML='<div class="hero"><div class="fl">🇮🇹</div><div><h1>Benvenuto!</h1><p>Choisis un chapitre ou ☰ menu · 🔊 voix · 🔤 traducteur</p></div></div><div class="cgrid">'+chapters.map(c=>'<div class="cc'+(c.nw?' nw':'')+'" onclick="go(\''+c.k+'\')"><div class="ci">'+c.ic+'</div><div class="cn">'+c.n+'</div><div class="cq">'+c.q+'</div><div class="cb"><div class="cf" style="width:0%"></div></div></div>').join('')+'</div>';
 }
 
 // ── FICHES ────────────────────────────────────────────────────
