@@ -2,313 +2,274 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Italiano 🇮🇹">
+<meta name="apple-mobile-web-app-title" content="Italiano">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1b4332">
-<title>Italiano 🇮🇹</title>
-<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Italiano%20%F0%9F%87%AE%F0%9F%87%B9%22%2C%22short_name%22%3A%22Italiano%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23f0f4f2%22%2C%22theme_color%22%3A%221b4332%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%2527http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%2527%2520viewBox%3D%25270%25200%2520100%2520100%2527%253E%253Crect%2520width%3D%2527100%2527%2520height%3D%2527100%2527%2520fill%3D%2527%25231b4332%2527%2520rx%3D%252720%2527%2F%253E%253Ctext%2520y%3D%252770%2527%2520x%3D%252718%2527%2520font-size%3D%252760%2527%253E%F0%9F%87%AE%F0%9F%87%B9%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+<title>🇮🇹 Italiano</title>
 <style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
 :root{
   --a:#2d6a4f;--ad:#1b4332;--al:#52b788;--ap:#d8f3dc;
   --g:#16a34a;--r:#dc2626;--rp:#fee2e2;--am:#d97706;--amp:#fef9c3;
   --bg:#f0f4f2;--card:#fff;--c2:#f7faf8;
   --tx:#1c2b22;--mu:#6b7c72;--bo:#d1ddd6;--b2:#e4eee8;
-  --top:env(safe-area-inset-top,0px);
-  --bot:env(safe-area-inset-bottom,0px);
-  --left:env(safe-area-inset-left,0px);
-  --right:env(safe-area-inset-right,0px);
+  --top:env(safe-area-inset-top);--bot:env(safe-area-inset-bottom);
+  --lt:env(safe-area-inset-left);--rt:env(safe-area-inset-right);
 }
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
-html{height:-webkit-fill-available}
-body{
-  font-family:-apple-system,system-ui,sans-serif;
-  background:var(--bg);color:var(--tx);
-  min-height:100vh;min-height:-webkit-fill-available;
-  overflow-x:hidden;
-  padding-left:var(--left);padding-right:var(--right);
-}
-input,textarea,select{font-size:16px!important;} /* prevent iOS zoom */
-button{font-family:inherit;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+html{height:100%;-webkit-overflow-scrolling:touch}
+body{font-family:-apple-system,system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100%;overflow-x:hidden;overscroll-behavior:none}
+input,textarea,select{font-size:16px!important}/* prevent iOS zoom */
+button{cursor:pointer;touch-action:manipulation;font-family:-apple-system,system-ui,sans-serif}
 
-/* ── INSTALL BANNER ── */
-#install-banner{background:var(--ad);color:#fff;padding:calc(var(--top) + .6rem) 1rem .6rem;display:flex;align-items:center;gap:10px;font-size:13px}
-#install-banner.hidden{display:none}
-#install-banner .ib-close{margin-left:auto;background:#ffffff25;border:none;color:#fff;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700}
+/* OVERLAY */
+#ov{position:fixed;inset:0;background:#0008;z-index:89;display:none}
+#ov.on{display:block}
 
-/* ── OVERLAYS ── */
-#overlay{position:fixed;inset:0;background:#0007;z-index:90;display:none}
-#overlay.on{display:block}
-
-/* ── SIDEBAR ── */
-#sidebar{position:fixed;left:-310px;top:0;bottom:0;width:290px;background:var(--card);z-index:100;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:left .3s cubic-bezier(.4,0,.2,1);box-shadow:4px 0 24px #0003;display:flex;flex-direction:column;padding-bottom:var(--bot)}
-#sidebar.on{left:0}
-.sbh{background:var(--ad);padding:calc(var(--top) + 1.2rem) 1rem 1rem;color:#fff;flex-shrink:0}
-.sbh h2{font-size:17px;font-weight:800;margin-bottom:2px}
+/* SIDEBAR */
+#sb{position:fixed;left:-300px;top:0;bottom:0;width:280px;background:var(--card);z-index:100;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:left .28s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;padding-bottom:calc(20px + var(--bot))}
+#sb.on{left:0}
+.sbh{background:var(--ad);padding:calc(16px + var(--top)) 14px 14px;color:#fff}
+.sbh .flag{font-size:32px;margin-bottom:5px}
+.sbh h2{font-size:17px;font-weight:800;margin-bottom:1px}
 .sbh p{font-size:11px;opacity:.7}
-.sbs{padding:.65rem 1rem .25rem;font-size:10px;font-weight:800;color:var(--a);letter-spacing:.08em;text-transform:uppercase}
-.mi{display:flex;align-items:center;gap:9px;padding:10px 1rem;cursor:pointer;border-radius:10px;margin:2px 8px;font-size:13px;font-weight:500;color:var(--tx);transition:background .1s;touch-action:manipulation}
+.sec{padding:.55rem 14px .2rem;font-size:10px;font-weight:800;color:var(--a);letter-spacing:.07em;text-transform:uppercase;margin-top:.3rem}
+.mi{display:flex;align-items:center;gap:9px;padding:10px 14px;cursor:pointer;border-radius:10px;margin:1px 8px;font-size:13px;font-weight:500;color:var(--tx);transition:background .1s;-webkit-user-select:none;user-select:none}
 .mi:active{background:var(--c2)}
 .mi.on{background:var(--a);color:#fff;font-weight:700}
-.mi .ic{font-size:16px;width:24px;text-align:center;flex-shrink:0}
-.mi .bx{margin-left:auto;background:var(--ap);color:var(--ad);border-radius:20px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap}
-.mi.on .bx{background:#ffffff25;color:#fff}
-.mdiv{height:1px;background:var(--b2);margin:.4rem 1rem}
+.mi .ic{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+.mi .bx{margin-left:auto;background:var(--ap);color:var(--ad);border-radius:20px;padding:2px 6px;font-size:10px;font-weight:700}
+.mi.on .bx{background:#fff3;color:#fff}
+.mdiv{height:1px;background:var(--b2);margin:.4rem 14px}
 
-/* ── TOP BAR ── */
-#topbar{
-  position:sticky;top:0;z-index:50;background:var(--card);
-  border-bottom:1px solid var(--b2);
-  padding:calc(var(--top) + .65rem) 1rem .65rem;
-  display:flex;align-items:center;gap:10px;
-  box-shadow:0 1px 6px #0001
-}
-.tbtn{width:36px;height:36px;border:none;background:var(--c2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;touch-action:manipulation}
-.tbtn:active{background:var(--ap)}
-#ptitle{font-size:15px;font-weight:800;color:var(--tx);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* TOPBAR */
+#topbar{position:sticky;top:0;z-index:80;background:var(--card);border-bottom:1px solid var(--b2);padding:calc(10px + var(--top)) 10px 10px;display:flex;align-items:center;gap:10px}
+#mbtn{width:38px;height:38px;border:none;background:var(--c2);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;flex-shrink:0;touch-action:manipulation}
+#mbtn:active{background:var(--b2)}
+#mbtn span{display:block;width:16px;height:2px;background:var(--tx);border-radius:2px}
+#picon{font-size:18px;flex-shrink:0}
+#ptitle{font-size:14px;font-weight:800;color:var(--tx);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topactions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.topbtn{width:34px;height:34px;border:none;border-radius:9px;background:var(--c2);display:flex;align-items:center;justify-content:center;font-size:16px;touch-action:manipulation}
+.topbtn:active{background:var(--b2)}
+.topbtn.on{background:var(--a);color:#fff}
+.topbtn.tton{background:#fef9c3}
+/* home-in-quiz button */
+.homebtn{width:34px;height:34px;border:none;border-radius:9px;background:var(--c2);display:flex;align-items:center;justify-content:center;font-size:16px;touch-action:manipulation;flex-shrink:0}
+.homebtn:active{background:var(--b2)}
+/* audio inline buttons */
+.tts-out-btn{padding:5px 10px;border:1.5px solid var(--al);border-radius:8px;background:var(--ap);color:var(--ad);font-size:12px;font-weight:700;touch-action:manipulation;flex-shrink:0}
+.tts-out-btn:active{background:var(--al);color:#fff}
+.tts-inline{background:none;border:1.5px solid var(--b2);border-radius:8px;padding:4px 8px;font-size:13px;color:var(--mu);touch-action:manipulation;-webkit-user-select:none}
+.tts-inline:active{background:var(--c2);border-color:var(--al)}
+.input-audio-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 
-/* ── MAIN ── */
-#main{padding:.9rem;max-width:680px;margin:0 auto;padding-bottom:calc(var(--bot) + 1.5rem)}
+/* MAIN */
+#main{padding:.85rem;max-width:680px;margin:0 auto;padding-bottom:calc(1.5rem + var(--bot))}
 
-/* ── HOME ── */
-.hero{background:var(--ad);border-radius:18px;padding:1.5rem;margin-bottom:1rem;color:#fff;display:flex;align-items:center;gap:14px}
+/* HOME */
+.hero{background:var(--ad);border-radius:18px;padding:1.4rem 1.2rem;margin-bottom:.9rem;color:#fff;display:flex;align-items:center;gap:13px}
 .hero .fl{font-size:40px}
 .hero h1{font-size:19px;font-weight:900;margin-bottom:3px}
 .hero p{font-size:12px;opacity:.75;line-height:1.5}
-.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:1rem}
-.cc{background:var(--card);border-radius:13px;padding:1rem;border:1.5px solid var(--b2);display:flex;flex-direction:column;gap:5px;touch-action:manipulation}
-.cc:active{background:var(--c2)}
-.cc .ci{font-size:22px;margin-bottom:1px}
-.cc .cn{font-size:12px;font-weight:800;color:var(--tx);line-height:1.3}
-.cc .cq{font-size:11px;color:var(--mu)}
-.cc .cb{height:3px;background:var(--b2);border-radius:2px;margin-top:3px;overflow:hidden}
-.cc .cf{height:100%;border-radius:2px;background:var(--a)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cc{background:var(--card);border-radius:13px;padding:.9rem;cursor:pointer;border:1.5px solid var(--b2);display:flex;flex-direction:column;gap:4px;-webkit-user-select:none}
+.cc:active{background:var(--c2);transform:scale(.97)}
+.ci{font-size:22px;margin-bottom:1px}
+.cn{font-size:12px;font-weight:800;line-height:1.3}
+.cq{font-size:10px;color:var(--mu)}
+.cb{height:3px;background:var(--b2);border-radius:2px;margin-top:3px;overflow:hidden}
+.cf{height:100%;background:var(--a);border-radius:2px}
 .cc.nw{border-color:#d9770630;background:#fffbf0}
 
-/* ── QUIZ ── */
-.scrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:.9rem}
+/* QUIZ */
+.scrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:.85rem}
 .sc{background:var(--card);border-radius:11px;padding:9px 6px;text-align:center;border:1.5px solid var(--b2)}
-.sc.g{border-color:#22c55e25}.sc.r{border-color:#dc262625}.sc.p{border-color:#2d6a4f25}
 .scn{font-size:22px;font-weight:900}.scn.g{color:var(--g)}.scn.r{color:var(--r)}.scn.p{color:var(--a)}
 .scl{font-size:10px;color:var(--mu);margin-top:1px}
-
-.qcard{background:var(--card);border-radius:16px;padding:1.2rem;border:1px solid var(--b2)}
-.prow{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.qcard{background:var(--card);border-radius:16px;padding:1.2rem;border:1px solid var(--b2);box-shadow:0 1px 8px #0001}
+.prow{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .pbar{flex:1;height:6px;background:var(--c2);border-radius:3px;overflow:hidden;border:1px solid var(--b2)}
 .pfill{height:100%;background:var(--a);border-radius:3px;transition:width .4s}
-.ptxt{font-size:11px;font-weight:700;color:var(--a);min-width:44px;text-align:right}
-
-.qtag{display:inline-block;padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;background:var(--ap);color:var(--ad);border:1px solid #52b78835}
-.qnav{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;gap:6px}
-.navbtn{padding:5px 11px;border:1.5px solid var(--b2);border-radius:9px;background:transparent;font-size:12px;color:var(--mu);touch-action:manipulation;font-family:inherit}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px}
+.navbtn{padding:6px 11px;border:1.5px solid var(--b2);border-radius:9px;background:transparent;font-size:12px;color:var(--mu);-webkit-user-select:none;touch-action:manipulation}
 .navbtn:active{background:var(--c2)}
-.navbtn:disabled{opacity:.3;pointer-events:none}
-.navbtn.spk{display:flex;align-items:center;gap:4px}
-
-.qbox{font-size:15px;font-weight:700;text-align:center;padding:1rem;background:var(--c2);border-radius:11px;margin-bottom:13px;line-height:1.6;border:1.5px solid var(--b2)}
+.navbtn:disabled{opacity:.25;pointer-events:none}
+.qtag{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:9px;background:var(--ap);color:var(--ad);border:1px solid #52b78835}
+.tts-q{background:none;border:none;font-size:16px;padding:2px;touch-action:manipulation;opacity:.7;-webkit-user-select:none}
+.tts-q:active{opacity:1}
+.qbox{font-size:15px;font-weight:700;text-align:center;padding:.9rem;background:var(--c2);border-radius:11px;margin-bottom:12px;line-height:1.6;border:1.5px solid var(--b2)}
 .qbox .vhl{color:var(--ad);font-size:18px;display:block;margin-bottom:3px}
 .qbox .pron{display:inline-block;background:var(--a);color:#fff;border-radius:7px;padding:2px 9px;font-size:13px;margin-bottom:5px}
-.qbox .spkq{background:transparent;border:none;font-size:16px;padding:2px;vertical-align:middle;touch-action:manipulation}
-
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px}
-.opt{padding:12px 13px;border:1.5px solid var(--bo);border-radius:11px;background:var(--card);font-size:14px;color:var(--tx);text-align:left;display:flex;align-items:center;gap:8px;font-family:inherit;font-weight:500;touch-action:manipulation;-webkit-user-select:none;min-height:48px}
+.opt{padding:11px 12px;border:1.5px solid var(--bo);border-radius:11px;background:var(--card);font-size:14px;color:var(--tx);text-align:left;display:flex;align-items:center;gap:7px;font-weight:500;touch-action:manipulation;-webkit-user-select:none;width:100%;border:1.5px solid var(--bo);cursor:pointer}
 .opt:active:not(:disabled){background:var(--c2);border-color:var(--al)}
-.opt .lt{width:24px;height:24px;border-radius:50%;background:var(--c2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--a);flex-shrink:0;border:1px solid var(--b2)}
+.lt{width:24px;height:24px;border-radius:50%;background:var(--c2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--a);flex-shrink:0;border:1px solid var(--b2)}
 .opt.ok{background:#d8f3dc;border-color:var(--g);color:#166534}
 .opt.ok .lt{background:var(--g);color:#fff;border-color:var(--g)}
 .opt.ko{background:var(--rp);border-color:var(--r);color:var(--r)}
 .opt.ko .lt{background:var(--r);color:#fff;border-color:var(--r)}
 .opt:disabled{cursor:default}
-
-.finp{width:100%;padding:14px 15px;border:1.5px solid var(--bo);border-radius:11px;font-size:16px;color:var(--tx);background:var(--card);outline:none;-webkit-appearance:none;appearance:none}
-.finp:focus{border-color:var(--a);box-shadow:0 0 0 3px #2d6a4f18}
+.finp{width:100%;padding:13px 15px;border:1.5px solid var(--bo);border-radius:11px;font-size:16px!important;color:var(--tx);background:var(--card);outline:none;margin-bottom:8px;-webkit-appearance:none;appearance:none}
+.finp:focus{border-color:var(--a)}
 .finp.ok{border-color:var(--g);background:#d8f3dc;color:#166534;font-weight:700}
 .finp.ko{border-color:var(--r);background:var(--rp);color:var(--r)}
 .finp.partial{border-color:var(--am);background:var(--amp);color:#92400e}
-
-.btnrow{display:flex;gap:7px;margin:.6rem 0;flex-wrap:wrap}
-.pbtn{padding:11px 18px;border:none;border-radius:9px;background:var(--a);color:#fff;font-size:13px;font-weight:800;touch-action:manipulation;min-height:44px}
+.finp:disabled{-webkit-text-fill-color:inherit;opacity:1}
+.btnrow{display:flex;gap:7px;margin-bottom:9px;flex-wrap:wrap}
+.pbtn{padding:10px 18px;border:none;border-radius:10px;background:var(--a);color:#fff;font-size:13px;font-weight:800;touch-action:manipulation;-webkit-user-select:none}
 .pbtn:active{background:var(--ad)}
-.sbtn{padding:11px 13px;border:1.5px solid var(--bo);border-radius:9px;background:var(--card);color:var(--mu);font-size:13px;touch-action:manipulation;min-height:44px}
+.sbtn{padding:10px 13px;border:1.5px solid var(--bo);border-radius:10px;background:var(--card);color:var(--mu);font-size:13px;touch-action:manipulation;-webkit-user-select:none}
 .sbtn:active{border-color:var(--al);color:var(--a)}
-.sbtn:disabled{opacity:.4;pointer-events:none}
-
-.hintbox{background:var(--amp);border:1.5px solid #d9770650;border-radius:9px;padding:10px 13px;font-size:13px;color:#78350f;line-height:1.5;margin-bottom:9px;display:none}
+.sbtn:disabled{opacity:.35;pointer-events:none}
+.hintbox{background:var(--amp);border:1.5px solid #d9770650;border-radius:9px;padding:9px 12px;font-size:12px;color:#78350f;line-height:1.5;margin-bottom:9px;display:none}
 .hintbox.on{display:block}
-.fb{padding:12px 14px;border-radius:11px;font-size:13px;margin-bottom:11px;line-height:1.7;display:none;flex-direction:column;gap:6px}
+.fb{padding:12px 14px;border-radius:11px;font-size:13px;margin-bottom:10px;display:none;flex-direction:column;gap:5px}
 .fb.on{display:flex}
 .fb.ok{background:#d8f3dc;border:1.5px solid #52b788;color:#1b4332}
 .fb.ko{background:#fff0f0;border:1.5px solid #f87171;color:#7f1d1d}
 .fb.partial{background:var(--amp);border:1.5px solid #fbbf24;color:#78350f}
 .fbh{display:flex;align-items:center;gap:7px}
 .fbi{font-size:18px;flex-shrink:0}.fbt{font-weight:800;font-size:13px}
-.fbs{font-size:12px;opacity:.9;padding-left:25px}
+.fbs{font-size:12px;opacity:.88;padding-left:24px;line-height:1.5}
 .fbex{background:#ffffff55;border-radius:7px;padding:7px 10px;margin-top:4px;font-size:12px;border-left:3px solid currentColor}
-
-.nxtbtn{width:100%;padding:13px;border:none;border-radius:11px;font-size:14px;font-weight:800;color:#fff;touch-action:manipulation;display:none;min-height:48px}
-.nxtbtn.ok{background:var(--a)}
-.nxtbtn.ko{background:#4b5563}
+.tts-fb{background:none;border:none;font-size:14px;padding:2px 6px;touch-action:manipulation;opacity:.7}
+.tts-fb:active{opacity:1}
+.nxtbtn{width:100%;padding:13px;border:none;border-radius:11px;font-size:15px;font-weight:800;color:#fff;touch-action:manipulation;-webkit-user-select:none;display:none}
+.nxtbtn.ok{background:var(--a)}.nxtbtn.ko{background:#4b5563}
 .nxtbtn:active{opacity:.85}
 
-/* ── SPEED TIMER ── */
+/* SPEED */
+.spdbadge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:800;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;margin-bottom:8px}
 .spdbar{height:7px;background:var(--c2);border-radius:4px;overflow:hidden;margin-bottom:12px;border:1px solid var(--b2)}
-.spdfill{height:100%;border-radius:4px;transition:width .1s linear}
-.spdbadge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:800;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;margin-bottom:10px}
+.spdfl{height:100%;border-radius:4px;transition:width .15s linear}
 
-/* ── END ── */
-.endscr{text-align:center;padding:2rem .5rem}
-.endtrp{font-size:56px;margin-bottom:6px}
-.endsco{font-size:48px;font-weight:900;margin-bottom:3px}
+/* END */
+.endscr{text-align:center;padding:2rem 1rem}
+.endtrp{font-size:52px;margin-bottom:6px}.endsco{font-size:48px;font-weight:900;margin-bottom:3px}
 .endmsg{font-size:14px;color:var(--mu);margin-bottom:1.3rem;line-height:1.5}
 .endact{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
-.rbtn{padding:12px 20px;border:none;border-radius:11px;background:var(--a);color:#fff;font-size:13px;font-weight:800;touch-action:manipulation;min-height:44px}
+.rbtn{padding:10px 20px;border:none;border-radius:11px;background:var(--a);color:#fff;font-size:13px;font-weight:800;touch-action:manipulation;-webkit-user-select:none}
 .rbtn:active{background:var(--ad)}
-.hbtn{padding:12px 16px;border:1.5px solid var(--b2);border-radius:11px;background:var(--card);color:var(--tx);font-size:13px;font-weight:700;touch-action:manipulation;min-height:44px}
+.hbtn{padding:10px 16px;border:1.5px solid var(--b2);border-radius:11px;background:var(--card);color:var(--tx);font-size:13px;font-weight:700;touch-action:manipulation;-webkit-user-select:none}
 .hbtn:active{border-color:var(--a);color:var(--a)}
 
-/* ── RESUME ── */
-.resbanner{background:var(--c2);border:2px solid #52b78840;border-radius:14px;padding:1rem 1.2rem;margin-bottom:1rem}
-.resbanner h4{font-size:14px;font-weight:800;color:var(--ad);margin-bottom:3px}
-.resbanner p{font-size:12px;color:var(--mu);margin-bottom:10px}
-.resact{display:flex;gap:7px;flex-wrap:wrap}
-.resbtn{padding:10px 16px;border:none;border-radius:9px;background:var(--a);color:#fff;font-size:12px;font-weight:800;touch-action:manipulation;min-height:44px}
-.resbtn2{padding:10px 13px;border:1.5px solid var(--b2);border-radius:9px;background:transparent;color:var(--mu);font-size:12px;font-weight:700;touch-action:manipulation;min-height:44px}
+/* TRANSLATION MODAL */
+.modal-bg{position:fixed;inset:0;background:#0008;z-index:200;display:flex;align-items:flex-end;padding:0}
+.modal-bg.hidden{display:none}
+.modal{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 0 calc(16px + var(--bot))}
+.mh{padding:16px 16px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--b2);position:sticky;top:0;background:var(--card);z-index:1}
+.mh h3{font-size:16px;font-weight:800;color:var(--tx)}
+.mclose{width:30px;height:30px;border:none;background:var(--c2);border-radius:50%;font-size:18px;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+.mclose:active{background:var(--b2)}
+.mbody{padding:14px 16px}
+.dir-toggle{display:flex;align-items:center;gap:0;margin-bottom:12px;border:1.5px solid var(--b2);border-radius:10px;overflow:hidden}
+.dir-btn{flex:1;padding:9px;border:none;background:transparent;font-size:13px;font-weight:700;color:var(--mu);touch-action:manipulation}
+.dir-btn.on{background:var(--a);color:#fff}
+.dir-swap{width:36px;border:none;background:var(--c2);font-size:16px;touch-action:manipulation;padding:6px}
+.dir-swap:active{background:var(--b2)}
+.mlabel{font-size:11px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.mta{width:100%;padding:12px;border:1.5px solid var(--b2);border-radius:11px;font-size:16px!important;color:var(--tx);background:var(--c2);resize:none;outline:none;font-family:-apple-system,system-ui,sans-serif;min-height:90px;-webkit-appearance:none}
+.mta:focus{border-color:var(--a)}
+.mta.out{background:var(--ap);border-color:var(--al);color:var(--ad)}
+.mta-out-wrap{position:relative;margin-top:10px}
+.tts-out{position:absolute;bottom:8px;right:8px;background:none;border:none;font-size:18px;touch-action:manipulation}
+.mtrans-btn{width:100%;padding:12px;border:none;border-radius:11px;background:var(--a);color:#fff;font-size:15px;font-weight:800;touch-action:manipulation;margin-top:10px}
+.mtrans-btn:active{background:var(--ad)}
+.mstatus{font-size:12px;color:var(--mu);margin-top:7px;min-height:16px;text-align:center}
 
-/* ── TRANSLATION MODAL ── */
-#trad-modal{position:fixed;inset:0;z-index:200;display:none;flex-direction:column;background:#00000080}
-#trad-modal.on{display:flex;align-items:flex-end}
-#trad-inner{background:var(--card);border-radius:20px 20px 0 0;padding:1.2rem 1rem calc(var(--bot) + 1rem);width:100%;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:slideUp .3s ease-out}
-.trad-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
-.trad-head h3{font-size:16px;font-weight:800;color:var(--tx)}
-.trad-close{background:var(--c2);border:none;border-radius:9px;padding:7px 12px;font-size:13px;font-weight:700;color:var(--mu);touch-action:manipulation;min-height:36px}
-.trad-dir{display:flex;align-items:center;gap:8px;margin-bottom:.8rem;background:var(--c2);border-radius:12px;padding:4px}
-.trad-dir button{flex:1;padding:8px;border:none;border-radius:9px;font-size:12px;font-weight:700;background:transparent;color:var(--mu);touch-action:manipulation}
-.trad-dir button.on{background:var(--a);color:#fff}
-.trad-ta{width:100%;padding:12px 14px;border:1.5px solid var(--b2);border-radius:12px;font-size:16px;color:var(--tx);background:var(--card);min-height:90px;resize:none;outline:none;font-family:inherit;line-height:1.5;-webkit-appearance:none}
-.trad-ta:focus{border-color:var(--a);box-shadow:0 0 0 3px #2d6a4f18}
-.trad-actions{display:flex;gap:8px;margin:.8rem 0;flex-wrap:wrap}
-.trad-go{flex:1;padding:12px;border:none;border-radius:10px;background:var(--a);color:#fff;font-size:14px;font-weight:800;touch-action:manipulation;min-height:44px}
-.trad-go:active{background:var(--ad)}
-.trad-spk{padding:12px 14px;border:1.5px solid var(--b2);border-radius:10px;background:var(--card);font-size:18px;touch-action:manipulation;min-height:44px}
-.trad-spk:active{background:var(--ap)}
-.trad-result{background:var(--c2);border:1.5px solid var(--b2);border-radius:12px;padding:12px 14px;min-height:70px;font-size:15px;font-weight:600;color:var(--ad);line-height:1.5;white-space:pre-wrap}
-.trad-src{font-size:10px;color:var(--mu);text-align:right;margin-top:4px}
-.trad-label{font-size:11px;font-weight:700;color:var(--mu);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
-.trad-phrasebook{margin-top:1rem}
-.trad-phrasebook h4{font-size:12px;font-weight:800;color:var(--mu);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
-.ph-list{display:flex;flex-direction:column;gap:5px;max-height:200px;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.ph-item{background:var(--c2);border-radius:9px;padding:8px 11px;border-left:3px solid var(--a);cursor:pointer;touch-action:manipulation}
-.ph-item:active{background:var(--ap)}
-.ph-item .phit{font-weight:700;color:var(--ad);font-size:13px}
-.ph-item .phfr{color:var(--mu);font-size:11px;margin-top:1px}
-
-/* ── FICHES ── */
-.rcard{background:var(--card);border-radius:13px;padding:1.2rem;margin-bottom:11px;border:1px solid var(--b2)}
+/* FICHES */
+.rcard{background:var(--card);border-radius:13px;padding:1.1rem;margin-bottom:10px;border:1px solid var(--b2)}
 .rcard h3{font-size:14px;font-weight:800;margin-bottom:3px;color:var(--ad)}
-.rcard .sub{font-size:11px;color:var(--mu);margin-bottom:10px}
+.rcard .sub{font-size:11px;color:var(--mu);margin-bottom:9px}
 .rtbl{width:100%;border-collapse:collapse;font-size:12px}
-.rtbl th{text-align:left;padding:6px 9px;border-bottom:2px solid var(--b2);color:var(--ad);font-weight:800;font-size:11px;background:var(--c2)}
-.rtbl td{padding:6px 9px;border-bottom:1px solid var(--b2)}
+.rtbl th{text-align:left;padding:6px 8px;border-bottom:2px solid var(--b2);color:var(--ad);font-weight:800;font-size:11px;background:var(--c2)}
+.rtbl td{padding:6px 8px;border-bottom:1px solid var(--b2)}
 .rtbl tr:last-child td{border-bottom:none}
 .rtbl tr:nth-child(even) td{background:var(--c2)}
-.rtbl td.mu{color:var(--mu);font-weight:600}
-.rtbl td.bd{font-weight:800;color:var(--ad)}
+.rtbl td.mu{color:var(--mu);font-weight:600}.rtbl td.bd{font-weight:800;color:var(--ad)}
 .cgrd{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:7px}
-.cbox{background:var(--c2);border-radius:9px;padding:9px 11px;border:1px solid var(--b2)}
+.cbox{background:var(--c2);border-radius:9px;padding:9px 10px;border:1px solid var(--b2)}
 .cbox .vn{font-size:12px;font-weight:800;color:var(--ad);margin-bottom:1px}
-.cbox .vt{font-size:10px;color:var(--mu);margin-bottom:5px}
+.cbox .vt{font-size:10px;color:var(--mu);margin-bottom:4px}
 .crow{display:flex;justify-content:space-between;font-size:11px;padding:2px 0;border-bottom:1px solid var(--b2)}
 .crow:last-child{border:none}
 .crow .pr{color:var(--mu)}.crow .fo{font-weight:700}
-.bg-irr{background:#fee2e2;color:#991b1b;padding:1px 5px;border-radius:8px;font-size:9px;font-weight:800}
-.bg-reg{background:#d8f3dc;color:#166534;padding:1px 5px;border-radius:8px;font-size:9px;font-weight:800}
-.bg-mod{background:var(--amp);color:#92400e;padding:1px 5px;border-radius:8px;font-size:9px;font-weight:800}
+.bg-irr{background:#fee2e2;color:#991b1b;padding:1px 5px;border-radius:9px;font-size:9px;font-weight:800}
+.bg-reg{background:#d8f3dc;color:#166534;padding:1px 5px;border-radius:9px;font-size:9px;font-weight:800}
+.bg-mod{background:var(--amp);color:#92400e;padding:1px 5px;border-radius:9px;font-size:9px;font-weight:800}
 .vgrd{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 .vi{background:var(--c2);border-radius:7px;padding:7px 9px;display:flex;justify-content:space-between;font-size:12px;border:1px solid var(--b2)}
-.vi .it{font-weight:700}.vi .fr{color:var(--mu);text-align:right;padding-left:4px}
+.vi .it{font-weight:700}.vi .fr{color:var(--mu);text-align:right}
 .phlist{display:flex;flex-direction:column;gap:5px}
 .phi{background:var(--c2);border-radius:7px;padding:8px 11px;border-left:3px solid var(--a)}
-.phi .pi{font-weight:700;color:var(--ad);font-size:12px}.phi .pf{color:var(--mu);font-size:11px;margin-top:1px}
-
-/* ── ANIMATIONS ── */
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideL{from{opacity:0;transform:translateX(-15px)}to{opacity:1;transform:translateX(0)}}
-@keyframes shk{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-@keyframes bnc{0%,100%{transform:scale(1)}40%{transform:scale(1.025)}70%{transform:scale(.985)}}
+.phi .pi{font-weight:700;color:var(--ad);font-size:13px}
+.phi .pf{color:var(--mu);font-size:11px;margin-top:1px}
+/* Resume */
+.resbanner{background:var(--c2);border:2px solid #52b78840;border-radius:14px;padding:1rem 1.1rem;margin-bottom:.9rem}
+.resbanner h4{font-size:13px;font-weight:800;color:var(--ad);margin-bottom:2px}
+.resbanner p{font-size:12px;color:var(--mu);margin-bottom:9px}
+.resact{display:flex;gap:7px;flex-wrap:wrap}
+.resbtn{padding:9px 15px;border:none;border-radius:9px;background:var(--a);color:#fff;font-size:12px;font-weight:800;touch-action:manipulation}
+.resbtn2{padding:9px 13px;border:1.5px solid var(--b2);border-radius:9px;background:transparent;color:var(--mu);font-size:12px;font-weight:700;touch-action:manipulation}
+/* install banner */
+.install-banner{background:var(--ad);color:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:12px;line-height:1.4}
+.install-banner .ico{font-size:22px;flex-shrink:0}
+.install-banner b{font-size:13px;display:block;margin-bottom:1px}
+.install-close{margin-left:auto;background:#fff3;border:none;color:#fff;width:24px;height:24px;border-radius:50%;font-size:14px;flex-shrink:0;touch-action:manipulation;display:flex;align-items:center;justify-content:center}
+/* animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideL{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes shk{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes bnc{0%,100%{transform:scale(1)}40%{transform:scale(1.02)}70%{transform:scale(.985)}}
 @keyframes ptl{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}}
-.ptcl{position:fixed;pointer-events:none;border-radius:50%;z-index:999;animation:ptl .7s ease-out forwards}
-.shk{animation:shk .45s ease-out}.bnc{animation:bnc .45s ease-out}
-
-@media(max-width:400px){.cgrid{grid-template-columns:1fr 1fr}.opts{grid-template-columns:1fr}.cgrd{grid-template-columns:1fr 1fr}}
+.ptcl{position:fixed;pointer-events:none;border-radius:50%;z-index:999;animation:ptl .65s ease-out forwards}
+.shk{animation:shk .4s ease-out}
+.bnc{animation:bnc .4s ease-out}
+.slideup{animation:fadeUp .25s ease-out}
+.slidel{animation:slideL .22s ease-out}
+.modal-in{animation:fadeUp .22s ease-out}
 </style>
 </head>
 <body>
 
-<!-- INSTALL BANNER -->
-<div id="install-banner">
-  <span>📲</span>
-  <span>Pour utiliser sur iPhone : <strong>Safari → Partager → Sur l'écran d'accueil</strong></span>
-  <button class="ib-close" onclick="document.getElementById('install-banner').classList.add('hidden');localStorage.setItem('ib','1')">✕</button>
+<!-- Install Banner (shown only in browser) -->
+<div id="install-banner" class="install-banner" style="display:none">
+  <span class="ico">📲</span>
+  <div><b>Installer l'app sur iPhone</b>Appuie sur <b>Partager</b> → <b>"Sur l'écran d'accueil"</b></div>
+  <button class="install-close" onclick="el('install-banner').style.display='none'">✕</button>
 </div>
 
-<!-- OVERLAY -->
-<div id="overlay" onclick="closeSB()"></div>
+<!-- Overlay -->
+<div id="ov" onclick="closeSB()"></div>
 
-<!-- TRANSLATION MODAL -->
-<div id="trad-modal">
-  <div id="trad-inner">
-    <div class="trad-head">
-      <h3>🔤 Traduction</h3>
-      <button class="trad-close" onclick="closeTrad()">Fermer ✕</button>
-    </div>
-    <div class="trad-dir">
-      <button id="btn-frit" class="on" onclick="setDir('fr','it')">🇫🇷 → 🇮🇹</button>
-      <button id="btn-itfr" onclick="setDir('it','fr')">🇮🇹 → 🇫🇷</button>
-    </div>
-    <div class="trad-label" id="trad-src-label">Français</div>
-    <textarea class="trad-ta" id="trad-in" placeholder="Écris un mot ou une phrase..."></textarea>
-    <div class="trad-actions">
-      <button class="trad-go" onclick="doTrad()">Traduire →</button>
-      <button class="trad-spk" onclick="speakTradResult()" title="Écouter">🔊</button>
-    </div>
-    <div class="trad-label" id="trad-dst-label">Italien</div>
-    <div class="trad-result" id="trad-out">—</div>
-    <div class="trad-src" id="trad-poweredby"></div>
-    <div class="trad-phrasebook">
-      <h4>📌 Phrases essentielles</h4>
-      <div class="ph-list" id="ph-list"></div>
-    </div>
-  </div>
-</div>
-
-<!-- SIDEBAR -->
-<div id="sidebar">
-  <div class="sbh"><div style="font-size:26px;margin-bottom:4px">🇮🇹</div><h2>Italiano</h2><p>Cours complet · Sicile · Express</p></div>
-  <div class="sbs">Mes cours</div>
+<!-- Sidebar -->
+<div id="sb">
+  <div class="sbh"><div class="flag">🇮🇹</div><h2>Italiano</h2><p>Cours complet · Sicile · Bilingue</p></div>
+  <div class="sec">Mes cours</div>
   <div class="mi on" id="mi-home" onclick="go('home')"><span class="ic">🏠</span>Accueil</div>
   <div class="mi" id="mi-phon" onclick="go('phon')"><span class="ic">🔊</span>Phonétique &amp; Vocab<span class="bx">18Q</span></div>
-  <div class="mi" id="mi-form" onclick="go('form')"><span class="ic">💬</span>Formules<span class="bx">20Q</span></div>
+  <div class="mi" id="mi-form" onclick="go('form')"><span class="ic">💬</span>Formules &amp; Politesse<span class="bx">20Q</span></div>
   <div class="mi" id="mi-temps" onclick="go('temps')"><span class="ic">⏰</span>Expressions de temps<span class="bx">18Q</span></div>
   <div class="mi" id="mi-gram" onclick="go('gram')"><span class="ic">📐</span>Grammaire<span class="bx">20Q</span></div>
   <div class="mdiv"></div>
-  <div class="sbs">Verbes</div>
+  <div class="sec">Verbes</div>
   <div class="mi" id="mi-vi" onclick="go('vi')"><span class="ic">⚡</span>Irréguliers<span class="bx">30Q+</span></div>
   <div class="mi" id="mi-vm" onclick="go('vm')"><span class="ic">🔧</span>Modaux<span class="bx">20Q+</span></div>
   <div class="mi" id="mi-vr" onclick="go('vr')"><span class="ic">✅</span>Réguliers<span class="bx">25Q+</span></div>
   <div class="mi" id="mi-va" onclick="go('va')"><span class="ic">🎯</span>Tous les verbes<span class="bx">75Q+</span></div>
   <div class="mdiv"></div>
-  <div class="sbs">Sicile ✨</div>
+  <div class="sec">Sicile ✨</div>
   <div class="mi" id="mi-resto" onclick="go('resto')"><span class="ic">🍕</span>Restaurant &amp; Café<span class="bx">Nouveau</span></div>
   <div class="mi" id="mi-transp" onclick="go('transp')"><span class="ic">🚌</span>Transports<span class="bx">Nouveau</span></div>
   <div class="mi" id="mi-shop" onclick="go('shop')"><span class="ic">🛒</span>Shopping<span class="bx">Nouveau</span></div>
-  <div class="mi" id="mi-urg" onclick="go('urg')"><span class="ic">🆘</span>Urgences<span class="bx">Nouveau</span></div>
+  <div class="mi" id="mi-urg" onclick="go('urg')"><span class="ic">🆘</span>Urgences &amp; Santé<span class="bx">Nouveau</span></div>
   <div class="mi" id="mi-num" onclick="go('num')"><span class="ic">🔢</span>Chiffres &amp; Prix<span class="bx">Nouveau</span></div>
-  <div class="mi" id="mi-sic" onclick="go('sic')"><span class="ic">🏖️</span>Sicile<span class="bx">Nouveau</span></div>
+  <div class="mi" id="mi-sic" onclick="go('sic')"><span class="ic">🏖️</span>Culture sicilienne<span class="bx">Nouveau</span></div>
   <div class="mdiv"></div>
-  <div class="sbs">⚡ Express (10Q, chrono)</div>
+  <div class="sec">⚡ Quiz Express (10 Q · chrono)</div>
   <div class="mi" id="mi-spd-vi" onclick="go('spd-vi')"><span class="ic">⚡</span>Express Irréguliers</div>
   <div class="mi" id="mi-spd-vr" onclick="go('spd-vr')"><span class="ic">⚡</span>Express Réguliers</div>
   <div class="mi" id="mi-spd-vm" onclick="go('spd-vm')"><span class="ic">⚡</span>Express Modaux</div>
@@ -319,287 +280,234 @@ button{font-family:inherit;cursor:pointer;touch-action:manipulation;-webkit-user
   <div class="mdiv"></div>
   <div class="mi" id="mi-tout" onclick="go('tout')"><span class="ic">🌟</span>Tout mélangé<span class="bx">200Q+</span></div>
   <div class="mi" id="mi-fiche" onclick="go('fiche')"><span class="ic">📋</span>Fiches de cours</div>
-  <div style="height:1.5rem"></div>
+  <div style="height:.5rem"></div>
 </div>
 
-<!-- TOP BAR -->
+<!-- Top Bar -->
 <div id="topbar">
-  <button class="tbtn" onclick="toggleSB()" aria-label="Menu">
-    <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect width="16" height="2" rx="1" fill="currentColor"/><rect y="5" width="16" height="2" rx="1" fill="currentColor"/><rect y="10" width="16" height="2" rx="1" fill="currentColor"/></svg>
-  </button>
-  <span id="picon" style="font-size:18px">🏠</span>
-  <span id="ptitle" style="font-size:14px;font-weight:800;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Accueil</span>
-  <button class="tbtn" id="tts-btn" onclick="toggleTTS()" title="Voix">🔇</button>
-  <button class="tbtn" onclick="openTrad()" title="Traduction">🔤</button>
+  <button id="mbtn" onclick="toggleSB()"><span></span><span></span><span></span></button>
+  <span id="picon">🏠</span>
+  <span id="ptitle">Accueil</span>
+  <div class="topactions">
+    <button class="topbtn" id="tts-toggle" onclick="toggleTTS()" title="Voix italienne">🔇</button>
+    <button class="topbtn" onclick="openTrans()" title="Traducteur">🔤</button>
+  </div>
 </div>
 
+<!-- Main -->
 <div id="main"></div>
 
+<!-- Translation Modal -->
+<div class="modal-bg hidden" id="trans-modal">
+  <div class="modal modal-in">
+    <div class="mh">
+      <h3>🔤 Traducteur IA</h3>
+      <button class="mclose" onclick="closeTrans()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="dir-toggle">
+        <button class="dir-btn on" id="dir-fr" onclick="setDir('fr')">🇫🇷 Français</button>
+        <button class="dir-swap" onclick="swapDir()">⇄</button>
+        <button class="dir-btn" id="dir-it" onclick="setDir('it')">🇮🇹 Italien</button>
+      </div>
+      <div class="mlabel" id="src-label">Texte en français</div>
+      <textarea class="mta" id="trans-in" placeholder="Écris ici — traduction automatique..." rows="3"></textarea>
+      <div class="mstatus" id="trans-status"></div>
+      <div id="out-wrap" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
+          <div class="mlabel" id="out-label" style="margin-bottom:0">Traduction</div>
+          <button class="tts-out-btn" id="tts-out-btn" onclick="speakTransOut()" title="Écouter la traduction">🔊 Écouter</button>
+        </div>
+        <textarea class="mta out" id="trans-out" readonly rows="3"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-'use strict';
 // ── UTILS ──────────────────────────────────────────────────────
-const $ = id => document.getElementById(id);
-const sh = a => [...a].sort(()=>Math.random()-.5);
-const safe = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html)e.innerHTML=html;return e;}
+function el(id){return document.getElementById(id)}
+function sh(a){return[...a].sort(()=>Math.random()-.5)}
+function safe(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
-// ── TTS ENGINE ─────────────────────────────────────────────────
-let TTS_ON = localStorage.getItem('tts')==='1';
-let TTS_VOICE = null;
-let TTS_READY = false;
-
+// ── TTS ────────────────────────────────────────────────────────
+let TTS_ON=false, TTS_VOICES=[];
 function initTTS(){
   if(!window.speechSynthesis) return;
-  $('tts-btn').textContent = TTS_ON ? '🔊' : '🔇';
-  const loadV = () => {
-    const vs = speechSynthesis.getVoices();
-    TTS_VOICE = vs.find(v=>v.lang==='it-IT') || vs.find(v=>v.lang.startsWith('it')) || null;
-    TTS_READY = true;
-  };
-  loadV();
-  if(speechSynthesis.onvoiceschanged !== undefined){
-    speechSynthesis.onvoiceschanged = loadV;
-  }
+  const load=()=>{TTS_VOICES=speechSynthesis.getVoices();};
+  load(); speechSynthesis.addEventListener('voiceschanged',load);
 }
-
 function toggleTTS(){
-  TTS_ON = !TTS_ON;
-  localStorage.setItem('tts', TTS_ON?'1':'0');
-  $('tts-btn').textContent = TTS_ON ? '🔊' : '🔇';
-  if(TTS_ON) speakIT('Voce attivata');
-  else speechSynthesis.cancel();
+  TTS_ON=!TTS_ON;
+  const btn=el('tts-toggle');
+  btn.textContent=TTS_ON?'🔊':'🔇';
+  btn.classList.toggle('tton',TTS_ON);
+  if(TTS_ON) speakLang('La voce è attivata','it-IT');
 }
 
-function speakIT(text){
-  if(!TTS_ON || !window.speechSynthesis || !text) return;
+// Core speak — always needs explicit call (never auto)
+function speakLang(text,lang){
+  if(!window.speechSynthesis||!text) return;
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'it-IT';
-  u.rate = 0.85;
-  u.pitch = 1.0;
-  if(TTS_VOICE) u.voice = TTS_VOICE;
-  // iOS requires slight delay after cancel
-  setTimeout(()=>{ try{speechSynthesis.speak(u);}catch(e){} }, 80);
-}
-
-function speakFR(text){
-  if(!window.speechSynthesis || !text) return;
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'fr-FR';
-  u.rate = 0.9;
-  const vs = speechSynthesis.getVoices();
-  const v = vs.find(v=>v.lang==='fr-FR')||vs.find(v=>v.lang.startsWith('fr'))||null;
-  if(v) u.voice = v;
-  setTimeout(()=>{ try{speechSynthesis.speak(u);}catch(e){} }, 80);
-}
-
-// Extract Italian text from question HTML for TTS
-function getItalianFromQ(q){
-  if(!q) return '';
-  if(q.verb && q.pron) return q.verb;
-  const tmp = document.createElement('div');
-  tmp.innerHTML = q.q||'';
-  const txt = tmp.textContent||'';
-  // If it contains Italian (heuristic: has Italian words)
-  return txt.replace(/Traduis.*?"(.*?)".*$/,'$1').trim();
-}
-
-// ── TRANSLATION ENGINE ─────────────────────────────────────────
-let TRAD_DIR = {src:'fr',dst:'it'};
-let TRAD_RESULT = '';
-const TRAD_CACHE = {};
-
-// Built-in phrasebook (FR → IT, IT → FR)
-const PHRASES_FR_IT = [
-  ["Bonjour","Ciao / Buongiorno"],["Bonsoir","Buonasera"],["Bonne nuit","Buonanotte"],
-  ["Au revoir","Arrivederci"],["À bientôt","A presto"],["S'il vous plaît","Per favore"],
-  ["Merci","Grazie"],["Merci beaucoup","Grazie mille"],["De rien","Prego / Di niente"],
-  ["Excusez-moi","Scusi"],["Je m'appelle...","Mi chiamo..."],["Je vais bien","Sto bene"],
-  ["Je ne comprends pas","Non capisco"],["Parlez plus lentement","Parli più lentamente"],
-  ["Où est...?","Dov'è...?"],["Combien ça coûte?","Quanto costa?"],
-  ["L'addition, s'il vous plaît","Il conto, per favore"],["Une table pour deux","Un tavolo per due"],
-  ["Je suis allergique à...","Sono allergico/a a..."],["Au secours!","Aiuto!"],
-  ["J'ai besoin d'un médecin","Ho bisogno di un medico"],["J'ai perdu mon passeport","Ho perso il passaporto"],
-  ["Où est l'arrêt de bus?","Dov'è la fermata dell'autobus?"],["Un billet aller-retour","Un biglietto andata e ritorno"],
-  ["Je voudrais réserver","Vorrei prenotare"],["Où est la plage?","Dov'è la spiaggia?"],
-  ["Il fait chaud","Fa caldo"],["Je parle un peu italien","Parlo un po' italiano"],
-];
-const PHRASES_IT_FR = PHRASES_FR_IT.map(([f,i])=>[i,f]);
-
-// Simple dictionary
-const DICT_FR_IT = {
-  'bonjour':'ciao','bonsoir':'buonasera','bonne nuit':'buonanotte','au revoir':'arrivederci',
-  'merci':'grazie','oui':'sì','non':'no','peut-être':'forse','bien sûr':'certo',
-  'je':'io','tu':'tu','il':'lui','elle':'lei','nous':'noi','vous':'voi','ils':'loro',
-  'être':'essere','avoir':'avere','aller':'andare','venir':'venire','faire':'fare',
-  'manger':'mangiare','boire':'bere','parler':'parlare','comprendre':'capire',
-  'voir':'vedere','savoir':'sapere','vouloir':'volere','pouvoir':'potere','devoir':'dovere',
-  'aimer':'amare','partir':'partire','arriver':'arrivare','rester':'restare',
-  'mer':'mare','plage':'spiaggia','soleil':'sole','chaud':'caldo','froid':'freddo',
-  'maison':'casa','hôtel':'hotel','restaurant':'ristorante','café':'caffè','bar':'bar',
-  'eau':'acqua','vin':'vino','café':'caffè','bière':'birra','pizza':'pizza',
-  'pain':'pane','fromage':'formaggio','viande':'carne','poisson':'pesce',
-  'fruits':'frutta','légumes':'verdure','glace':'gelato',
-  'un':'uno/una','deux':'due','trois':'tre','quatre':'quattro','cinq':'cinque',
-  'six':'sei','sept':'sette','huit':'otto','neuf':'nove','dix':'dieci',
-  'cent':'cento','mille':'mille',
-  'rouge':'rosso','bleu':'blu','vert':'verde','blanc':'bianco','noir':'nero','jaune':'giallo',
-  'grand':'grande','petit':'piccolo','beau':'bello','bon':'buono','mauvais':'cattivo',
-  'nouveau':'nuovo','vieux':'vecchio','chaud':'caldo','froid':'freddo',
-  'aujourd\'hui':'oggi','demain':'domani','hier':'ieri','maintenant':'ora/adesso',
-  'monsieur':'signore','madame':'signora','ami':'amico','famille':'famiglia',
-  'mère':'madre','père':'padre','frère':'fratello','sœur':'sorella',
-  'médecin':'medico','pharmacie':'farmacia','police':'polizia','hôpital':'ospedale',
-  'argent':'soldi','carte':'carta','passeport':'passaporto','billet':'biglietto',
-  'train':'treno','bus':'autobus','taxi':'taxi','voiture':'macchina','vélo':'bici',
-  'droite':'destra','gauche':'sinistra','tout droit':'dritto',
-  'ouvert':'aperto','fermé':'chiuso','gratuit':'gratuito','cher':'caro',
-};
-const DICT_IT_FR = {};
-Object.entries(DICT_FR_IT).forEach(([f,i])=>{DICT_IT_FR[i]=f;});
-// Add more IT→FR
-Object.assign(DICT_IT_FR,{
-  'ciao':'bonjour/salut','buongiorno':'bonjour','buonasera':'bonsoir','buonanotte':'bonne nuit',
-  'sì':'oui','no':'non','grazie':'merci','prego':'de rien','scusi':'excusez-moi',
-  'dov\'è':'où est','quanto costa':'combien ça coûte','aiuto':'au secours',
-  'bello':'beau','buono':'bon','grande':'grand','piccolo':'petit',
-  'mangiare':'manger','bere':'boire','parlare':'parler','capire':'comprendre',
-  'andare':'aller','venire':'venir','essere':'être','avere':'avoir','fare':'faire',
-  'caldo':'chaud','freddo':'froid','sole':'soleil','mare':'mer','spiaggia':'plage',
-  'ristorante':'restaurant','caffè':'café','vino':'vin','acqua':'eau','birra':'bière',
-  'gelato':'glace','pizza':'pizza','pane':'pain',
-});
-
-function translateLocal(text, src, dst){
-  const t = text.trim().toLowerCase();
-  const dict = src==='fr' ? DICT_FR_IT : DICT_IT_FR;
-  if(dict[t]) return dict[t];
-  // Try partial match
-  const words = t.split(/\s+/);
-  if(words.length===1) return null;
-  const translated = words.map(w=>dict[w]||w);
-  const changed = translated.some((w,i)=>w!==words[i]);
-  return changed ? translated.join(' ') : null;
-}
-
-async function doTrad(){
-  const input = $('trad-in').value.trim();
-  if(!input){$('trad-out').textContent='—';return;}
-  const {src,dst} = TRAD_DIR;
-  const ckey = src+'|'+dst+'|'+input;
-  
-  $('trad-out').textContent = '⏳ Traduction...';
-  $('trad-poweredby').textContent = '';
-
-  // Try local dict first
-  const local = translateLocal(input, src, dst);
-  if(local){
-    TRAD_RESULT = local;
-    $('trad-out').textContent = local;
-    $('trad-poweredby').textContent = '📖 Dictionnaire intégré';
-    return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang=lang||'it-IT'; u.rate=0.85; u.pitch=1;
+  if(lang&&lang.startsWith('it')){
+    const v=TTS_VOICES.find(v=>v.lang&&v.lang.startsWith('it'));
+    if(v) u.voice=v;
+  } else if(lang&&lang.startsWith('fr')){
+    const v=TTS_VOICES.find(v=>v.lang&&v.lang.startsWith('fr'));
+    if(v) u.voice=v;
   }
-  // Check cache
-  if(TRAD_CACHE[ckey]){
-    TRAD_RESULT = TRAD_CACHE[ckey];
-    $('trad-out').textContent = TRAD_RESULT;
-    $('trad-poweredby').textContent = '🌐 MyMemory (mis en cache)';
-    return;
-  }
-  // Call free translation API
-  try {
-    const langpair = src+'|'+dst;
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=${langpair}`;
-    const res = await fetch(url, {signal: AbortSignal.timeout(8000)});
-    const data = await res.json();
-    if(data && data.responseData && data.responseData.translatedText){
-      TRAD_RESULT = data.responseData.translatedText;
-      TRAD_CACHE[ckey] = TRAD_RESULT;
-      $('trad-out').textContent = TRAD_RESULT;
-      $('trad-poweredby').textContent = '🌐 MyMemory Translation';
-    } else {
-      $('trad-out').textContent = '⚠️ Traduction non disponible';
-    }
-  } catch(e){
-    $('trad-out').textContent = '⚠️ Pas de connexion internet. Traductions disponibles hors ligne : mots simples seulement.';
-    $('trad-poweredby').textContent = '';
+  speechSynthesis.speak(u);
+}
+function speakText(text){speakLang(text,'it-IT');}
+
+// ── SMART QUIZ VOICE ──────────────────────────────────────────
+// Reads the QUESTION only — never the answer
+function speakQ(){
+  const q=POOL[IDX]; if(!q) return;
+  let txt='';
+  if(q.verb&&q.pron){
+    // Verb conjugation: "Conjugue Essere avec io"
+    txt='Conjugue '+q.verb+' avec '+q.pron;
+    speakLang(txt,'fr-FR'); // French instruction
+  } else {
+    // Clean HTML, replace ___ with silence pause, no answer
+    txt=(q.q||'').replace(/<[^>]+>/g,' ').replace(/___/g,' … ').replace(/\s+/g,' ').trim();
+    // Remove anything after a fill blank marker that might hint at answer
+    speakLang(txt,'fr-FR');
   }
 }
 
-function speakTradResult(){
-  if(!TRAD_RESULT) return;
-  if(TRAD_DIR.dst==='it') speakIT(TRAD_RESULT);
-  else speakFR(TRAD_RESULT);
+// Reads what the user typed in the fill input (before verifying)
+function speakInput(){
+  const inp=el('finp');
+  if(!inp||!inp.value.trim()) return;
+  speakLang(inp.value.trim(),'it-IT');
 }
 
-function setDir(src,dst){
-  TRAD_DIR={src,dst};
-  $('btn-frit').classList.toggle('on',src==='fr');
-  $('btn-itfr').classList.toggle('on',src==='it');
-  $('trad-src-label').textContent = src==='fr'?'Français':'Italien';
-  $('trad-dst-label').textContent = dst==='it'?'Italien':'Français';
-  $('trad-in').placeholder = src==='fr'?'Écris un mot ou une phrase en français...':'Scrivi una parola o frase in italiano...';
-  $('trad-out').textContent='—';
-  buildPhrases();
+// Reads the feedback after answer (correct form in Italian)
+function speakFeedback(){
+  const q=POOL[IDX]; if(!q) return;
+  const ans=q.type==='fill'?(q.ans||''):(q.opts&&q.opts[q.ans])||'';
+  if(!ans) return;
+  speakLang(ans,'it-IT');
 }
 
-function buildPhrases(){
-  const list = $('ph-list'); list.innerHTML='';
-  const phrases = TRAD_DIR.src==='fr' ? PHRASES_FR_IT : PHRASES_IT_FR;
-  phrases.slice(0,12).forEach(([src,dst])=>{
-    const d=el('div','ph-item');
-    d.innerHTML=`<div class="phit">${safe(src)}</div><div class="phfr">${safe(dst)}</div>`;
-    d.addEventListener('click',()=>{
-      $('trad-in').value=src;
-      $('trad-out').textContent=dst;
-      TRAD_RESULT=dst;
-    });
-    list.appendChild(d);
-  });
-}
+// Legacy alias
+function speak(text,force){if(TTS_ON||force)speakLang(text,'it-IT');}
 
-function openTrad(){
-  $('trad-modal').classList.add('on');
+// ── TRANSLATION ─────────────────────────────────────────────────
+let transDir='fr', transDebounce=null, transActive=false;
+
+function openTrans(){
+  el('trans-modal').classList.remove('hidden');
   document.body.style.overflow='hidden';
-  buildPhrases();
+  // Attach debounced listener (once)
+  const inp=el('trans-in');
+  if(inp&&!inp._listenAttached){
+    inp._listenAttached=true;
+    inp.addEventListener('input',()=>{
+      const txt=(inp.value||'').trim();
+      el('out-wrap').style.display='none';
+      el('trans-status').textContent='';
+      clearTimeout(transDebounce);
+      if(!txt)return;
+      el('trans-status').textContent='✍️ Traduction en cours...';
+      transDebounce=setTimeout(doTranslateAI,750);
+    });
+  }
 }
-function closeTrad(){
-  $('trad-modal').classList.remove('on');
+function closeTrans(){
+  el('trans-modal').classList.add('hidden');
   document.body.style.overflow='';
+  clearTimeout(transDebounce);
+}
+function setDir(d){
+  transDir=d;
+  el('dir-fr').classList.toggle('on',d==='fr');
+  el('dir-it').classList.toggle('on',d==='it');
+  el('src-label').textContent=d==='fr'?'Texte en français':'Testo in italiano';
+  el('out-label').textContent=d==='fr'?'Traduction en italien':'Traduction en français';
+  const inp=el('trans-in'); if(inp)inp.value='';
+  const out=el('trans-out'); if(out)out.value='';
+  el('out-wrap').style.display='none';
+  el('trans-status').textContent='';
+}
+function swapDir(){
+  const cur=el('trans-in').value||'';
+  const prev=el('trans-out').value||'';
+  setDir(transDir==='fr'?'it':'fr');
+  // optionally put the previous translation as new input
+  if(prev){const inp=el('trans-in');inp.value=prev;inp.dispatchEvent(new Event('input'));}
 }
 
-// Close trad modal on backdrop click
-$('trad-modal').addEventListener('click',e=>{if(e.target===$('trad-modal'))closeTrad();});
-// Handle Enter in trad input
-$('trad-in').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();doTrad();}});
+async function doTranslateAI(){
+  const txt=(el('trans-in').value||'').trim();
+  if(!txt||transActive)return;
+  transActive=true;
+  const srcLang=transDir==='fr'?'français':'italien';
+  const tgtLang=transDir==='fr'?'italien':'français';
+  el('trans-status').textContent='🤖 Traduction IA...';
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:'Tu es un traducteur expert. Traduis le texte suivant du '+srcLang+' vers le '+tgtLang+'. Retourne UNIQUEMENT la traduction, sans guillemets, sans explications, sans préambule.\n\nTexte : '+txt}]
+      })
+    });
+    if(!resp.ok)throw new Error('API '+resp.status);
+    const data=await resp.json();
+    const result=(data&&data.content&&data.content[0]&&data.content[0].text||'').trim();
+    if(result){
+      el('trans-out').value=result;
+      el('out-wrap').style.display='block';
+      el('trans-status').textContent='';
+    } else {
+      el('trans-status').textContent='❌ Réponse vide. Réessaie.';
+    }
+  }catch(e){
+    el('trans-status').textContent='❌ Erreur : '+e.message;
+  }
+  transActive=false;
+}
+
+function speakTransOut(){
+  const txt=(el('trans-out').value||'').trim();
+  if(!txt)return;
+  const isIt=transDir==='fr'; // if fr→it, output is italian
+  speakLang(txt,isIt?'it-IT':'fr-FR');
+}
 
 // ── VERB DATA ──────────────────────────────────────────────────
 const PRON=['io','tu','lui/lei','noi','voi','loro'];
-const PRON_FR=['je','tu','il/elle','nous','vous','ils/elles'];
+const PRONF=['je','tu','il/elle','nous','vous','ils/elles'];
 const VB={
-  essere:{it:'Essere',fr:'être',g:'irr',c:['sono','sei','è','siamo','siete','sono'],ph:[{f:'Je suis en Sicile.',i:'Sono in Sicilia.'},{f:'Il est médecin.',i:'È medico.'},{f:'Nous sommes en vacances.',i:'Siamo in vacanza.'}]},
-  avere:{it:'Avere',fr:'avoir',g:'irr',c:['ho','hai','ha','abbiamo','avete','hanno'],ph:[{f:"J'ai faim.",i:'Ho fame.'},{f:'Nous avons une réservation.',i:'Abbiamo una prenotazione.'},{f:'Ils ont chaud.',i:'Hanno caldo.'}]},
-  fare:{it:'Fare',fr:'faire',g:'irr',c:['faccio','fai','fa','facciamo','fate','fanno'],ph:[{f:'Que fais-tu ?',i:'Cosa fai?'},{f:'Je fais du sport.',i:'Faccio sport.'},{f:'Il fait chaud.',i:'Fa caldo.'}]},
-  dire:{it:'Dire',fr:'dire',g:'irr',c:['dico','dici','dice','diciamo','dite','dicono'],ph:[{f:"Comment dit-on ça ?",i:'Come si dice?'},{f:'Je dis la vérité.',i:'Dico la verità.'}]},
-  andare:{it:'Andare',fr:'aller',g:'irr',c:['vado','vai','va','andiamo','andate','vanno'],ph:[{f:'Je vais à la plage.',i:'Vado alla spiaggia.'},{f:'On y va !',i:'Andiamo!'},{f:'Ils vont au restaurant.',i:'Vanno al ristorante.'}]},
-  venire:{it:'Venire',fr:'venir',g:'irr',c:['vengo','vieni','viene','veniamo','venite','vengono'],ph:[{f:"D'où viens-tu ?",i:'Da dove vieni?'},{f:'Je viens de France.',i:'Vengo dalla Francia.'}]},
-  dare:{it:'Dare',fr:'donner',g:'irr',c:['do','dai','dà','diamo','date','danno'],ph:[{f:'Donne-moi le menu.',i:'Mi dai il menù?'},{f:'Ils donnent des informations.',i:'Danno informazioni.'}]},
-  stare:{it:'Stare',fr:'être/rester',g:'irr',c:['sto','stai','sta','stiamo','state','stanno'],ph:[{f:'Comment vas-tu ?',i:'Come stai?'},{f:'Je vais bien.',i:'Sto bene.'},{f:'Elle reste à la maison.',i:'Sta a casa.'}]},
-  potere:{it:'Potere',fr:'pouvoir',g:'mod',c:['posso','puoi','può','possiamo','potete','possono'],ph:[{f:"Puis-je avoir l'addition ?",i:'Posso avere il conto?'},{f:"On peut s'asseoir ici ?",i:'Possiamo sederci qui?'}]},
-  dovere:{it:'Dovere',fr:'devoir',g:'mod',c:['devo','devi','deve','dobbiamo','dovete','devono'],ph:[{f:'Je dois partir.',i:'Devo partire.'},{f:'On doit réserver.',i:'Dobbiamo prenotare.'}]},
-  volere:{it:'Volere',fr:'vouloir',g:'mod',c:['voglio','vuoi','vuole','vogliamo','volete','vogliono'],ph:[{f:'Je voudrais une pizza.',i:'Voglio una pizza.'},{f:'Nous voulons visiter Palerme.',i:'Vogliamo visitare Palermo.'}]},
-  uscire:{it:'Uscire',fr:'sortir',g:'irr',c:['esco','esci','esce','usciamo','uscite','escono'],ph:[{f:'Je sors ce soir.',i:'Esco stasera.'},{f:'Ils sortent du restaurant.',i:'Escono dal ristorante.'}]},
-  bere:{it:'Bere',fr:'boire',g:'irr',c:['bevo','bevi','beve','beviamo','bevete','bevono'],ph:[{f:"Qu'est-ce que tu bois ?",i:'Cosa bevi?'},{f:'Nous buvons du vin local.',i:'Beviamo vino locale.'}]},
-  rimanere:{it:'Rimanere',fr:'rester',g:'irr',c:['rimango','rimani','rimane','rimaniamo','rimanete','rimangono'],ph:[{f:'Je reste encore un jour.',i:'Rimango ancora un giorno.'}]},
-  mangiare:{it:'Mangiare',fr:'manger',g:'reg',c:['mangio','mangi','mangia','mangiamo','mangiate','mangiano'],ph:[{f:"Qu'est-ce qu'on mange ?",i:'Cosa mangiamo?'},{f:'Je mange une arancina.',i:"Mangio un'arancina."}]},
-  prendere:{it:'Prendere',fr:'prendre',g:'reg',c:['prendo','prendi','prende','prendiamo','prendete','prendono'],ph:[{f:'Je prends le bus.',i:"Prendo l'autobus."},{f:'Je prends une granita.',i:'Prendo una granita.'}]},
-  ordinare:{it:'Ordinare',fr:'commander',g:'reg',c:['ordino','ordini','ordina','ordiniamo','ordinate','ordinano'],ph:[{f:'Nous commandons la pizza.',i:'Ordiniamo la pizza.'}]},
+  essere:{it:'Essere',fr:'être',g:'irr',c:['sono','sei','è','siamo','siete','sono'],ph:[{f:'Je suis en Sicile.',i:'Sono in Sicilia.'},{f:'Il est médecin.',i:'È medico.'},{f:'Nous sommes en vacances.',i:'Siamo in vacanza.'},{f:'Vous êtes prêts ?',i:'Siete pronti?'}]},
+  avere:{it:'Avere',fr:'avoir',g:'irr',c:['ho','hai','ha','abbiamo','avete','hanno'],ph:[{f:"J'ai faim.",i:'Ho fame.'},{f:'Tu as quel âge ?',i:'Quanti anni hai?'},{f:'Nous avons une réservation.',i:'Abbiamo una prenotazione.'},{f:'Ils ont chaud.',i:'Hanno caldo.'}]},
+  fare:{it:'Fare',fr:'faire',g:'irr',c:['faccio','fai','fa','facciamo','fate','fanno'],ph:[{f:'Que fais-tu ?',i:'Cosa fai?'},{f:'Je fais du sport.',i:'Faccio sport.'},{f:'Il fait chaud.',i:'Fa caldo.'},{f:'Ils font la cuisine.',i:'Fanno la cucina.'}]},
+  dire:{it:'Dire',fr:'dire',g:'irr',c:['dico','dici','dice','diciamo','dite','dicono'],ph:[{f:'Comment dit-on ça ?',i:'Come si dice?'},{f:'Je dis la vérité.',i:'Dico la verità.'},{f:"Qu'est-ce qu'ils disent ?",i:'Cosa dicono?'}]},
+  andare:{it:'Andare',fr:'aller',g:'irr',c:['vado','vai','va','andiamo','andate','vanno'],ph:[{f:'Je vais à la plage.',i:'Vado alla spiaggia.'},{f:'Tu vas bien ?',i:'Come vai?'},{f:'On y va !',i:'Andiamo!'},{f:'Ils vont au restaurant.',i:'Vanno al ristorante.'}]},
+  venire:{it:'Venire',fr:'venir',g:'irr',c:['vengo','vieni','viene','veniamo','venite','vengono'],ph:[{f:"D'où viens-tu ?",i:'Da dove vieni?'},{f:'Je viens de France.',i:'Vengo dalla Francia.'},{f:'Elle vient avec nous.',i:'Viene con noi.'}]},
+  dare:{it:'Dare',fr:'donner',g:'irr',c:['do','dai','dà','diamo','date','danno'],ph:[{f:'Donne-moi le menu.',i:'Mi dai il menù?'},{f:'Je te donne mon numéro.',i:'Ti do il mio numero.'}]},
+  stare:{it:'Stare',fr:'être / rester',g:'irr',c:['sto','stai','sta','stiamo','state','stanno'],ph:[{f:'Comment vas-tu ?',i:'Come stai?'},{f:'Je vais bien.',i:'Sto bene.'},{f:'Elle reste à la maison.',i:'Sta a casa.'}]},
+  potere:{it:'Potere',fr:'pouvoir',g:'mod',c:['posso','puoi','può','possiamo','potete','possono'],ph:[{f:"Puis-je avoir l'addition ?",i:'Posso avere il conto?'},{f:"Tu peux m'aider ?",i:'Puoi aiutarmi?'},{f:"On peut s'asseoir ici ?",i:'Possiamo sederci qui?'}]},
+  dovere:{it:'Dovere',fr:'devoir',g:'mod',c:['devo','devi','deve','dobbiamo','dovete','devono'],ph:[{f:'Je dois partir.',i:'Devo partire.'},{f:'Tu dois essayer !',i:'Devi provare!'},{f:'On doit réserver.',i:'Dobbiamo prenotare.'}]},
+  volere:{it:'Volere',fr:'vouloir',g:'mod',c:['voglio','vuoi','vuole','vogliamo','volete','vogliono'],ph:[{f:'Je voudrais une pizza.',i:'Voglio una pizza.'},{f:'Tu veux un café ?',i:'Vuoi un caffè?'},{f:'Nous voulons visiter Palerme.',i:'Vogliamo visitare Palermo.'}]},
+  uscire:{it:'Uscire',fr:'sortir',g:'irr',c:['esco','esci','esce','usciamo','uscite','escono'],ph:[{f:'Je sors ce soir.',i:'Esco stasera.'},{f:'À quelle heure sors-tu ?',i:'A che ora esci?'},{f:'Ils sortent du restaurant.',i:'Escono dal ristorante.'}]},
+  bere:{it:'Bere',fr:'boire',g:'irr',c:['bevo','bevi','beve','beviamo','bevete','bevono'],ph:[{f:"Qu'est-ce que tu bois ?",i:'Cosa bevi?'},{f:'Je bois un espresso.',i:'Bevo un espresso.'},{f:'Nous buvons du vin local.',i:'Beviamo vino locale.'}]},
+  rimanere:{it:'Rimanere',fr:'rester',g:'irr',c:['rimango','rimani','rimane','rimaniamo','rimanete','rimangono'],ph:[{f:'Je reste encore un jour.',i:'Rimango ancora un giorno.'},{f:'Vous restez combien de jours ?',i:'Quanti giorni rimanete?'}]},
+  mangiare:{it:'Mangiare',fr:'manger',g:'reg',c:['mangio','mangi','mangia','mangiamo','mangiate','mangiano'],ph:[{f:"Qu'est-ce qu'on mange ?",i:'Cosa mangiamo?'},{f:'Je mange une arancina.',i:"Mangio un'arancina."},{f:'Ils mangent dehors.',i:'Mangiano fuori.'}]},
+  prendere:{it:'Prendere',fr:'prendre',g:'reg',c:['prendo','prendi','prende','prendiamo','prendete','prendono'],ph:[{f:'Je prends le bus.',i:"Prendo l'autobus."},{f:'Tu prends quoi ?',i:'Cosa prendi?'},{f:'Je prends une granita.',i:'Prendo una granita.'}]},
+  ordinare:{it:'Ordinare',fr:'commander',g:'reg',c:['ordino','ordini','ordina','ordiniamo','ordinate','ordinano'],ph:[{f:'Nous commandons la pizza.',i:'Ordiniamo la pizza.'},{f:"Qu'est-ce que vous commandez ?",i:'Cosa ordinate?'}]},
   pagare:{it:'Pagare',fr:'payer',g:'reg',c:['pago','paghi','paga','paghiamo','pagate','pagano'],ph:[{f:"C'est moi qui paie.",i:'Pago io.'},{f:'On paie séparément.',i:'Paghiamo separati.'}]},
   offrire:{it:'Offrire',fr:'offrir',g:'reg',c:['offro','offri','offre','offriamo','offrite','offrono'],ph:[{f:"Je t'offre un verre.",i:'Ti offro da bere.'}]},
-  portare:{it:'Portare',fr:'apporter',g:'reg',c:['porto','porti','porta','portiamo','portate','portano'],ph:[{f:"Apportez l'addition.",i:'Mi porta il conto?'},{f:'Je porte les bagages.',i:'Porto i bagagli.'}]},
+  portare:{it:'Portare',fr:'apporter / porter',g:'reg',c:['porto','porti','porta','portiamo','portate','portano'],ph:[{f:"Apportez-moi l'addition.",i:'Mi porta il conto?'},{f:'Je porte les bagages.',i:'Porto i bagagli.'}]},
   partire:{it:'Partire',fr:'partir',g:'reg',c:['parto','parti','parte','partiamo','partite','partono'],ph:[{f:'Je pars demain.',i:'Parto domani.'},{f:'Nous partons en Sicile.',i:'Partiamo in Sicilia.'}]},
-  arrivare:{it:'Arrivare',fr:'arriver',g:'reg',c:['arrivo','arrivi','arriva','arriviamo','arrivate','arrivano'],ph:[{f:"J'arrive dans 10 min.",i:'Arrivo tra dieci minuti.'},{f:'Nous arrivons enfin !',i:'Arriviamo finalmente!'}]},
+  arrivare:{it:'Arrivare',fr:'arriver',g:'reg',c:['arrivo','arrivi','arriva','arriviamo','arrivate','arrivano'],ph:[{f:"J'arrive dans 10 minutes.",i:'Arrivo tra dieci minuti.'},{f:'Nous arrivons enfin !',i:'Arriviamo finalmente!'}]},
   entrare:{it:'Entrare',fr:'entrer',g:'reg',c:['entro','entri','entra','entriamo','entrate','entrano'],ph:[{f:'On entre par ici.',i:'Entriamo da qui.'}]},
   tornare:{it:'Tornare',fr:'revenir',g:'reg',c:['torno','torni','torna','torniamo','tornate','tornano'],ph:[{f:'Je reviens demain.',i:'Torno domani.'},{f:"On retourne à l'hôtel.",i:"Torniamo all'hotel."}]},
   restare:{it:'Restare',fr:'rester',g:'reg',c:['resto','resti','resta','restiamo','restate','restano'],ph:[{f:'Je reste encore une nuit.',i:'Resto ancora una notte.'}]},
@@ -608,254 +516,243 @@ const VB={
   prenotare:{it:'Prenotare',fr:'réserver',g:'reg',c:['prenoto','prenoti','prenota','prenotiamo','prenotate','prenotano'],ph:[{f:"J'ai réservé une table.",i:'Ho prenotato un tavolo.'},{f:'Je voudrais réserver une chambre.',i:'Voglio prenotare una camera.'}]},
   parlare:{it:'Parlare',fr:'parler',g:'reg',c:['parlo','parli','parla','parliamo','parlate','parlano'],ph:[{f:'Parlez-vous français ?',i:'Parla francese?'},{f:'Je parle un peu italien.',i:"Parlo un po' italiano."}]},
   capire:{it:'Capire',fr:'comprendre',g:'reg',c:['capisco','capisci','capisce','capiamo','capite','capiscono'],ph:[{f:'Je ne comprends pas.',i:'Non capisco.'},{f:'Tu comprends ?',i:'Capisci?'}]},
-  chiedere:{it:'Chiedere',fr:'demander',g:'reg',c:['chiedo','chiedi','chiede','chiediamo','chiedete','chiedono'],ph:[{f:'Je demande le chemin.',i:'Chiedo la strada.'},{f:'Demande à quelqu\'un.',i:'Chiedi a qualcuno.'}]},
+  chiedere:{it:'Chiedere',fr:'demander',g:'reg',c:['chiedo','chiedi','chiede','chiediamo','chiedete','chiedono'],ph:[{f:'Je demande le chemin.',i:'Chiedo la strada.'},{f:"Demande à quelqu'un.",i:'Chiedi a qualcuno.'}]},
 };
 
-// ── QUESTION BUILDERS ──────────────────────────────────────────
+// ── Q FACTORIES ────────────────────────────────────────────────
+function qcm(ch,q,opts,ans,exp){
+  const o=sh(opts);return{type:'qcm',ch,q,opts:o,ans:o.indexOf(ans),exp};
+}
+function fill(ch,q,ans,exp){return{type:'fill',ch,q,ans,exp};}
+
 function makeVerbQCM(keys){
-  const out=[]; const ak=Object.keys(VB);
+  const out=[];const all=Object.keys(VB);
   keys.forEach(k=>{
-    const v=VB[k]; if(!v) return;
+    const v=VB[k];if(!v)return;
     PRON.forEach((p,pi)=>{
       const correct=v.c[pi];
-      const wrongs=sh(ak.filter(x=>x!==k)).slice(0,4).map(x=>VB[x]&&VB[x].c[pi]).filter(Boolean);
-      if(wrongs.length<3) return;
+      const wrongs=sh(all.filter(x=>x!==k)).slice(0,4).map(x=>VB[x]&&VB[x].c[pi]).filter(Boolean).filter(x=>x!==correct);
+      if(wrongs.length<3)return;
       const opts=sh([correct,...wrongs.slice(0,3)]);
-      out.push({type:'qcm',ch:'✏️ '+v.it,q:'<span class="vhl">'+v.it+'</span><span class="pron">'+p+'</span>',opts,ans:opts.indexOf(correct),exp:p+' → '+correct+' ('+PRON_FR[pi]+' '+v.fr+')',verb:v.it,pron:p,spk:correct});
+      out.push({type:'qcm',ch:'✏️ '+v.it,q:'<span class="vhl">'+v.it+'</span><span class="pron">'+p+'</span>',opts,ans:opts.indexOf(correct),exp:p+' → '+correct+' ('+PRONF[pi]+' '+v.fr+')',verb:v.it,pron:p,itText:correct});
     });
-    const wfr=sh(ak.filter(x=>x!==k)).slice(0,3).map(x=>VB[x]&&VB[x].fr).filter(Boolean);
-    if(wfr.length>=3){const opts=sh([v.fr,...wfr.slice(0,3)]);out.push({type:'qcm',ch:'✏️ Vocabulaire',q:'"'+v.it+'" signifie ?',opts,ans:opts.indexOf(v.fr),exp:v.it+' = '+v.fr,spk:v.it});}
+    const wfr=sh(all.filter(x=>x!==k)).slice(0,3).map(x=>VB[x]&&VB[x].fr).filter(Boolean);
+    if(wfr.length>=3){
+      const opts=sh([v.fr,...wfr.slice(0,3)]);
+      out.push({type:'qcm',ch:'✏️ Vocabulaire',q:'"'+v.it+'" signifie ?',opts,ans:opts.indexOf(v.fr),exp:v.it+' = '+v.fr});
+    }
   });
   return sh(out);
 }
 
 function makeVerbFull(keys){
-  const fills=[]; const ak=Object.keys(VB);
+  const all=Object.keys(VB);const fills=[];const qcms=makeVerbQCM(keys);
   keys.forEach(k=>{
-    const v=VB[k]; if(!v) return;
-    PRON.forEach((p,pi)=>{fills.push({type:'fill',ch:'✏️ '+v.it,q:'<span class="vhl">'+v.it+'</span><span class="pron">'+p+'</span>',ans:v.c[pi],exp:p+' → '+v.c[pi]+' ('+PRON_FR[pi]+' '+v.fr+')',verb:v.it,pron:p,spk:v.c[pi]});});
-    v.ph.forEach(ph=>{
+    const v=VB[k];if(!v)return;
+    PRON.forEach((p,pi)=>{
+      fills.push({type:'fill',ch:'✏️ '+v.it,q:'<span class="vhl">'+v.it+'</span><span class="pron">'+p+'</span>',ans:v.c[pi],exp:p+' → '+v.c[pi]+' ('+PRONF[pi]+' '+v.fr+')',verb:v.it,pron:p,itText:v.c[pi]});
+    });
+    v.ph&&v.ph.forEach(ph=>{
       const form=v.c.find(f=>f.length>2&&ph.i.includes(f));
-      if(form){const blanked=ph.i.replace(form,'___');fills.push({type:'fill',ch:'✏️ '+v.it,q:'Traduis : <em>"'+safe(ph.f)+'"</em><br><small style="color:var(--mu)">Complète : '+safe(blanked)+'</small>',ans:form,exp:'Forme : <b>'+form+'</b> — '+ph.i,spk:ph.i});}
+      if(form){
+        const blanked=ph.i.replace(form,'___');
+        fills.push({type:'fill',ch:'✏️ '+v.it,q:'Traduis : <em>"'+ph.f+'"</em><br><small style="color:#888">Complète : '+blanked+'</small>',ans:form,exp:'Forme correcte : <b>'+form+'</b> — '+ph.i,itText:ph.i});
+      }
     });
   });
-  return sh([...makeVerbQCM(keys),...fills]);
+  return sh([...qcms,...fills]);
 }
 
-function qcm(ch,q,opts,ans,exp,spk){const o=sh(opts);return{type:'qcm',ch,q,opts:o,ans:o.indexOf(ans),exp,spk:spk||''};}
-function fill(ch,q,ans,exp,spk){return{type:'fill',ch,q,ans,exp,spk:spk||ans};}
-
+// ── STATIC QUESTIONS ──────────────────────────────────────────
 const Q_PHON=[
-  qcm('🔊 Phonétique',"Comment se prononce 'G' devant 'i' ou 'e' ?",['G dur','DJ (djinn)','K','TCH'],'DJ (djinn)',"G+i/e = DJ. Ex: gelato = 'djelato'.",'gelato'),
-  qcm('🔊 Phonétique',"Comment se prononce 'C' devant 'a', 'o', 'u' ?",['TCH','S','K','J'],'K',"C+a/o/u = K. Ex: casa = 'kaza'.",'casa'),
-  qcm('🔊 Phonétique',"'Chi' se prononce ?",['TCHi','Ki','Shi','Ji'],'Ki',"H annule l'effet : Chi=Ki, Che=Ke.",'chi'),
-  qcm('🔊 Phonétique',"Où se place l'accent tonique en général ?",['1ère syllabe','Dernière syllabe','Avant-dernière syllabe','Variable'],'Avant-dernière syllabe',"Parole piane = accent sur l'avant-dernière syllabe.",'professore'),
-  qcm('🔊 Phonétique',"Comment se prononce 'U' ?",['Comme U français','Toujours OU','Comme Y','Comme EU'],'Toujours OU',"U = toujours OU. Ex: Buon = 'Bouone'.",'buongiorno'),
-  qcm('🔊 Phonétique',"Comment se prononce 'E' ?",['E muet','Toujours É','Tantôt É tantôt È','Comme AI'],'Toujours É',"E = toujours É. Ex: bene = 'béné'.",'bene'),
-  qcm('🔊 Phonétique',"'Gn' se prononce comme ?",['GN dur','GN mouillé (agneau)','N simple','NJ'],'GN mouillé (agneau)',"GN = son mouillé. Ex: bagno = 'banyo'.",'bagno'),
-  qcm('🔊 Phonétique',"'Sc' devant 'e' ou 'i' se prononce ?",['SK','TCH','SH','Z'],'TCH',"SC+i/e = TCH. Ex: scena = 'tchéna'.",'scena'),
-  fill('📖 Vocabulaire','Le cœur → il ___','cuore','Il cuore = le cœur.','il cuore'),
-  fill('📖 Vocabulaire','Toujours → ___','sempre','Sempre = toujours.','sempre'),
-  fill('📖 Vocabulaire','Droite → ___','destra','Destra = droite. Sinistra = gauche.','destra'),
-  qcm('📖 Vocabulaire',"'Piano piano' signifie ?",['Très vite','Tout doucement','Au piano','En avion'],'Tout doucement',"Piano piano = tout doucement.",'piano piano'),
-  qcm('📖 Vocabulaire',"'Uomini' est le pluriel de ?",['Donna','Uomo','Mano','Bambino'],'Uomo','Uomo → Uomini (irrégulier).','uomini'),
-  fill('📖 Vocabulaire','Une chanson → una ___','canzone','Una canzone = une chanson.','una canzone'),
-  qcm('📖 Vocabulaire',"'Vero' et 'Falso' signifient ?",['Grand et petit','Vrai et faux','Beau et laid','Chaud et froid'],'Vrai et faux','Vero = vrai, Falso = faux.','vero, falso'),
-  fill('📖 Vocabulaire','La mélancolie → la ___','malinconia',"Malinconia = mélancolie.",'malinconia'),
-  qcm('📖 Vocabulaire',"'Mano' au pluriel ?",['Mani','Manos','Le mano','I mani'],'Mani','Mano (féminin) → mani (exception !)','mani'),
-  qcm('📖 Vocabulaire',"'Gli occhi' se prononce ?",['Gli okki','Li okki','Gliokki','Ji okki'],'Li okki',"Gli devant voyelle = 'li' mouillé.",'gli occhi'),
+  qcm('🔊 Phonétique',"Comment se prononce 'G' devant 'i' ou 'e' ?",['G dur','DJ (djinn)','K','TCH'],'DJ (djinn)',"G+i/e = DJ. Ex: gelato = 'djelato'."),
+  qcm('🔊 Phonétique',"Comment se prononce 'C' devant 'a', 'o', 'u' ?",['TCH','S','K','J'],'K',"C+a/o/u = K. Ex: casa = 'kaza'."),
+  qcm('🔊 Phonétique',"'Chi' se prononce ?",['TCHi','Ki','Shi','Ji'],'Ki',"H annule l'effet : Chi=Ki, Che=Ke."),
+  qcm('🔊 Phonétique',"Accent tonique en général ?",['1ère syllabe','Dernière syllabe','Avant-dernière syllabe','Variable'],'Avant-dernière syllabe',"Parole piane = accent sur l'avant-dernière syllabe."),
+  qcm('🔊 Phonétique',"'U' en italien se prononce ?",['Comme U français','Toujours OU','Comme Y','Comme EU'],'Toujours OU',"U = toujours OU. Ex: Buon = 'Bouone'."),
+  qcm('🔊 Phonétique',"'E' en italien se prononce ?",['E muet','Toujours É','Tantôt É tantôt È','Comme AI'],'Toujours É',"E = toujours É. Ex: bene = 'béné'."),
+  qcm('🔊 Phonétique',"'Gn' se prononce comme ?",['GN dur','GN mouillé (agneau)','N simple','NJ'],'GN mouillé (agneau)',"GN = son mouillé. Ex: bagno = 'banyo'."),
+  qcm('🔊 Phonétique',"'Sc' devant 'e' ou 'i' se prononce ?",['SK','TCH','SH','Z'],'TCH',"SC+i/e = TCH. Ex: scena = 'tchéna'."),
+  fill('📖 Vocabulaire','Le cœur → il ___','cuore','Il cuore = le cœur.'),
+  fill('📖 Vocabulaire','Toujours → ___','sempre','Sempre = toujours.'),
+  fill('📖 Vocabulaire','Droite → ___','destra','Destra = droite. Sinistra = gauche.'),
+  qcm('📖 Vocabulaire',"'Piano piano' signifie ?",['Très vite','Tout doucement','Au piano','En avion'],'Tout doucement',"Piano piano = tout doucement."),
+  qcm('📖 Vocabulaire',"'Uomini' est le pluriel de ?",['Donna','Uomo','Mano','Bambino'],'Uomo','Uomo → Uomini (irrégulier).'),
+  fill('📖 Vocabulaire','Une chanson → una ___','canzone','Una canzone = une chanson.'),
+  qcm('📖 Vocabulaire',"'Vero' et 'Falso' signifient ?",['Grand et petit','Vrai et faux','Beau et laid','Chaud et froid'],'Vrai et faux','Vero = vrai, Falso = faux.'),
+  fill('📖 Vocabulaire','La mélancolie → la ___','malinconia','Malinconia = mélancolie.'),
+  qcm('📖 Vocabulaire',"'Mano' (main) au pluriel ?",['Mani','Manos','Le mano','I mani'],'Mani','Mano (féminin malgré -o) → mani (exception).'),
+  qcm('📖 Vocabulaire',"'Gli occhi' se prononce ?",['Gli okki','Li okki','Gliokki','Ji okki'],'Li okki',"Gli devant voyelle = 'li' mouillé."),
 ];
-
 const Q_FORM=[
-  qcm('💬 Formules',"Vouvoiement poli : 'Comment allez-vous ?'",['Come stai?','Come sta?','Come stanno?','Come stiamo?'],'Come sta?',"Come sta = vouvoiement (Lei).",'come sta'),
-  qcm('💬 Formules',"Réponse polie à 'grazie' ?",['Grazie mille','Prego / Figurati','Arrivederci','Scusi'],'Prego / Figurati',"Prego = de rien, Figurati = t'inquiète.",'prego'),
-  qcm('💬 Formules',"'Scusi' vs 'Scusa' : laquelle est polie ?",['Scusa','Scusi','Les deux','Aucune'],'Scusi',"Scusi = poli (Lei). Scusa = informel.",'scusi'),
-  fill('💬 Formules',"Je m'appelle... → Mi ___",'chiamo',"Mi chiamo = je m'appelle.",'mi chiamo'),
-  fill('💬 Formules',"D'où viens-tu ? → Di dove ___?",'sei',"Di dove sei ?",'di dove sei'),
-  fill('💬 Formules',"Je viens de France → Vengo ___ Francia",'dalla',"Dalla = de la (féminin).",'vengo dalla Francia'),
-  qcm('💬 Formules',"'Dove vivi ?' signifie ?",['Où travailles-tu ?','Où vis-tu ?','Avec qui vis-tu ?','Tu aimes vivre ici ?'],'Où vis-tu ?',"Dove vivi ? = Où vis-tu ?",'dove vivi'),
-  fill('💬 Formules',"Je vis à Paris → Vivo ___ Parigi",'a','A + ville = à Paris, in + pays = in Italia.','vivo a Parigi'),
-  qcm('💬 Formules',"'Sto bene, grazie' signifie ?",['Je reste ici merci','Je vais bien, merci','Je suis bien ici','Je mange bien'],'Je vais bien, merci',"Stare = aller (état).",'sto bene'),
-  qcm('💬 Formules',"'A presto' signifie ?",['À demain','À plus tard','À bientôt','Au revoir'],'À bientôt',"A presto = à bientôt.",'a presto'),
-  fill('💬 Formules',"Excusez-moi (poli) → ___",'scusi',"Scusi = excusez-moi (poli).",'scusi'),
-  qcm('💬 Formules',"'Signore' et 'Signora' signifient ?",['Monsieur et Madame','Père et Mère','Ami et Amie','Patron et Patronne'],'Monsieur et Madame','Signore = Monsieur, Signora = Madame.','signore, signora'),
-  fill('💬 Formules',"Bonne nuit → buona___",'notte','Buonanotte = bonne nuit.','buonanotte'),
-  qcm('💬 Formules',"Pour vouvoyer, on utilise le pronom ?",['Voi','Lei','Lui','Loro'],'Lei',"Lei (majuscule) = vouvoiement singulier.",'lei'),
-  fill('💬 Formules',"Comment allez-vous (informel) → Come ___?",'stai','Come stai ? = comment vas-tu ?','come stai'),
-  qcm('💬 Formules',"'Prego' peut signifier ?",['Merci','S\'il vous plaît / De rien','Au revoir','Bonjour'],"S'il vous plaît / De rien",'Prego = de rien (après grazie) ou s.v.p.','prego'),
-  qcm('💬 Formules',"'Di dove sei ?' → réponse correcte ?",['Vengo dalla Francia','Sono in Francia','Vado in Francia','Dalla Francia vado'],'Vengo dalla Francia',"Venire = venir. Dalla = de la.",'vengo dalla Francia'),
-  fill('💬 Formules',"Mes parents vivent aussi à Paris → I miei genitori ___ anche a Parigi",'vivono','Vivono = ils vivent (loro + -ERE → -ono).','vivono'),
-  fill('💬 Formules',"Je ne comprends pas → Non ___",'capisco','Non capisco = je ne comprends pas.','non capisco'),
-  qcm('💬 Formules',"'Salve' s'utilise dans quel contexte ?",['Très familier','Poli/neutre','Uniquement le soir','Pour dire au revoir'],'Poli/neutre','Salve = bonjour neutre/poli.','salve'),
+  qcm('💬 Formules',"Vouvoiement poli : 'Comment allez-vous ?'",['Come stai?','Come sta?','Come stanno?','Come stiamo?'],'Come sta?',"Come sta = poli (Lei). Come stai = informel."),
+  qcm('💬 Formules',"Réponse polie à 'grazie' ?",['Grazie mille','Prego / Figurati','Arrivederci','Scusi'],'Prego / Figurati',"Prego = de rien, Figurati = t'inquiète (informel)."),
+  qcm('💬 Formules',"'Scusi' vs 'Scusa' : laquelle est polie ?",['Scusa','Scusi','Les deux','Aucune'],'Scusi',"Scusi = poli (Lei). Scusa = informel (tu)."),
+  fill('💬 Formules',"Je m'appelle... → Mi ___",'chiamo',"Mi chiamo = je m'appelle."),
+  fill('💬 Formules',"D'où viens-tu ? → Di dove ___?",'sei',"Di dove sei ? = d'où viens-tu ?"),
+  fill('💬 Formules','Je viens de France → Vengo ___ Francia','dalla',"Dalla = de la (féminin)."),
+  qcm('💬 Formules',"'Dove vivi ?' signifie ?",['Où travailles-tu ?','Où vis-tu ?','Avec qui vis-tu ?','Tu aimes vivre ici ?'],'Où vis-tu ?',"Dove vivi ? = Où vis-tu ?"),
+  fill('💬 Formules','Je vis à Paris → Vivo ___ Parigi','a','A + ville. In + pays = in Italia.'),
+  qcm('💬 Formules',"'Sto bene, grazie' signifie ?",['Je reste ici merci','Je vais bien, merci','Je suis bien ici','Je mange bien'],'Je vais bien, merci',"Stare = aller (état). Sto bene = je vais bien."),
+  qcm('💬 Formules',"Comment dit-on 'à bientôt' ?",['A domani','A dopo','A presto','Arrivederci'],'A presto',"A presto = à bientôt."),
+  fill('💬 Formules','Excusez-moi (poli) → ___','scusi',"Scusi = excusez-moi (poli)."),
+  qcm('💬 Formules',"'Signore' et 'Signora' signifient ?",['Monsieur et Madame','Père et Mère','Ami et Amie','Patron et Patronne'],'Monsieur et Madame','Signore = Monsieur, Signora = Madame.'),
+  fill('💬 Formules','Bonne nuit → buona___','notte','Buonanotte = bonne nuit.'),
+  qcm('💬 Formules',"Pour vouvoyer, on utilise ?",['Voi','Lei','Lui','Loro'],'Lei',"Lei (majuscule) = vouvoiement singulier."),
+  fill('💬 Formules','Comment allez-vous (informel) → Come ___?','stai','Come stai ? = comment vas-tu ?'),
+  qcm('💬 Formules',"'Prego' peut signifier ?",['Merci','De rien / S\'il vous plaît','Au revoir','Bonjour'],"De rien / S'il vous plaît","Prego = de rien (après grazie) ou s'il vous plaît."),
+  qcm('💬 Formules',"'Di dove sei ?' → réponse correcte ?",['Vengo dalla Francia','Sono in Francia','Vado in Francia','Dalla Francia vado'],'Vengo dalla Francia',"Venire = venir. Dalla = de la."),
+  fill('💬 Formules','Mes parents vivent aussi à Paris → I miei genitori ___ anche a Parigi','vivono','Vivono = ils vivent (loro + -ERE → -ono).'),
+  fill('💬 Formules','Je ne comprends pas → Non ___','capisco','Non capisco = je ne comprends pas.'),
+  qcm('💬 Formules',"'Salve' s'utilise dans quel contexte ?",['Très familier','Poli/neutre','Uniquement le soir','Pour dire au revoir'],'Poli/neutre','Salve = bonjour neutre/poli.'),
 ];
-
 const Q_TEMPS=[
-  qcm('⏰ Temps',"Comment dit-on 'il y a' (passé) ?",['tra','fra','fa','scorso'],'fa',"Fa se place APRÈS la durée : tre giorni fa.",'tre giorni fa'),
-  qcm('⏰ Temps',"'La settimana scorsa' signifie ?",['La semaine prochaine','La semaine dernière','Cette semaine','Il y a une semaine'],'La semaine dernière',"Scorsa = dernière/passée.",'la settimana scorsa'),
-  fill('⏰ Temps',"Il y a 3 semaines → tre settimane ___",'fa','Fa après la durée = il y a.','tre settimane fa'),
-  fill('⏰ Temps',"Dans un an → tra un ___",'anno','Tra/fra + durée = dans. Anno = an.','tra un anno'),
-  qcm('⏰ Temps',"\"L'altro ieri\" signifie ?",['Hier','Demain','Avant-hier','Après-demain'],'Avant-hier',"L'altro ieri = avant-hier.",'l\'altro ieri'),
-  fill('⏰ Temps',"Tout de suite → ___",'subito','Subito = tout de suite.','subito'),
-  fill('⏰ Temps',"Bientôt → ___",'presto','Presto = bientôt / vite.','presto'),
-  fill('⏰ Temps',"Après-demain → dopo___",'domani','Dopodomani = après-demain.','dopodomani'),
-  qcm('⏰ Temps',"'Parto tra due giorni' signifie ?",['Je suis parti il y a deux jours','Je pars dans deux jours','Je pars depuis deux jours','Je partirai bientôt'],'Je pars dans deux jours',"Tra/fra + durée = dans (futur).",'parto tra due giorni'),
-  qcm('⏰ Temps',"Comment dire 'maintenant' ?",['Presto','Subito','Ora / Adesso','Già'],'Ora / Adesso',"Ora et Adesso = maintenant.",'ora'),
-  fill('⏰ Temps',"Le mois dernier → il mese ___",'scorso',"Il mese scorso.",'il mese scorso'),
-  fill('⏰ Temps',"L'année dernière → l'anno ___",'scorso',"L'anno scorso.",'l\'anno scorso'),
-  qcm('⏰ Temps',"'Tra' et 'fra' sont ?",['Opposés','Interchangeables','Tra = passé, fra = futur','Tra = temps'],'Interchangeables',"Tra et fra sont synonymes.",'tra, fra'),
-  fill('⏰ Temps',"Hier j'ai travaillé → ___ ho lavorato",'ieri','Ieri = hier.','ieri ho lavorato'),
-  qcm('⏰ Temps',"'Ho visto Maria due giorni fa' signifie ?",['Je verrai Maria dans deux jours','J\'ai vu Maria il y a deux jours','Je vois Maria deux fois','Maria viendra dans deux jours'],'J\'ai vu Maria il y a deux jours',"Ho visto = j'ai vu.",'ho visto Maria due giorni fa'),
-  fill('⏰ Temps',"Je pars dans deux jours → Parto ___ due giorni",'tra','Tra (ou fra) + durée = dans (futur).','parto tra due giorni'),
-  fill('⏰ Temps',"Plus tard → più ___",'tardi','Più tardi = plus tard.','più tardi'),
-  fill('⏰ Temps',"Tout de suite → ___",'subito','Subito = tout de suite.','subito'),
+  qcm('⏰ Temps',"Comment dit-on 'il y a' (passé) ?",['tra','fra','fa','scorso'],'fa',"Fa se place APRÈS la durée : tre giorni fa."),
+  qcm('⏰ Temps',"'La settimana scorsa' signifie ?",['La semaine prochaine','La semaine dernière','Cette semaine','Il y a une semaine'],'La semaine dernière',"Scorsa = dernière/passée."),
+  fill('⏰ Temps','Il y a 3 semaines → tre settimane ___','fa','Fa après la durée = il y a.'),
+  fill('⏰ Temps','Dans un an → tra un ___','anno','Anno = an. Tra/fra + durée = dans.'),
+  qcm('⏰ Temps',"'L'altro ieri' signifie ?",['Hier','Demain','Avant-hier','Après-demain'],'Avant-hier',"L'altro ieri = avant-hier."),
+  fill('⏰ Temps','Tout de suite → ___','subito','Subito = tout de suite.'),
+  fill('⏰ Temps','Bientôt → ___','presto','Presto = bientôt / vite.'),
+  fill('⏰ Temps','Après-demain → dopo___','domani','Dopodomani = après-demain.'),
+  qcm('⏰ Temps',"'Parto tra due giorni' signifie ?",['Parti il y a deux jours','Je pars dans deux jours','Je pars depuis deux jours','Je partirai bientôt'],'Je pars dans deux jours',"Tra/fra + durée = dans (futur)."),
+  qcm('⏰ Temps',"'Maintenant' en italien ?",['Presto','Subito','Ora / Adesso','Già'],'Ora / Adesso',"Ora et Adesso = maintenant."),
+  fill('⏰ Temps','Le mois dernier → il mese ___','scorso',"Il mese scorso."),
+  fill('⏰ Temps',"L'année dernière → l'anno ___",'scorso',"L'anno scorso."),
+  fill('⏰ Temps','Plus tard → più ___','tardi','Più tardi = plus tard.'),
+  qcm('⏰ Temps',"'Tra' et 'fra' sont ?",['Opposés','Interchangeables','Tra = passé, fra = futur','Tra = temps, fra = distance'],'Interchangeables',"Tra et fra sont synonymes."),
+  fill('⏰ Temps',"Hier j'ai travaillé → ___ ho lavorato",'ieri','Ieri = hier.'),
+  qcm('⏰ Temps',"'Ho visto Maria due giorni fa' signifie ?",["Je verrai Maria dans deux jours","J'ai vu Maria il y a deux jours","Je vois Maria deux fois","Maria viendra dans deux jours"],"J'ai vu Maria il y a deux jours","Ho visto = j'ai vu."),
+  fill('⏰ Temps','Je pars dans deux jours → Parto ___ due giorni','tra','Tra (ou fra) + durée = dans.'),
+  fill('⏰ Temps','La semaine prochaine → la settimana ___','prossima','Prossima = prochaine. Prossimo/prossima.'),
 ];
-
 const Q_GRAM=[
-  qcm('📐 Articles',"Article défini devant 'zaino' (z-) au singulier ?",['Il','Lo','La',"L'"],'Lo','Devant z ou s+consonne → lo (sg), gli (pl).','lo zaino'),
-  qcm('📐 Articles',"Pluriel de 'lo zaino' ?",['I zaini','Gli zaini','Le zaini','Li zaini'],'Gli zaini','Lo → gli au pluriel.','gli zaini'),
-  fill('📐 Articles',"___ arancie sono buone. (fém. pl., voyelle)",'le','Pluriel féminin devant voyelle → le.','le arancie'),
-  fill('📐 Articles',"___ amico di Marco è qui. (masc. sg., voyelle)",'l\'','Singulier devant voyelle → l\'.','l\'amico'),
-  qcm('📐 Articles',"Article indéfini devant 'arancia' (fém. + voyelle) ?",['Una','Un',"Un'",'Uno'],"Un'",'Féminin + voyelle → un\'.','un\'arancia'),
-  qcm('📐 Articles',"Article indéfini devant 'zaino' (masc. + z) ?",['Un','Uno','Una',"Un'"],'Uno','Masculin + z ou s+consonne → uno.','uno zaino'),
-  fill('📐 Articles',"___ bella donna. (fém. sg., consonne, indéfini)",'una','Féminin singulier → una.','una bella donna'),
-  qcm('📐 Possessifs','"Mes parents" (genitori = masc. pl.) ?',['La mia genitori','Il mio genitori','I miei genitori','Le mie genitori'],'I miei genitori','io + masculin pluriel → i miei.','i miei genitori'),
-  qcm('📐 Possessifs','"Leur voiture" (macchina = fém. sg.) ?',['Il loro macchina','La loro macchina','I loro macchina','Le loro macchina'],'La loro macchina','Loro est INVARIABLE !','la loro macchina'),
-  fill('📐 Possessifs',"Notre hôtel (hotel = masc. sg.) → ___ nostro hotel",'il','Noi + masculin singulier → il nostro.','il nostro hotel'),
-  fill('📐 Possessifs',"Tes valises (valigie = fém. pl.) → le ___ valigie",'tue','Tu + féminin pluriel → le tue.','le tue valigie'),
-  qcm('📐 Possessifs','"Le sue scarpe" = les chaussures de ?',['Moi','Toi','Lui ou elle','Nous'],'Lui ou elle','Suo/sua/suoi/sue = lui ou elle.','le sue scarpe'),
-  qcm('📐 Possessifs',"L'adjectif possessif s'accorde avec ?",['Le sujet','L\'objet possédé','Le verbe','La personne'],"L'objet possédé",'TOUJOURS avec l\'objet possédé.','il mio libro'),
-  fill('📐 Possessifs',"Votre chambre (camera = fém. sg., voi) → la ___ camera",'vostra','Voi + féminin singulier → la vostra.','la vostra camera'),
-  qcm('📐 Possessifs',"Possessif 'voi' au masculin pluriel ?",['Il vostro','La vostra','I vostri','Le vostre'],'I vostri','Voi + masculin pluriel → i vostri.','i vostri amici'),
-  fill('📐 Articles',"___ studenti sono in classe. (masc. pl., st-)",'gli','Pluriel masculin devant s+consonne → gli.','gli studenti'),
-  qcm('📐 Articles',"Pluriel de 'il mercato' ?",['Gli mercati','I mercati','Le mercati','Li mercati'],'I mercati','Il → i au pluriel.','i mercati'),
-  fill('📐 Possessifs',"Son passeport (passaporto = masc. sg., lui) → il ___ passaporto",'suo','Lui/lei + masculin singulier → il suo.','il suo passaporto'),
-  fill('📐 Articles',"___ palestra è chiusa. (fém. sg., consonne)",'la','Féminin singulier → la.','la palestra'),
-  fill('📐 Articles',"___ zaini sono pesanti. (masc. pl., z-)",'gli','Masculin pluriel devant z → gli.','gli zaini'),
+  qcm('📐 Articles','Article défini devant "zaino" (z-) au singulier ?',['Il','Lo','La',"L'"],'Lo','Devant z ou s+consonne → lo (sg), gli (pl).'),
+  qcm('📐 Articles','Pluriel de "lo zaino" ?',['I zaini','Gli zaini','Le zaini','Li zaini'],'Gli zaini','Lo → gli au pluriel.'),
+  fill('📐 Articles','___ arancie sono buone. (fém. pl., voyelle)','le','Pluriel féminin → le.'),
+  fill('📐 Articles','___ amico di Marco è qui. (masc. sg., voyelle)',"l'","Singulier devant voyelle → l'."),
+  qcm('📐 Articles','Article indéfini devant "arancia" (fém. + voyelle) ?',['Una','Un',"Un'",'Uno'],"Un'",'Féminin + voyelle → un\' (apostrophe obligatoire).'),
+  qcm('📐 Articles','Article indéfini devant "zaino" (masc. + z) ?',['Un','Uno','Una',"Un'"],'Uno','Masculin + z ou s+consonne → uno.'),
+  fill('📐 Articles',"J'ai vu ___ bella donna. (fém. sg., consonne, indéfini)",'una','Féminin singulier devant consonne → una.'),
+  qcm('📐 Possessifs','"Mes parents" (genitori = masc. pl.) ?',['La mia genitori','Il mio genitori','I miei genitori','Le mie genitori'],'I miei genitori','io + masculin pluriel → i miei.'),
+  qcm('📐 Possessifs','"Leur voiture" (macchina = fém. sg.) ?',['Il loro macchina','La loro macchina','I loro macchina','Le loro macchina'],'La loro macchina','Loro est INVARIABLE.'),
+  fill('📐 Possessifs','Notre hôtel (hotel = masc. sg.) → ___ nostro hotel','il','Noi + masculin singulier → il nostro.'),
+  fill('📐 Possessifs','Tes valises (valigie = fém. pl.) → le ___ valigie','tue','Tu + féminin pluriel → le tue.'),
+  qcm('📐 Possessifs','"Le sue scarpe" = les chaussures de ?',['Moi','Toi','Lui ou elle','Nous'],'Lui ou elle','Suo/sua/suoi/sue = lui ou elle.'),
+  qcm('📐 Possessifs',"L'adjectif possessif s'accorde avec ?",["Le sujet","L'objet possédé","Le verbe","La personne"],"L'objet possédé","TOUJOURS avec l'objet possédé."),
+  fill('📐 Possessifs','Votre chambre (camera = fém. sg., voi) → la ___ camera','vostra','Voi + féminin singulier → la vostra.'),
+  qcm('📐 Possessifs','Possessif "voi" au masculin pluriel ?',['Il vostro','La vostra','I vostri','Le vostre'],'I vostri','Voi + masculin pluriel → i vostri.'),
+  fill('📐 Articles','___ studenti sono in classe. (masc. pl., st-)','gli','Pluriel masculin devant s+consonne → gli.'),
+  qcm('📐 Articles','Pluriel de "il mercato" ?',['Gli mercati','I mercati','Le mercati','Li mercati'],'I mercati','Il → i au pluriel.'),
+  fill('📐 Possessifs','Son passeport (masc. sg., lui) → il ___ passaporto','suo','Lui/lei + masc. sg. → il suo.'),
+  fill('📐 Articles','___ palestra è chiusa. (fém. sg., consonne)','la','Féminin singulier → la.'),
+  fill('📐 Articles','___ zaini sono pesanti. (masc. pl., z-)','gli','Masc. pl. devant z → gli.'),
 ];
-
 const Q_RESTO=[
-  fill('🍕 Restaurant',"L'addition, s.v.p. → Il ___, per favore",'conto','Il conto = l\'addition.','il conto, per favore'),
-  qcm('🍕 Restaurant','Comment appeler le serveur ?',['Signore','Cameriere / Cameriera','Cuoco','Padrone'],'Cameriere / Cameriera','Cameriere (m) / Cameriera (f) = serveur/serveuse.','cameriere'),
-  fill('🍕 Restaurant','Je voudrais une pizza → ___ una pizza','voglio','Voglio = je veux (da volere).','voglio una pizza'),
-  qcm('🍕 Restaurant','"Che cosa prende?" signifie ?',['Vous prenez combien ?','Qu\'est-ce que vous prenez ?','Vous partez déjà ?','C\'est combien ?'],'Qu\'est-ce que vous prenez ?','Prendere = prendre/commander.','che cosa prende'),
-  fill('🍕 Restaurant','Une table pour deux → Un tavolo per ___ persone','due','Due = deux.','un tavolo per due persone'),
-  qcm('🍕 Restaurant','"Buon appetito!" → réponse habituelle ?',['Grazie!','Altrettanto!','Prego!','Bene!'],'Altrettanto!','Altrettanto ! = Pareillement !','altrettanto'),
-  fill('🍕 Restaurant','C\'est délicieux ! → È ___!','delizioso','È delizioso ! = c\'est délicieux !','è delizioso'),
-  fill('🍕 Restaurant','Je suis végétarien → Sono ___','vegetariano','Sono vegetariano (m) / vegetariana (f).','sono vegetariano'),
-  qcm('🍕 Restaurant','Comment demander une carafe d\'eau ?',['Una bottiglia','Una caraffa d\'acqua per favore','Solo acqua','Un bicchiere'],'Una caraffa d\'acqua per favore','Acqua naturale = plate, acqua frizzante = pétillante.','una caraffa d\'acqua'),
-  fill('🍕 Restaurant','La carte des vins → la carta dei ___','vini','La carta dei vini = la carte des vins.','la carta dei vini'),
-  fill('🍕 Restaurant','Sans gluten → senza ___','glutine','Senza glutine = sans gluten.','senza glutine'),
-  qcm('🍕 Café','"Un caffè al banco" signifie ?',['Un café à emporter','Un café au comptoir','Un grand café','Un café avec du lait'],'Un café au comptoir','Al banco = au comptoir (moins cher).','un caffè al banco'),
-  qcm('🍕 Boissons','"Una granita al limone" c\'est quoi ?',['Une limonade','Un cocktail','Une glace granulée au citron','Un sorbet'],'Une glace granulée au citron','La granita = spécialité sicilienne glacée.','una granita al limone'),
-  fill('🍕 Spécialités','La spécialité sicilienne au riz → l\'aran___','cina',"L'arancina = boulette de riz farcie.",'arancina'),
-  fill('🍕 Restaurant','L\'entrée → l\'anti___','pasto',"L'antipasto = l'entrée/l'apéritif.",'antipasto'),
+  fill('🍕 Restaurant',"L'addition, s'il vous plaît → Il ___, per favore",'conto',"Il conto = l'addition."),
+  qcm('🍕 Restaurant','Comment appeler le serveur ?',['Signore','Cameriere / Cameriera','Cuoco','Padrone'],'Cameriere / Cameriera','Cameriere (m) / Cameriera (f) = serveur/serveuse.'),
+  fill('🍕 Restaurant','Je voudrais une pizza → ___ una pizza','voglio','Voglio = je veux/voudrais.'),
+  qcm('🍕 Restaurant','"Che cosa prende?" signifie ?',['Vous prenez combien ?',"Qu'est-ce que vous prenez ?",'Vous partez déjà ?',"C'est combien ?"],"Qu'est-ce que vous prenez ?",'Prendere = prendre/commander.'),
+  fill('🍕 Restaurant','Une table pour deux → Un tavolo per ___ persone','due','Due = deux.'),
+  qcm('🍕 Restaurant','"Il menù del giorno" signifie ?',['La carte','Le menu du jour','Le plat principal','La spécialité'],'Le menu du jour','Menù del giorno = menu du jour.'),
+  fill('🍕 Spécialités',"La spécialité sicilienne au riz → l'aran___",'cina',"L'arancina = boulette de riz farcie."),
+  qcm('🍕 Café','"Un caffè al banco" signifie ?',['Un café à emporter','Un café au comptoir','Un grand café','Un café avec du lait'],'Un café au comptoir','Al banco = au comptoir (moins cher).'),
+  fill('🍕 Restaurant','Sans gluten → senza ___','glutine','Senza glutine = sans gluten.'),
+  qcm('🍕 Restaurant','"Buon appetito!" → réponse habituelle ?',['Grazie!','Altrettanto!','Prego!','Bene!'],'Altrettanto!','Altrettanto ! = Pareillement !'),
+  fill('🍕 Restaurant',"C'est délicieux ! → È ___!",'delizioso','È delizioso ! = délicieux !'),
+  fill('🍕 Restaurant','Je suis végétarien → Sono ___','vegetariano','Sono vegetariano (m) / vegetariana (f).'),
+  qcm('🍕 Restaurant','Comment demander une carafe d\'eau ?',["Una bottiglia d'acqua","Una caraffa d'acqua per favore","L'acqua del rubinetto","Un bicchiere"],"Una caraffa d'acqua per favore",'Acqua naturale = plate, frizzante = pétillante.'),
+  fill('🍕 Restaurant','La carte des vins → la carta dei ___','vini','La carta dei vini = la carte des vins.'),
+  qcm('🍕 Boissons','"Una granita al limone" c\'est quoi ?',['Une limonade','Un cocktail','Une glace granulée au citron','Un sorbet'],'Une glace granulée au citron','La granita = spécialité sicilienne glacée.'),
 ];
-
 const Q_TRANSP=[
-  fill('🚌 Transports',"Où est l'arrêt de bus → Dov'è la ___ dell'autobus?",'fermata','La fermata = l\'arrêt.','la fermata'),
-  qcm('🚌 Transports','"A che ora parte il treno?" signifie ?',['Où va le train ?','À quelle heure part le train ?','Combien coûte le train ?','Le train est à l\'heure ?'],'À quelle heure part le train ?','A che ora = à quelle heure. Parte = il part.','a che ora parte il treno'),
-  fill('🚌 Transports','Un aller-retour → Un biglietto di andata e ___','ritorno','Andata e ritorno = aller-retour.','andata e ritorno'),
-  qcm('🚌 Transports','"Il traghetto" c\'est ?',['L\'avion','Le train','Le ferry/bac','Le bus'],'Le ferry/bac','Il traghetto = le ferry/bac.','il traghetto'),
-  fill('🚌 Transports','Je voudrais louer une voiture → Voglio ___ una macchina','noleggiare','Noleggiare = louer.','noleggiare'),
-  qcm('🚌 Transports','"Dov\'è la stazione?" signifie ?',['Où est l\'hôtel ?','Où est la gare ?','Où est la plage ?','Où est le port ?'],'Où est la gare ?','La stazione = la gare.','dov\'è la stazione'),
-  fill('🚌 Transports','À gauche → a ___','sinistra','A sinistra = à gauche. A destra = à droite.','a sinistra'),
-  fill('🚌 Transports','Le billet → il ___','biglietto','Il biglietto = le billet.','il biglietto'),
-  qcm('🚌 Transports','"Dove posso parcheggiare?" signifie ?',['Où puis-je conduire ?','Où puis-je me garer ?','Où est l\'essence ?','Où puis-je marcher ?'],'Où puis-je me garer ?','Parcheggiare = se garer.','parcheggiare'),
-  qcm('🚌 Transports','Comment demander si c\'est direct ?',['È diretto?','È veloce?','È lontano?','È sicuro?'],'È diretto?','È diretto? = C\'est direct?','è diretto'),
-  qcm('🚌 Transports','"Quanto ci vuole?" signifie ?',['Combien ça coûte ?','Combien de temps faut-il ?','C\'est loin ?','Quelle direction ?'],'Combien de temps faut-il ?','Quanto ci vuole = combien de temps faut-il?','quanto ci vuole'),
-  fill('🚌 Transports','Tout droit → ___','dritto','Dritto = tout droit. A destra = à droite. A sinistra = à gauche.','dritto'),
+  fill('🚌 Transports',"Où est l'arrêt de bus → Dov'è la ___ dell'autobus?",'fermata',"La fermata = l'arrêt."),
+  qcm('🚌 Transports','"A che ora parte il treno?" signifie ?',['Où va le train ?','À quelle heure part le train ?','Combien coûte le train ?','Le train est à l\'heure ?'],'À quelle heure part le train ?','A che ora = à quelle heure.'),
+  fill('🚌 Transports','Un aller-retour → Un biglietto di andata e ___','ritorno','Andata e ritorno = aller-retour.'),
+  qcm('🚌 Transports','"Il traghetto" c\'est ?',["L'avion",'Le train','Le ferry/bac','Le bus'],'Le ferry/bac','Il traghetto = le ferry/bac.'),
+  fill('🚌 Transports','Le taxi → il ___','taxi','Il taxi = le taxi.'),
+  fill('🚌 Transports','Je voudrais louer une voiture → Voglio ___ una macchina','noleggiare','Noleggiare = louer.'),
+  qcm('🚌 Transports','"Dov\'è la stazione?" signifie ?',['Où est l\'hôtel ?','Où est la gare ?','Où est la plage ?','Où est le port ?'],'Où est la gare ?','La stazione = la gare.'),
+  fill('🚌 Transports','À gauche → a ___','sinistra','A sinistra = à gauche. A destra = à droite.'),
+  fill('🚌 Transports','Le billet → il ___','biglietto','Il biglietto = le billet.'),
+  qcm('🚌 Transports','"Dove posso parcheggiare?" signifie ?',['Où puis-je conduire ?','Où puis-je me garer ?','Où est l\'essence ?','Où puis-je marcher ?'],'Où puis-je me garer ?','Parcheggiare = se garer.'),
+  qcm('🚌 Transports','"Quanto ci vuole per arrivare?" signifie ?',['Combien ça coûte ?','Combien de temps faut-il ?','C\'est loin ?','Quelle direction ?'],'Combien de temps faut-il ?','Quanto ci vuole = combien de temps faut-il?'),
+  fill('🚌 Transports','Tout droit → ___','dritto','Dritto (ou diritto) = tout droit. A sinistra, a destra.'),
 ];
-
 const Q_SHOP=[
-  qcm('🛒 Shopping','"Quanto costa?" signifie ?',['Qu\'est-ce que c\'est ?','Combien ça coûte ?','Où est-ce ?','Vous avez ça ?'],'Combien ça coûte ?','Quanto costa? = combien ça coûte?','quanto costa'),
-  fill('🛒 Shopping','C\'est trop cher → È troppo ___','caro','Caro = cher.','è troppo caro'),
-  qcm('🛒 Shopping','"Posso provarlo?" signifie ?',['Puis-je le garder ?','Puis-je l\'essayer ?','Puis-je le payer ?','Puis-je l\'acheter ?'],'Puis-je l\'essayer ?','Provare = essayer.','posso provarlo'),
-  fill('🛒 Marché','Le marché → il ___','mercato','Il mercato = le marché.','il mercato'),
-  qcm('🛒 Shopping','"Accettate carte di credito?" signifie ?',['Vous faites des remises ?','Vous acceptez les cartes ?','C\'est gratuit ?','Vous avez une facture ?'],'Vous acceptez les cartes ?','Accettare = accepter.','accettate carte di credito'),
-  fill('🛒 Shopping','La taille (vêtement) → la ___','taglia','La taglia = la taille. Il numero = la pointure.','la taglia'),
-  qcm('🛒 Marché','"Mezzo chilo di pomodori" signifie ?',['Un kilo de tomates','Un demi-kilo de tomates','200g de tomates','Deux kilos'],'Un demi-kilo de tomates','Mezzo = demi.','mezzo chilo di pomodori'),
-  fill('🛒 Shopping','Je cherche... → ___','cerco','Cerco = je cherche (da cercare).','cerco'),
-  qcm('🛒 Shopping','"Ha qualcosa di più grande?" signifie ?',['C\'est plus grand ?','Avez-vous quelque chose de plus grand ?','Vous vendez en grand ?','Grand format ?'],'Avez-vous quelque chose de plus grand ?','Ha qualcosa di... = Avez-vous quelque chose de...','ha qualcosa di più grande'),
-  fill('🛒 Marché','Les olives → le ___','olive','Le olive = les olives.','le olive'),
+  qcm('🛒 Shopping','"Quanto costa?" signifie ?',["Qu'est-ce que c'est ?",'Combien ça coûte ?','Où est-ce ?','Vous avez ça ?'],'Combien ça coûte ?','Quanto costa? = combien ça coûte?'),
+  fill('🛒 Shopping','C\'est trop cher → È troppo ___','caro','Caro = cher.'),
+  qcm('🛒 Shopping','"Posso provarlo?" signifie ?',['Puis-je le garder ?','Puis-je l\'essayer ?','Puis-je le payer ?','Puis-je l\'acheter ?'],'Puis-je l\'essayer ?','Provare = essayer.'),
+  fill('🛒 Marché','Le marché → il ___','mercato','Il mercato = le marché.'),
+  qcm('🛒 Shopping','"Accettate le carte di credito?" signifie ?',['Vous faites des remises ?','Vous acceptez les cartes ?','C\'est gratuit ?','Vous avez une facture ?'],'Vous acceptez les cartes ?','Solo contanti = seulement en liquide.'),
+  fill('🛒 Shopping','La taille (vêtement) → la ___','taglia','La taglia = la taille.'),
+  qcm('🛒 Marché','"Mezzo chilo di pomodori" signifie ?',['Un kilo de tomates','Un demi-kilo de tomates','200g de tomates','Deux kilos de tomates'],'Un demi-kilo de tomates','Mezzo = demi.'),
+  fill('🛒 Shopping','Je cherche... → ___','cerco','Cerco = je cherche (da cercare).'),
+  qcm('🛒 Shopping','"Ha qualcosa di più grande?" signifie ?',["C'est plus grand ?",'Avez-vous quelque chose de plus grand ?','Vous vendez en grand ?','Je veux quelque chose de grand.'],'Avez-vous quelque chose de plus grand ?','Ha qualcosa di... = Avez-vous quelque chose de...'),
+  fill('🛒 Marché','Les olives → le ___','olive','Le olive = les olives.'),
 ];
-
 const Q_URG=[
-  fill('🆘 Urgences','Au secours ! → ___!','aiuto','Aiuto! = Au secours!','aiuto'),
-  qcm('🆘 Urgences','Numéro d\'urgence en Italie ?',['999','911','112','000'],'112','112 = urgences (Europe). 118 = SAMU Italie.','centodicidodici'),
-  fill('🆘 Santé','J\'ai mal → Mi ___','fa male','Mi fa male = j\'ai mal.','mi fa male'),
-  qcm('🆘 Santé','"Devo vedere un medico" signifie ?',['Je cherche une pharmacie','Je dois voir un médecin','Je veux un médicament','Où est l\'hôpital ?'],'Je dois voir un médecin','Devo = je dois. Vedere = voir.','devo vedere un medico'),
-  fill('🆘 Santé','La pharmacie → la ___','farmacia','La farmacia = la pharmacie.','la farmacia'),
-  qcm('🆘 Santé','"Sono allergico alle api" signifie ?',['J\'aime les abeilles','Je suis allergique aux abeilles','J\'ai été piqué','Je veux de l\'anti-douleur'],'Je suis allergique aux abeilles','Sono allergico/a a... = je suis allergique à...','sono allergico'),
-  fill('🆘 Urgences','J\'ai perdu mon passeport → Ho ___ il passaporto','perso','Ho perso = j\'ai perdu.','ho perso il passaporto'),
-  fill('🆘 Santé','J\'ai de la fièvre → Ho la ___','febbre','Ho la febbre = j\'ai de la fièvre.','ho la febbre'),
-  qcm('🆘 Urgences','"Il mio portafoglio è stato rubato" signifie ?',['J\'ai oublié mon portefeuille','Mon portefeuille a été volé','Je cherche mon portefeuille','Où est mon portefeuille ?'],'Mon portefeuille a été volé','È stato rubato = a été volé.','il mio portafoglio è stato rubato'),
-  fill('🆘 Santé','J\'ai besoin d\'aide → Ho ___ di aiuto','bisogno','Ho bisogno di = j\'ai besoin de.','ho bisogno di aiuto'),
+  fill('🆘 Urgences','Au secours ! → ___!','aiuto','Aiuto! = Au secours!'),
+  qcm("🆘 Urgences","Numéro d'urgence en Italie ?",['999','911','112','000'],'112','112 = urgences (Europe). 118 = SAMU Italie.'),
+  fill('🆘 Santé','J\'ai mal → Mi ___','fa male','Mi fa male = j\'ai mal.'),
+  qcm("🆘 Santé",'"Devo vedere un medico" signifie ?',['Je cherche une pharmacie','Je dois voir un médecin','Je veux un médicament','Où est l\'hôpital ?'],'Je dois voir un médecin','Devo = je dois. Vedere = voir.'),
+  fill('🆘 Santé','La pharmacie → la ___','farmacia','La farmacia = la pharmacie.'),
+  qcm("🆘 Santé",'"Sono allergico alle api" signifie ?',["J'aime les abeilles","Je suis allergique aux abeilles","J'ai été piqué","Je veux de l'anti-douleur"],'Je suis allergique aux abeilles','Sono allergico/a a... = je suis allergique à...'),
+  fill('🆘 Urgences','J\'ai perdu mon passeport → Ho ___ il passaporto','perso','Ho perso = j\'ai perdu.'),
+  fill('🆘 Santé','J\'ai de la fièvre → Ho la ___','febbre','Ho la febbre = j\'ai de la fièvre.'),
+  qcm("🆘 Urgences",'"Il mio portafoglio è stato rubato" signifie ?',["J'ai oublié mon portefeuille",'Mon portefeuille a été volé','Je cherche mon portefeuille','Où est mon portefeuille ?'],'Mon portefeuille a été volé','È stato rubato = a été volé.'),
+  qcm("🆘 Santé",'"Ho bisogno di un\'ambulanza" signifie ?',['Je veux un médecin',"J'ai besoin d'une ambulance","Où est l'hôpital ?",'Appelez les secours'],"J'ai besoin d'une ambulance",'Ho bisogno di = j\'ai besoin de.'),
 ];
-
 const Q_NUM=[
-  fill('🔢 Chiffres','1=uno, 2=___, 3=tre','due','Due = deux.','due'),
-  qcm('🔢 Chiffres','Comment dit-on 15 ?',['Quindici','Quinze','Cinque-dieci','Dieci-cinque'],'Quindici','11=undici, 12=dodici, 13=tredici, 14=quattordici, 15=quindici.','quindici'),
-  fill('🔢 Chiffres','20 → ___','venti','Venti=20. Trenta=30, Quaranta=40, Cinquanta=50.','venti'),
-  qcm('🔢 Chiffres','Comment dit-on 100 ?',['Mille','Cento','Centi','Centuno'],'Cento','Cento=100. Mille=1000.','cento'),
-  fill('🔢 Prix','C\'est combien ? → Quanto ___?','costa','Quanto costa? = combien ça coûte?','quanto costa'),
-  qcm('🔢 Chiffres','"Venti euro e cinquanta centesimi" ?',['20,05€','20,50€','25€','2,50€'],'20,50€','Venti=20, cinquanta=50.','venti euro e cinquanta centesimi'),
-  fill('🔢 Prix','La monnaie → il ___','resto','Il resto = la monnaie.','il resto'),
-  qcm('🔢 Chiffres','Comment dit-on "premier" (ordinal) ?',['Uno','Prima/Primo','Primario','Uno-imo'],'Prima/Primo','Primo (m) / Prima (f) = premier/première.','primo, prima'),
-  fill('🔢 Chiffres','1000 → ___','mille','Mille = 1000.','mille'),
-  qcm('🔢 Chiffres','Comment dit-on "demi" ?',['Mezzo','Meno','Medio','Metà'],'Mezzo','Mezzo/Metà = demi.','mezzo'),
+  fill('🔢 Chiffres','1=uno, 2=___, 3=tre','due','Due = deux.'),
+  qcm('🔢 Chiffres','Comment dit-on 15 ?',['Quindici','Quinze','Cinque-dieci','Dieci-cinque'],'Quindici','11=undici, 12=dodici, 13=tredici, 14=quattordici, 15=quindici.'),
+  fill('🔢 Chiffres','20 → ___','venti','Venti=20. Trenta=30, Quaranta=40, Cinquanta=50.'),
+  qcm('🔢 Chiffres','Comment dit-on 100 ?',['Mille','Cento','Centi','Centuno'],'Cento','Cento=100. Mille=1000.'),
+  fill('🔢 Prix',"C'est combien ? → Quanto ___?",'costa','Quanto costa? = combien ça coûte?'),
+  qcm('🔢 Chiffres','"Venti euro e cinquanta centesimi" ?',['20,05€','20,50€','25€','2,50€'],'20,50€','Venti=20, cinquanta=50.'),
+  fill('🔢 Prix','La monnaie → il ___','resto','Il resto = la monnaie.'),
+  qcm('🔢 Chiffres','Comment dit-on "premier" (ordinal) ?',['Uno','Prima/Primo','Primario','Unoimo'],'Prima/Primo','Primo (m) / Prima (f) = premier/première.'),
+  fill('🔢 Chiffres','1000 → ___','mille','Mille = 1000.'),
+  qcm('🔢 Chiffres','Comment dit-on "demi" ?',['Mezzo','Meno','Medio','Metà'],'Mezzo','Mezzo/Metà = demi.'),
 ];
-
 const Q_SIC=[
-  qcm('🏖️ Sicile','La capitale de la Sicile est ?',['Catania','Taormina','Palermo','Siracusa'],'Palermo','Palermo = Palerme, capitale della Sicilia.','Palermo'),
-  fill('🏖️ Sicile','La plage → la ___','spiaggia','La spiaggia = la plage.','la spiaggia'),
-  qcm('🏖️ Sicile',"L'Etna en Sicile, c'est quoi ?",['Un château','Un volcan actif','Une ville','Un fleuve'],'Un volcan actif',"L'Etna = le plus haut volcan actif d'Europe.",'Etna'),
-  fill('🏖️ Sicile','La spécialité glacée sicilienne → il ___','gelato','Il gelato = la glace. La granita = boisson glacée (plus typique).','il gelato'),
-  qcm('🏖️ Culture','"Norma" est une spécialité de Catane à base de ?',['Viande et fromage','Aubergines, tomates et ricotta','Poulpe et citron','Riz et safran'],'Aubergines, tomates et ricotta','Pasta alla Norma = spécialité de Catane.','pasta alla Norma'),
-  qcm('🏖️ Météo','"Fa molto caldo" signifie ?',['Il fait très froid','Il fait très chaud','Il fait beau','Il y a du vent'],'Il fait très chaud','Caldo = chaud. Freddo = froid.','fa molto caldo'),
-  fill('🏖️ Météo','Il fait soleil → c\'è ___','sole',"C'è sole = il y a du soleil.",'c\'è sole'),
-  qcm('🏖️ Sicile','"Le isole Eolie" sont ?',['Des plages','Des îles volcaniques au nord de la Sicile','Des montagnes','Des villes côtières'],'Des îles volcaniques au nord de la Sicile','Éoliennes = archipel volcanique.','le isole Eolie'),
-  fill('🏖️ Sicile','Bonne baignade ! → Buona ___!','nuotata','Buona nuotata ! Nuotare = nager.','buona nuotata'),
-  qcm('🏖️ Sicile','"I Vespri Siciliani" est ?',['Un plat sicilien','Une insurrection de 1282','Une plage','Un dialecte'],'Une insurrection de 1282','I Vespri Siciliani = les Vêpres siciliennes 1282.','i Vespri Siciliani'),
-  fill('🏖️ Sicile','Le volcan → il ___','vulcano','Il vulcano = le volcan.','il vulcano'),
-  fill('🏖️ Météo','Il fait beau → fa ___','bello','Fa bello = il fait beau.','fa bello'),
+  qcm('🏖️ Sicile','La capitale de la Sicile est ?',['Catania','Taormina','Palermo','Siracusa'],'Palermo','Palermo = Palerme, capitale della Sicilia.'),
+  fill('🏖️ Sicile','La plage → la ___','spiaggia','La spiaggia = la plage.'),
+  qcm('🏖️ Sicile',"L'Etna en Sicile, c'est quoi ?",['Un château','Un volcan actif','Une ville','Un fleuve'],'Un volcan actif',"L'Etna = plus haut volcan actif d'Europe."),
+  fill('🏖️ Sicile','La spécialité glacée → il ___','gelato','Il gelato = la glace. La granita = boisson glacée.'),
+  qcm('🏖️ Culture','"Norma" est une spécialité de Catane à base de ?',['Viande et fromage','Aubergines, tomates et ricotta','Poulpe et citron','Riz et safran'],'Aubergines, tomates et ricotta','Pasta alla Norma = pâtes aux aubergines, tomates, ricotta salata.'),
+  qcm('🏖️ Météo','"Fa molto caldo" signifie ?',['Il fait très froid','Il fait très chaud','Il fait beau','Il y a du vent'],'Il fait très chaud','Caldo = chaud. Freddo = froid.'),
+  fill('🏖️ Météo',"Il fait soleil → c'è ___",'sole',"C'è sole = il fait soleil."),
+  qcm('🏖️ Sicile','"Le isole Eolie" sont ?',['Des plages','Des îles volcaniques au nord de la Sicile','Des montagnes','Des villes côtières'],'Des îles volcaniques au nord de la Sicile','Éoliennes = archipel volcanique. Stromboli, Vulcano, Lipari...'),
+  fill('🏖️ Sicile','Bonne baignade ! → Buona ___!','nuotata','Buona nuotata ! Nuotare = nager.'),
+  qcm('🏖️ Sicile','"I Vespri Siciliani" est ?',['Un plat sicilien','Une insurrection de 1282','Une plage','Un dialecte'],'Une insurrection de 1282','Les Vêpres siciliennes = soulèvement contre les Français en 1282.'),
+  fill('🏖️ Sicile','Le volcan → il ___','vulcano','Il vulcano = le volcan.'),
+  fill('🏖️ Météo','Il fait beau → fa ___','bello','Fa bello = il fait beau.'),
 ];
 
-const VI_KEYS=['essere','avere','fare','dire','andare','venire','dare','stare','uscire','bere','rimanere'];
-const VM_KEYS=['potere','dovere','volere'];
-const VR_KEYS=['mangiare','prendere','ordinare','pagare','offrire','portare','partire','arrivare','entrare','tornare','restare','seguire','guidare','prenotare','parlare','capire','chiedere'];
-
+// ── POOLS ─────────────────────────────────────────────────────
+const VI=['essere','avere','fare','dire','andare','venire','dare','stare','uscire','bere','rimanere'];
+const VM=['potere','dovere','volere'];
+const VR=['mangiare','prendere','ordinare','pagare','offrire','portare','partire','arrivare','entrare','tornare','restare','seguire','guidare','prenotare','parlare','capire','chiedere'];
 function getPool(mode){
-  try{
-    switch(mode){
-      case 'phon': return [...Q_PHON];
-      case 'form': return [...Q_FORM];
-      case 'temps': return [...Q_TEMPS];
-      case 'gram': return [...Q_GRAM];
-      case 'resto': return [...Q_RESTO];
-      case 'transp': return [...Q_TRANSP];
-      case 'shop': return [...Q_SHOP];
-      case 'urg': return [...Q_URG];
-      case 'num': return [...Q_NUM];
-      case 'sic': return [...Q_SIC];
-      case 'vi': return makeVerbFull(VI_KEYS);
-      case 'vm': return makeVerbFull(VM_KEYS);
-      case 'vr': return makeVerbFull(VR_KEYS);
-      case 'va': return makeVerbFull([...VI_KEYS,...VM_KEYS,...VR_KEYS]);
-      case 'tout': return sh([...Q_PHON,...Q_FORM,...Q_TEMPS,...Q_GRAM,...Q_RESTO,...Q_TRANSP,...Q_SHOP,...Q_URG,...Q_NUM,...Q_SIC,...makeVerbQCM([...VI_KEYS,...VM_KEYS,...VR_KEYS]).slice(0,40)]);
-      case 'spd-vi': return sh(makeVerbQCM(VI_KEYS)).slice(0,10);
-      case 'spd-vr': return sh(makeVerbQCM(VR_KEYS)).slice(0,10);
-      case 'spd-vm': return sh(makeVerbQCM(VM_KEYS)).slice(0,10);
-      case 'spd-gram': return sh([...Q_GRAM].filter(q=>q.type==='qcm')).slice(0,10);
-      case 'spd-form': return sh([...Q_FORM].filter(q=>q.type==='qcm')).slice(0,10);
-      case 'spd-sic': return sh([...Q_SIC,...Q_RESTO,...Q_TRANSP].filter(q=>q.type==='qcm')).slice(0,10);
-      case 'spd-all': return sh([...Q_PHON,...Q_FORM,...Q_TEMPS,...Q_GRAM,...Q_SIC,...makeVerbQCM([...VI_KEYS,...VM_KEYS,...VR_KEYS])].filter(q=>q.type==='qcm')).slice(0,10);
-      default: return [];
-    }
-  }catch(e){console.error('getPool error:',e);return[];}
+  const m={
+    phon:Q_PHON,form:Q_FORM,temps:Q_TEMPS,gram:Q_GRAM,
+    resto:Q_RESTO,transp:Q_TRANSP,shop:Q_SHOP,urg:Q_URG,num:Q_NUM,sic:Q_SIC,
+    vi:()=>makeVerbFull(VI),vm:()=>makeVerbFull(VM),vr:()=>makeVerbFull(VR),
+    va:()=>makeVerbFull([...VI,...VM,...VR]),
+    tout:()=>sh([...Q_PHON,...Q_FORM,...Q_TEMPS,...Q_GRAM,...Q_RESTO,...Q_TRANSP,...Q_SHOP,...Q_URG,...Q_NUM,...Q_SIC,...makeVerbQCM([...VI,...VM,...VR]).slice(0,40)]),
+    'spd-vi':()=>sh(makeVerbQCM(VI)).slice(0,10),
+    'spd-vr':()=>sh(makeVerbQCM(VR)).slice(0,10),
+    'spd-vm':()=>sh(makeVerbQCM(VM)).slice(0,10),
+    'spd-gram':()=>sh(Q_GRAM.filter(q=>q.type==='qcm')).slice(0,10),
+    'spd-form':()=>sh(Q_FORM.filter(q=>q.type==='qcm')).slice(0,10),
+    'spd-sic':()=>sh([...Q_SIC,...Q_RESTO,...Q_TRANSP].filter(q=>q.type==='qcm')).slice(0,10),
+    'spd-all':()=>sh([...Q_PHON,...Q_FORM,...Q_TEMPS,...Q_GRAM,...Q_SIC,...makeVerbQCM([...VI,...VM,...VR])].filter(q=>q.type==='qcm')).slice(0,10),
+  };
+  try{const p=m[mode];return p?(typeof p==='function'?p():p):[];}catch(e){return[];}
 }
-
 const TITLES={
-  home:{ic:'🏠',t:'Accueil'},phon:{ic:'🔊',t:'Phonétique & Vocab'},form:{ic:'💬',t:'Formules'},
+  home:{ic:'🏠',t:'Accueil'},phon:{ic:'🔊',t:'Phonétique & Vocab'},form:{ic:'💬',t:'Formules & Politesse'},
   temps:{ic:'⏰',t:'Expressions de temps'},gram:{ic:'📐',t:'Grammaire'},
   vi:{ic:'⚡',t:'Verbes irréguliers'},vm:{ic:'🔧',t:'Verbes modaux'},vr:{ic:'✅',t:'Verbes réguliers'},va:{ic:'🎯',t:'Tous les verbes'},
   resto:{ic:'🍕',t:'Restaurant & Café'},transp:{ic:'🚌',t:'Transports'},shop:{ic:'🛒',t:'Shopping'},urg:{ic:'🆘',t:'Urgences'},num:{ic:'🔢',t:'Chiffres & Prix'},sic:{ic:'🏖️',t:'Culture sicilienne'},
@@ -864,496 +761,411 @@ const TITLES={
   'spd-gram':{ic:'⚡',t:'Express Grammaire'},'spd-form':{ic:'⚡',t:'Express Formules'},'spd-sic':{ic:'⚡',t:'Express Sicile'},'spd-all':{ic:'⚡',t:'Express Tout mélangé'},
 };
 
-// ── STATE ──────────────────────────────────────────────────────
-let CUR='home', POOL=[], IDX=0, OK=0, KO=0;
-let ANSWERED=false, FILLDONE=false;
-let AMAP={};
-let SPD=false, SPD_TIMER=null;
+// ── STATE ─────────────────────────────────────────────────────
+let CUR='home',POOL=[],IDX=0,OK=0,KO=0;
+let ANSWERED=false,FILLDONE=false,AMAP={};
+let SPD=false,SPD_TIMER=null;
 
-// ── STORAGE ────────────────────────────────────────────────────
+// ── STORAGE ───────────────────────────────────────────────────
 function saveProg(){
-  if(!CUR||CUR==='home'||CUR==='fiche'||SPD) return;
+  if(!CUR||CUR==='home'||CUR==='fiche')return;
   try{
-    const mini=POOL.map(q=>({type:q.type,ch:q.ch||'',q:q.q||'',ans:q.ans,opts:q.opts||null,exp:q.exp||'',verb:q.verb||'',pron:q.pron||'',spk:q.spk||''}));
-    localStorage.setItem('it2_i_'+CUR,String(IDX));
-    localStorage.setItem('it2_ok_'+CUR,String(OK));
-    localStorage.setItem('it2_ko_'+CUR,String(KO));
-    localStorage.setItem('it2_m_'+CUR,JSON.stringify(AMAP));
-    localStorage.setItem('it2_p_'+CUR,JSON.stringify(mini));
+    localStorage.setItem('it_i_'+CUR,IDX);
+    localStorage.setItem('it_ok_'+CUR,OK);
+    localStorage.setItem('it_ko_'+CUR,KO);
+    localStorage.setItem('it_m_'+CUR,JSON.stringify(AMAP));
+    localStorage.setItem('it_p_'+CUR,JSON.stringify(POOL.map(q=>({type:q.type||'fill',ch:q.ch||'',q:q.q||'',ans:q.ans,opts:q.opts||null,exp:q.exp||'',verb:q.verb||'',pron:q.pron||'',itText:q.itText||''}))));
   }catch(e){}
 }
 function loadProg(mode){
   try{
-    const ri=localStorage.getItem('it2_i_'+mode);
-    if(!ri) return null;
-    const si=parseInt(ri); if(isNaN(si)||si<=0) return null;
-    const rp=localStorage.getItem('it2_p_'+mode); if(!rp) return null;
-    const sp=JSON.parse(rp); if(!sp||si>=sp.length) return null;
-    return{pool:sp,idx:si,ok:parseInt(localStorage.getItem('it2_ok_'+mode))||0,ko:parseInt(localStorage.getItem('it2_ko_'+mode))||0,amap:JSON.parse(localStorage.getItem('it2_m_'+mode)||'{}')};
+    const ri=localStorage.getItem('it_i_'+mode);if(!ri)return null;
+    const si=parseInt(ri);if(isNaN(si)||si<=0)return null;
+    const rp=localStorage.getItem('it_p_'+mode);if(!rp)return null;
+    const sp=JSON.parse(rp);if(si>=sp.length)return null;
+    return{pool:sp,idx:si,ok:parseInt(localStorage.getItem('it_ok_'+mode))||0,ko:parseInt(localStorage.getItem('it_ko_'+mode))||0,amap:JSON.parse(localStorage.getItem('it_m_'+mode)||'{}')};
   }catch(e){return null;}
 }
-function clearProg(mode){
-  try{['i','ok','ko','m','p'].forEach(k=>localStorage.removeItem('it2_'+k+'_'+mode));}catch(e){}
-}
+function clearProg(mode){try{['i','ok','ko','m','p'].forEach(k=>localStorage.removeItem('it_'+k+'_'+mode));}catch(e){}}
 
-// ── SIDEBAR ────────────────────────────────────────────────────
+// ── SIDEBAR ───────────────────────────────────────────────────
 function toggleSB(){
-  const sb=$('sidebar'),ov=$('overlay');
-  const on=sb.classList.contains('on');
-  sb.classList.toggle('on',!on);
-  ov.classList.toggle('on',!on);
+  const sb=el('sb'),ov=el('ov');
+  if(sb.classList.contains('on')){sb.classList.remove('on');ov.classList.remove('on');}
+  else{sb.classList.add('on');ov.classList.add('on');}
 }
-function closeSB(){$('sidebar').classList.remove('on');$('overlay').classList.remove('on');}
+function closeSB(){el('sb').classList.remove('on');el('ov').classList.remove('on');}
 
-// ── NAVIGATE ───────────────────────────────────────────────────
+// ── NAVIGATE ──────────────────────────────────────────────────
 function go(mode,forceNew){
-  closeSB();
-  CUR=mode;
+  closeSB();CUR=mode;
   document.querySelectorAll('.mi').forEach(m=>m.classList.remove('on'));
-  const mi=$('mi-'+mode); if(mi) mi.classList.add('on');
+  const mi=el('mi-'+mode);if(mi)mi.classList.add('on');
   const info=TITLES[mode]||{ic:'🇮🇹',t:mode};
-  $('picon').textContent=info.ic; $('ptitle').textContent=info.t;
-  $('main').style.animation='none';
-  requestAnimationFrame(()=>{ $('main').style.animation='fadeUp .3s ease-out'; });
+  el('picon').textContent=info.ic;el('ptitle').textContent=info.t;
+  const main=el('main');main.style.animation='none';
+  requestAnimationFrame(()=>{main.style.animation='fadeUp .28s ease-out';});
   if(mode==='home'){renderHome();return;}
   if(mode==='fiche'){renderFiche();return;}
   SPD=mode.startsWith('spd-');
   if(!forceNew&&!SPD){
     const saved=loadProg(mode);
-    if(saved&&saved.idx>0){POOL=saved.pool;IDX=saved.idx;OK=saved.ok;KO=saved.ko;AMAP=saved.amap;showResume(saved);return;}
+    if(saved){POOL=saved.pool;IDX=saved.idx;OK=saved.ok;KO=saved.ko;AMAP=saved.amap;showResume(saved);return;}
   }
   startFresh(mode);
 }
-
 function startFresh(mode){
-  mode=mode||CUR;
-  clearProg(mode);
-  POOL=getPool(mode);
-  if(!POOL||POOL.length===0){$('main').innerHTML='<p style="padding:2rem;color:var(--mu)">Aucune question disponible.</p>';return;}
-  IDX=0;OK=0;KO=0;ANSWERED=false;FILLDONE=false;AMAP={};
+  mode=mode||CUR;clearProg(mode);
+  const p=getPool(mode);
+  if(!p||p.length===0){el('main').innerHTML='<p style="padding:2rem;color:var(--mu)">Pas de questions disponibles.</p>';return;}
+  POOL=p;IDX=0;OK=0;KO=0;ANSWERED=false;FILLDONE=false;AMAP={};
   renderQuiz();
 }
-
 function showResume(saved){
-  const total=saved.pool.length;
-  const pct=Math.round(saved.idx/total*100);
-  $('main').innerHTML=`
-    <div class="scrow">
-      <div class="sc g"><div class="scn g" id="sc-ok">${saved.ok}</div><div class="scl">Corrects</div></div>
-      <div class="sc r"><div class="scn r" id="sc-ko">${saved.ko}</div><div class="scl">Erreurs</div></div>
-      <div class="sc p"><div class="scn p" id="sc-pct">${total?Math.round(saved.ok/(saved.ok+saved.ko)*100)+'%':'—'}</div><div class="scl">Réussite</div></div>
-    </div>
-    <div class="resbanner">
-      <h4>🔖 Progression sauvegardée</h4>
-      <p>Tu étais à la question <b>${saved.idx+1}/${total}</b> (${pct}%) avec <b style="color:var(--g)">${saved.ok} ✓</b> et <b style="color:var(--r)">${saved.ko} ✗</b>.</p>
-      <div class="resact">
-        <button class="resbtn" onclick="resumeQ()">▶ Reprendre</button>
-        <button class="resbtn2" onclick="startFresh()">↺ Recommencer</button>
-      </div>
-    </div>`;
+  const total=saved.pool.length;const pct=Math.round(saved.idx/total*100);
+  el('main').innerHTML=`<div class="resbanner"><h4>🔖 Progression sauvegardée</h4><p>Question <b>${saved.idx+1}/${total}</b> (${pct}%) — <b style="color:var(--g)">${saved.ok}✓</b> <b style="color:var(--r)">${saved.ko}✗</b></p><div class="resact"><button class="resbtn" onclick="resumeQ()">▶ Reprendre</button><button class="resbtn2" onclick="startFresh()">↺ Recommencer</button></div></div>`;
 }
 function resumeQ(){ANSWERED=false;FILLDONE=false;renderQuiz();}
 
-// ── QUIZ ───────────────────────────────────────────────────────
+// ── RENDER QUIZ ───────────────────────────────────────────────
 function renderQuiz(){
-  $('main').innerHTML=`
-    <div class="scrow">
-      <div class="sc g"><div class="scn g" id="sc-ok">0</div><div class="scl">Corrects</div></div>
-      <div class="sc r"><div class="scn r" id="sc-ko">0</div><div class="scl">Erreurs</div></div>
-      <div class="sc p"><div class="scn p" id="sc-pct">—</div><div class="scl">Réussite</div></div>
-    </div>
-    <div class="qcard" id="qcard"></div>`;
-  updateSco(); loadQ();
+  el('main').innerHTML=`<div class="scrow"><div class="sc g"><div class="scn g" id="sc-ok">0</div><div class="scl">Corrects</div></div><div class="sc r"><div class="scn r" id="sc-ko">0</div><div class="scl">Erreurs</div></div><div class="sc p"><div class="scn p" id="sc-pct">—</div><div class="scl">Réussite</div></div></div><div class="qcard" id="qcard"></div>`;
+  updateSco();loadQ();
 }
 
 function loadQ(){
   if(IDX>=POOL.length){showEnd();return;}
   ANSWERED=false;FILLDONE=false;
-  const q=POOL[IDX];
-  if(!q){IDX++;loadQ();return;}
-  const prev=AMAP[IDX];
+  const q=POOL[IDX];if(!q){IDX++;loadQ();return;}
+  const prev=AMAP[IDX]||null;
   const total=POOL.length;
-  const qcard=$('qcard'); if(!qcard) return;
+  const qcard=el('qcard');if(!qcard)return;
   qcard.classList.remove('shk','bnc');
-
   const pct=Math.round(IDX/total*100);
   const isSpd=SPD;
 
-  // Auto-speak question in Italian if TTS on
-  if(TTS_ON&&q.spk&&!prev){
-    setTimeout(()=>speakIT(q.spk),400);
-  }
-
-  // Build answer UI
   let body='';
   if(q.type==='qcm'){
-    const opts=Array.isArray(q.opts)?q.opts:[];
-    body='<div class="opts">'+opts.map((o,i)=>{
-      let cls='opt'; let lt=String.fromCharCode(65+i);
-      if(prev){
-        if(i===q.ans){cls='opt ok';lt='✓';}
-        else if(i===prev.sel){cls='opt ko';lt='✗';}
-      }
-      return `<button class="${cls}" ${prev?'disabled':''} data-i="${i}"><span class="lt">${lt}</span>${safe(o)}</button>`;
+    const opts=q.opts||[];
+    body='<div class="opts" id="qopts">'+opts.map((o,i)=>{
+      let cls='opt';let lt=String.fromCharCode(65+i);
+      if(prev){if(i===q.ans){cls='opt ok';lt='✓';}else if(i===prev.sel&&i!==q.ans){cls='opt ko';lt='✗';}}
+      return '<button class="'+cls+'" '+(prev?'disabled':'')+' data-i="'+i+'"><span class="lt">'+lt+'</span>'+safe(o)+'</button>';
     }).join('')+'</div>';
   } else {
     const pv=prev?(prev.fv||''):'';
     const ic=prev?(prev.ok?'ok':'ko'):'';
-    body=`<div><input class="finp ${ic}" id="finp" type="text" placeholder="Tape ta réponse..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="${safe(pv)}"${prev?' disabled':''}></div>
-    ${!prev?`<div class="hintbox" id="hintbox"></div><div class="btnrow"><button class="pbtn" id="checkbtn" onclick="doCheck()">Vérifier ✓</button><button class="sbtn" id="hintbtn" onclick="doHint()">Indice 💡</button></div>`:''}`;
+    // Fill: show input + audio button for user to listen to what they typed
+    body='<div class="input-audio-row">'
+      +'<input class="finp '+ic+'" id="finp" style="flex:1;margin-bottom:0" placeholder="Tape ta réponse en italien..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="'+safe(pv)+'" '+(prev?'disabled':'')+'>'
+      +(prev?'':'<button class="tts-inline" onclick="speakInput()" title="Écouter ce que j\'ai écrit">🔊</button>')
+      +'</div>'
+      +(prev?'':'<div class="hintbox" id="hintbox"></div><div class="btnrow"><button class="pbtn" id="checkbtn" onclick="doCheck()">Vérifier ✓</button><button class="sbtn" id="hintbtn" onclick="doHint()">Indice 💡</button></div>');
   }
 
-  const nxtlbl=IDX+1>=total?'Voir mon score 🏁':'Question suivante →';
-  const nxtcls=prev?(prev.ok?'ok':'ko'):'ok';
-  const ronote=prev?'<div style="font-size:11px;color:var(--mu);font-style:italic;margin-bottom:7px">Réponse enregistrée — lecture seule</div>':'';
+  const nextLbl=IDX+1>=total?'Voir mon score 🏁':'Question suivante →';
+  const nxtCls=prev?(prev.ok?'ok':'ko'):'ok';
 
-  qcard.innerHTML=`
-    ${isSpd?'<div class="spdbadge">⚡ Quiz Express — 15 sec</div>':''}
-    ${isSpd?'<div class="spdbar"><div class="spdfill" id="spdfill" style="width:100%;background:var(--g)"></div></div>':''}
-    <div class="qnav">
-      <button class="navbtn backbtn" onclick="doPrev()"${IDX===0?' disabled':''}>← Retour</button>
-      <span style="font-size:11px;color:var(--mu);font-weight:700">${IDX+1} / ${total}</span>
-      <button class="navbtn" onclick="doSkip()">Passer →</button>
-    </div>
-    <div class="prow"><div class="pbar"><div class="pfill" style="width:${pct}%"></div></div></div>
-    <div class="qtag">${q.ch||'Quiz'}</div>
-    ${ronote}
-    <div class="qbox">${q.q||''}</div>
-    ${body}
-    <div class="fb" id="fb"></div>
-    <button class="nxtbtn ${nxtcls}" id="nxtbtn" style="display:${prev?'block':'none'}" onclick="doNext()">${nxtlbl}</button>`;
+  qcard.innerHTML=(isSpd?'<div class="spdbadge">⚡ Quiz Express — 15 sec</div><div class="spdbar"><div class="spdfl" id="spdfl" style="width:100%;background:var(--g)"></div></div>':'')
+    // nav row: home | counter | skip
+    +'<div class="qnav">'
+    +'<button class="navbtn" onclick="doPrev()" '+(IDX===0?'disabled':'')+'>← Retour</button>'
+    +'<span style="font-size:11px;color:var(--mu);font-weight:700">'+(IDX+1)+' / '+total+'</span>'
+    +'<button class="navbtn" onclick="doSkip()">Passer →</button>'
+    +'</div>'
+    // progress
+    +'<div class="prow"><div class="pbar"><div class="pfill" style="width:'+pct+'%"></div></div></div>'
+    // tag + question audio button
+    +'<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">'
+    +'<span class="qtag">'+safe(q.ch||'Quiz')+'</span>'
+    +'<button class="tts-inline" onclick="speakQ()" title="Lire la question">🔊 Question</button>'
+    +'</div>'
+    +(prev?'<div style="font-size:11px;color:var(--mu);font-style:italic;margin-bottom:6px">Déjà répondu — lecture seule</div>':'')
+    +'<div class="qbox" id="qbox">'+q.q+'</div>'
+    +body
+    +'<div class="fb" id="fb"></div>'
+    +'<button class="nxtbtn '+nxtCls+'" id="nxtbtn" style="display:'+(prev?'block':'none')+'" onclick="doNext()">'+nextLbl+'</button>';
 
-  // Attach QCM listeners
   if(q.type==='qcm'&&!prev){
-    qcard.querySelectorAll('.opt').forEach(btn=>{
-      btn.addEventListener('click',function(e){
-        e.preventDefault();
-        doAnswer(parseInt(this.dataset.i));
-      });
+    const opts=qcard.querySelectorAll('.opt');
+    opts.forEach(btn=>{
+      btn.addEventListener('touchend',function(e){e.preventDefault();if(!ANSWERED)doAnswer(parseInt(this.dataset.i));},{passive:false});
+      btn.addEventListener('click',function(){if(!ANSWERED)doAnswer(parseInt(this.dataset.i));});
     });
   }
-
-  // Attach fill input listeners
   if(q.type==='fill'&&!prev){
-    const inp=$('finp');
+    const inp=el('finp');
     if(inp){
       inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();doCheck();}});
-      setTimeout(()=>{try{if(inp&&!inp.disabled)inp.focus();}catch(e){}},200);
+      setTimeout(()=>{try{if(inp&&!inp.disabled)inp.focus();}catch(e){}},150);
     }
   }
-
-  if(prev) restoreFB(prev,q);
-  if(isSpd&&!prev) startSpdTimer();
+  if(prev)restoreFB(prev,q);
+  if(isSpd&&!prev)startSpdTimer();
 }
 
-// ── SPEED TIMER ────────────────────────────────────────────────
+// ── SPEED TIMER ───────────────────────────────────────────────
 function startSpdTimer(){
   clearInterval(SPD_TIMER);
   let rem=15;
   SPD_TIMER=setInterval(()=>{
     rem--;
-    const bar=$('spdfill'); if(!bar){clearInterval(SPD_TIMER);return;}
+    const bar=el('spdfl');if(!bar){clearInterval(SPD_TIMER);return;}
     const p=Math.max(0,rem/15*100);
     bar.style.width=p+'%';
-    bar.style.background=p>60?'var(--g)':p>30?'var(--am)':'var(--r)';
+    bar.style.background=p>40?'var(--g)':p>20?'var(--am)':'var(--r)';
     if(rem<=0){clearInterval(SPD_TIMER);doSkip();}
   },1000);
 }
-function stopSpdTimer(){clearInterval(SPD_TIMER);}
+function stopTimer(){clearInterval(SPD_TIMER);}
 
-// ── ANSWER ─────────────────────────────────────────────────────
+// ── ANSWER ────────────────────────────────────────────────────
 function doAnswer(i){
-  if(ANSWERED) return;
-  ANSWERED=true; stopSpdTimer();
-  const q=POOL[IDX]; if(!q||!Array.isArray(q.opts)) return;
+  if(ANSWERED)return;ANSWERED=true;stopTimer();
+  const q=POOL[IDX];if(!q||!q.opts)return;
   const ok=(i===q.ans);
   const btns=document.querySelectorAll('.opt');
   btns.forEach((b,bi)=>{
     b.disabled=true;
-    if(bi===q.ans){b.classList.add('ok');const lt=b.querySelector('.lt');if(lt)lt.textContent='✓';}
-    else if(bi===i){b.classList.add('ko');const lt=b.querySelector('.lt');if(lt)lt.textContent='✗';}
+    const lt=b.querySelector('.lt');
+    if(bi===q.ans){b.classList.add('ok');if(lt)lt.textContent='✓';}
+    else if(bi===i&&!ok){b.classList.add('ko');if(lt)lt.textContent='✗';}
   });
   if(ok)OK++;else KO++;
   AMAP[IDX]={ok,sel:i,ua:ok?'':(q.opts[i]||'')};
-  updateSco(); fxEffect(ok);
+  updateSco();fxEffect(ok);
   showFB(ok,q,ok?'':(q.opts[i]||''));
-  if(TTS_ON&&q.spk) setTimeout(()=>speakIT(q.spk),300);
+  // NO auto-speak — user triggers voice manually
   saveProg();
 }
 
 function doCheck(){
-  if(FILLDONE) return;
-  const inp=$('finp'); if(!inp) return;
-  const raw=(inp.value||'').trim(); if(!raw) return;
-  FILLDONE=true; stopSpdTimer();
-  const q=POOL[IDX]; if(!q) return;
+  if(FILLDONE)return;
+  const inp=el('finp');if(!inp)return;
+  const raw=(inp.value||'').trim();if(!raw)return;
+  FILLDONE=true;stopTimer();
+  const q=POOL[IDX];if(!q)return;
   const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();
   const ok=norm(raw)===norm(q.ans||'');
-  const partial=!ok&&norm(q.ans||'').includes(norm(raw))&&raw.length>=2;
+  const partial=!ok&&norm(q.ans||'').startsWith(norm(raw))&&raw.length>=2;
   inp.className='finp '+(ok?'ok':partial?'partial':'ko');
   inp.disabled=true;
-  const br=$('checkbtn'); if(br){try{br.closest('.btnrow').style.display='none';}catch(e){}}
-  const hb=$('hintbox'); if(hb) hb.style.display='none';
+  const cb=el('checkbtn');if(cb)cb.closest('.btnrow').style.display='none';
+  const hb=el('hintbox');if(hb)hb.style.display='none';
   if(ok)OK++;else KO++;
   AMAP[IDX]={ok,fv:raw,ua:ok?'':raw};
-  updateSco(); fxEffect(ok);
+  updateSco();fxEffect(ok);
   showFB(ok,q,ok?'':raw,partial);
-  if(TTS_ON&&q.spk) setTimeout(()=>speakIT(q.spk),300);
+  // NO auto-speak — user triggers voice manually
   saveProg();
 }
 
 function doHint(){
-  const q=POOL[IDX]; if(!q) return;
-  const hb=$('hintbox'); if(!hb) return;
-  const hbtn=$('hintbtn');
+  const q=POOL[IDX];if(!q)return;
+  const hb=el('hintbox');if(!hb)return;
+  const hbtn=el('hintbtn');
   let hint='';
+  const ans=q.ans||'';
   if(q.verb&&q.pron){
     const vk=Object.keys(VB).find(k=>VB[k].it===q.verb);
     const v=vk?VB[vk]:null;
     if(v){
-      const endMap={io:'→ -o (tous groupes)',tu:'→ -i (tous groupes)',noi:'→ -iamo (tous groupes)','lui/lei':'→ -a(-ARE) ou -e(-ERE/-IRE)',voi:'→ -ate/-ete/-ite',loro:'→ -ano(-ARE) ou -ono(-ERE/-IRE)'};
-      const ans=q.ans||'';
-      hint=`Verbe <b>${v.it}</b> (${v.g==='irr'?'irrégulier':v.g==='mod'?'modal':'régulier'})<br>${q.pron} ${endMap[q.pron]||''}<br>La réponse commence par <b>${ans[0]||'?'}</b> (${ans.length} lettres)`;
-      const ph=v.ph&&v.ph.length?v.ph[0]:null;
-      if(ph) hint+=`<br>Exemple : <em>${ph.i}</em>`;
+      const em={'io':'→ -o (tous groupes)','tu':'→ -i (tous groupes)','noi':'→ -iamo (tous groupes)','lui/lei':'→ -a (-ARE) ou -e (-ERE/IRE)','voi':'→ -ate/-ete/-ite','loro':'→ -ano/-ono'};
+      hint='Verbe <b>'+v.it+'</b> ('+v.fr+'). '+q.pron+' '+em[q.pron]+'. La réponse a <b>'+ans.length+'</b> lettres, commence par <b>'+ans[0]+'</b>.';
+      const ph=v.ph&&v.ph.length>0?v.ph[0]:null;
+      if(ph)hint+='<br>Ex: <em>'+ph.i+'</em> ('+ph.f+')';
     }
   } else {
-    const ans=q.ans||'';
-    const w=ans.split(' ');
-    const masked=w.map((x,i)=>i===0?(x.length>3?x.slice(0,2)+'…':x[0]+'…'):'___').join(' ');
-    hint=`Réponse (${ans.length} car.) : <b>${masked}</b>`;
+    const words=ans.split(' ');
+    const masked=words.map((w,i)=>i===0?(w.length>3?w.slice(0,1)+'_'.repeat(w.length-1):(w[0]+'__')):'___').join(' ');
+    hint='Réponse ('+ans.length+' car.) ressemble à : <b>'+masked+'</b>';
   }
-  hb.innerHTML='💡 '+hint;
-  hb.style.display='block';
-  if(hbtn){hbtn.disabled=true;hbtn.style.opacity='.4';}
+  hb.innerHTML='💡 '+hint;hb.classList.add('on');
+  if(hbtn)hbtn.disabled=true;
 }
 
 function doSkip(){
-  stopSpdTimer();
+  stopTimer();
   if(!ANSWERED&&!FILLDONE){
-    const q=POOL[IDX]; if(!q) return;
-    KO++;
+    const q=POOL[IDX];if(!q)return;
     AMAP[IDX]={ok:false,sel:-1,fv:'',ua:'(passé)',skipped:true};
+    KO++;updateSco();
     if(q.type==='qcm'){
-      document.querySelectorAll('.opt').forEach((b,bi)=>{
-        b.disabled=true;
-        if(bi===q.ans){b.classList.add('ok');const lt=b.querySelector('.lt');if(lt)lt.textContent='✓';}
-      });
+      const btns=document.querySelectorAll('.opt');
+      btns.forEach((b,bi)=>{b.disabled=true;if(bi===q.ans){b.classList.add('ok');const lt=b.querySelector('.lt');if(lt)lt.textContent='✓';}});
     } else {
-      const inp=$('finp'); if(inp){inp.className='finp ko';inp.disabled=true;}
+      const inp=el('finp');if(inp){inp.className='finp ko';inp.disabled=true;}
     }
-    updateSco();
-    showFB(false,q,'(passé)',false);
-    saveProg();
-  } else {
-    doNext();
-  }
+    showFB(false,q,'(question passée)');saveProg();
+  } else {doNext();}
 }
 
 function doNext(){
-  stopSpdTimer(); IDX++; saveProg();
-  const qcard=$('qcard'); if(!qcard){loadQ();return;}
+  stopTimer();IDX++;saveProg();
+  const qcard=el('qcard');if(!qcard){loadQ();return;}
   qcard.style.animation='none';
-  requestAnimationFrame(()=>{qcard.style.animation='fadeUp .25s ease-out';loadQ();});
+  requestAnimationFrame(()=>{qcard.style.animation='fadeUp .22s ease-out';loadQ();});
 }
 
 function doPrev(){
-  if(IDX<=0) return;
-  stopSpdTimer(); IDX--;
-  ANSWERED=!!AMAP[IDX]; FILLDONE=ANSWERED;
-  updateSco(); saveProg();
-  const qcard=$('qcard'); if(!qcard){loadQ();return;}
+  if(IDX<=0)return;stopTimer();
+  IDX--;ANSWERED=!!AMAP[IDX];FILLDONE=ANSWERED;
+  updateSco();saveProg();
+  const qcard=el('qcard');if(!qcard){loadQ();return;}
   qcard.style.animation='none';
-  requestAnimationFrame(()=>{qcard.style.animation='slideL .25s ease-out';loadQ();});
+  requestAnimationFrame(()=>{qcard.style.animation='slidel .2s ease-out';loadQ();});
 }
 
-// ── FEEDBACK ───────────────────────────────────────────────────
-function buildFBdata(ok,q,ua,partial){
+// ── FEEDBACK ──────────────────────────────────────────────────
+function buildFB(ok,q,ua,partial){
   if(ok){
     const enc=['Perfetto!','Esatto!','Bravo!','Molto bene!','Eccellente!'];
-    return{cls:'ok',icon:'🎉',title:enc[Math.floor(Math.random()*enc.length)],secs:[`<div class="fbs">${q.exp||''}</div>`]};
+    return{cls:'ok',icon:'🎉',title:enc[Math.floor(Math.random()*enc.length)],secs:['<div class="fbs">'+(q.exp||'')+'</div>']};
   }
   const secs=[];
-  const correctAns=q.type==='fill'?(q.ans||''):(Array.isArray(q.opts)&&q.opts[q.ans])||'';
-  if(ua&&ua!=='(passé)') secs.push(`<div class="fbs">❌ Ta réponse : <b>"${safe(ua)}"</b><br>✅ Réponse : <b>"${safe(correctAns)}"</b></div>`);
-  else if(ua==='(passé)') secs.push(`<div class="fbs">⏭️ Passé — Réponse : <b>"${safe(correctAns)}"</b></div>`);
-  if(q.exp) secs.push(`<div class="fbs">📖 ${q.exp}</div>`);
+  const ans=q.type==='fill'?(q.ans||''):(q.opts&&q.opts[q.ans])||'';
+  if(ua&&ua!=='(question passée)') secs.push('<div class="fbs">❌ Tu as répondu : <b>"'+safe(ua)+'"</b><br>✅ Réponse : <b>"'+safe(ans)+'"</b></div>');
+  else if(ua==='(question passée)') secs.push('<div class="fbs">⏭️ Passé — Réponse : <b>"'+safe(ans)+'"</b></div>');
+  else secs.push('<div class="fbs">✅ Réponse : <b>"'+safe(ans)+'"</b></div>');
+  if(q.exp) secs.push('<div class="fbs">📖 '+q.exp+'</div>');
   if(q.verb){
     const vk=Object.keys(VB).find(k=>VB[k].it===q.verb);
     const v=vk?VB[vk]:null;
     if(v&&q.pron){
-      const full=PRON.map((p,i)=>`${p}→<b>${v.c[i]}</b>`).join(' · ');
-      secs.push(`<div class="fbs">🔢 ${v.it} : ${full}</div>`);
+      const full=PRON.map((p,i)=>p+'→<b>'+v.c[i]+'</b>').join(' · ');
+      secs.push('<div class="fbs">🔢 '+v.it+' : '+full+'</div>');
       const ph=v.ph&&v.ph.length?v.ph[0]:null;
-      if(ph) secs.push(`<div class="fbex"><b>${ph.i}</b> → ${ph.f}</div>`);
+      if(ph) secs.push('<div class="fbex"><b>'+ph.i+'</b> → '+ph.f+'</div>');
     }
   }
   if(!q.verb&&q.ch){
-    if(q.ch.includes('Article')) secs.push(`<div class="fbs">💡 il/la→i/le · l'(voyelle)→gli/le · lo→gli(z,s+cons.)</div>`);
-    else if(q.ch.includes('Possessif')) secs.push(`<div class="fbs">💡 Accord avec l'OBJET possédé. Loro = invariable !</div>`);
-    else if(q.ch.includes('Temps')) secs.push(`<div class="fbs">💡 durée+<b>fa</b>=il y a · <b>tra/fra</b>+durée=dans</div>`);
+    if(q.ch.includes('Article')) secs.push('<div class="fbs">💡 il/la→i/le · l\'+voyelle→gli/le · lo→gli (z,s+cons.)</div>');
+    else if(q.ch.includes('Possessif')) secs.push('<div class="fbs">💡 Accord avec l\'OBJET. Loro = invariable !</div>');
+    else if(q.ch.includes('Temps')) secs.push('<div class="fbs">💡 durée+<b>fa</b>=il y a · <b>tra/fra</b>+durée=dans</div>');
   }
-  return{cls:'ko',icon:'💡',title:partial?'Presque ! Vérifie l\'orthographe.':'Pas tout à fait !',secs};
+  return{cls:'ko',icon:'💡',title:partial?"Presque ! Vérifie l'orthographe.":'Pas tout à fait !',secs};
 }
-
 function showFB(ok,q,ua,partial){
-  const fb=$('fb'); if(!fb) return;
-  const d=buildFBdata(ok,q,ua||'',!!partial);
-  const cls=partial?'partial':d.cls;
-  fb.className='fb on '+cls;
-  fb.innerHTML=`<div class="fbh"><span class="fbi">${d.icon}</span><span class="fbt">${d.title}</span></div>${d.secs.join('')}`;
-  const nb=$('nxtbtn'); if(!nb) return;
+  const fb=el('fb');if(!fb)return;
+  const d=buildFB(ok,q,ua||'',!!partial);
+  fb.className='fb on '+(partial?'partial':d.cls);
+  // Audio button for the correct answer (italian pronunciation)
+  const ans=q.type==='fill'?(q.ans||''):(q.opts&&q.opts[q.ans])||'';
+  const audioBtn=ans?'<button class="tts-inline" style="margin-left:auto" onclick="speakFeedback()" title="Écouter la bonne réponse">🔊 Réponse</button>':'';
+  fb.innerHTML='<div class="fbh"><span class="fbi">'+d.icon+'</span><span class="fbt">'+d.title+'</span>'+audioBtn+'</div>'+d.secs.join('');
+  const nb=el('nxtbtn');if(!nb)return;
   nb.className='nxtbtn '+(ok?'ok':'ko');
   nb.textContent=IDX+1>=POOL.length?'Voir mon score 🏁':'Question suivante →';
   nb.style.display='block';
 }
-
 function restoreFB(prev,q){
-  const fb=$('fb'); if(!fb) return;
-  const d=buildFBdata(prev.ok,q,prev.ua||prev.fv||'',false);
+  const fb=el('fb');if(!fb)return;
+  const d=buildFB(prev.ok,q,prev.ua||prev.fv||'',false);
+  const ans=q.type==='fill'?(q.ans||''):(q.opts&&q.opts[q.ans])||'';
+  const audioBtn=ans?'<button class="tts-inline" style="margin-left:auto" onclick="speakFeedback()" title="Écouter la bonne réponse">🔊 Réponse</button>':'';
   fb.className='fb on '+d.cls;
-  fb.innerHTML=`<div class="fbh"><span class="fbi">${d.icon}</span><span class="fbt">${d.title}</span></div>${d.secs.join('')}`;
+  fb.innerHTML='<div class="fbh"><span class="fbi">'+d.icon+'</span><span class="fbt">'+d.title+'</span>'+audioBtn+'</div>'+d.secs.join('');
 }
 
+// ── SCORE ─────────────────────────────────────────────────────
 function updateSco(){
-  const ok=$('sc-ok'),ko=$('sc-ko'),pct=$('sc-pct');
-  if(ok)ok.textContent=OK;
-  if(ko)ko.textContent=KO;
+  const ok=el('sc-ok'),ko=el('sc-ko'),pct=el('sc-pct');
+  if(ok)ok.textContent=OK;if(ko)ko.textContent=KO;
   if(pct){const t=OK+KO;pct.textContent=t?Math.round(OK/t*100)+'%':'—';}
 }
 
+// ── EFFECTS ───────────────────────────────────────────────────
 function fxEffect(ok){
-  const c=$('qcard'); if(!c) return;
-  void c.offsetWidth; c.classList.add(ok?'bnc':'shk');
-  setTimeout(()=>c.classList.remove('bnc','shk'),600);
-  if(ok) spawnPtcl();
+  const c=el('qcard');if(!c)return;
+  void c.offsetWidth;c.classList.add(ok?'bnc':'shk');
+  if(ok)spawnPtcl();
 }
-
 function spawnPtcl(){
-  const c=$('qcard'); if(!c) return;
+  const c=el('qcard');if(!c)return;
   const r=c.getBoundingClientRect();
-  const cx=r.left+r.width/2,cy=r.top+r.height*.25;
-  const cols=['#22c55e','#52b788','#1b4332','#d8f3dc','#86efac','#fbbf24'];
+  const cx=r.left+r.width/2,cy=r.top+r.height*.3;
+  const cols=['#22c55e','#52b788','#d8f3dc','#86efac','#1b4332','#fbbf24'];
   for(let i=0;i<14;i++){
-    const p=document.createElement('div'); p.className='ptcl';
-    const sz=5+Math.random()*9,ang=Math.random()*360,dist=70+Math.random()*120;
+    const p=document.createElement('div');p.className='ptcl';
+    const sz=5+Math.random()*8,ang=Math.random()*360,dist=60+Math.random()*120;
     const tx=Math.cos(ang*Math.PI/180)*dist,ty=Math.sin(ang*Math.PI/180)*dist-40;
-    p.style.cssText=`left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;background:${cols[i%cols.length]};border-radius:${Math.random()>.4?'50%':'3px'};--tx:${tx}px;--ty:${ty}px;animation-duration:${.5+Math.random()*.4}s`;
-    document.body.appendChild(p);
-    setTimeout(()=>{try{p.remove();}catch(e){}},900);
+    p.style.cssText='left:'+cx+'px;top:'+cy+'px;width:'+sz+'px;height:'+sz+'px;background:'+cols[i%cols.length]+';--tx:'+tx+'px;--ty:'+ty+'px;animation-duration:'+(0.5+Math.random()*0.4)+'s';
+    document.body.appendChild(p);setTimeout(()=>p.remove(),900);
   }
 }
 
+// ── END ───────────────────────────────────────────────────────
 function showEnd(){
-  stopSpdTimer(); clearProg(CUR);
-  const total=POOL.length;
-  const pct=total?Math.round(OK/total*100):0;
+  stopTimer();clearProg(CUR);
+  const total=POOL.length;const pct=total?Math.round(OK/total*100):0;
   const tr=pct>=85?'🏆':pct>=65?'🥈':pct>=45?'💪':'📖';
   const sc=pct>=85?'var(--g)':pct>=65?'var(--am)':'var(--r)';
   const msg=pct>=85?'Eccellente! Parfaite maîtrise!':pct>=65?'Molto bene! Continue.':pct>=45?'Bene! Encore un peu.':'Dai! Relis les fiches.';
-  const qcard=$('qcard'); if(!qcard) return;
-  qcard.innerHTML=`<div class="endscr">
-    <div class="endtrp">${tr}</div>
-    <div class="endsco" style="color:${sc}">${OK}/${total}</div>
-    <div style="font-size:15px;font-weight:800;color:var(--a);margin-bottom:4px">${pct}% de réussite</div>
-    <div class="endmsg">${msg}</div>
-    <div class="endact">
-      <button class="rbtn" onclick="startFresh()">Recommencer ↩</button>
-      <button class="hbtn" onclick="go('home')">Accueil 🏠</button>
-      <button class="hbtn" onclick="go('fiche')">Fiches 📋</button>
-    </div>
-  </div>`;
-  if(TTS_ON) speakIT(pct>=65?'Molto bene!':'Dai, riprova!');
+  const qcard=el('qcard');if(!qcard)return;
+  qcard.innerHTML='<div class="endscr"><div class="endtrp">'+tr+'</div><div class="endsco" style="color:'+sc+'">'+OK+'/'+total+'</div><div style="font-size:14px;font-weight:800;color:var(--a);margin-bottom:4px">'+pct+'% de réussite</div><div class="endmsg">'+msg+'</div><div class="endact"><button class="rbtn" onclick="startFresh()">Recommencer ↩</button><button class="hbtn" onclick="go(\'home\')">Accueil 🏠</button><button class="hbtn" onclick="go(\'fiche\')">Fiches 📋</button></div></div>';
 }
 
-// ── HOME ───────────────────────────────────────────────────────
+// ── HOME ──────────────────────────────────────────────────────
 function renderHome(){
-  const chs=[
-    {k:'phon',ic:'🔊',n:'Phonétique & Vocab',q:'18Q'},{k:'form',ic:'💬',n:'Formules',q:'20Q'},
+  const chapters=[
+    {k:'phon',ic:'🔊',n:'Phonétique & Vocab',q:'18Q'},{k:'form',ic:'💬',n:'Formules & Politesse',q:'20Q'},
     {k:'temps',ic:'⏰',n:'Expressions de temps',q:'18Q'},{k:'gram',ic:'📐',n:'Grammaire',q:'20Q'},
     {k:'vi',ic:'⚡',n:'Verbes irréguliers',q:'30Q+'},{k:'vm',ic:'🔧',n:'Verbes modaux',q:'20Q+'},
     {k:'vr',ic:'✅',n:'Verbes réguliers',q:'25Q+'},{k:'va',ic:'🎯',n:'Tous les verbes',q:'75Q+'},
-    {k:'resto',ic:'🍕',n:'Restaurant & Café',q:'15Q',nw:true},{k:'transp',ic:'🚌',n:'Transports',q:'12Q',nw:true},
-    {k:'shop',ic:'🛒',n:'Shopping',q:'10Q',nw:true},{k:'urg',ic:'🆘',n:'Urgences',q:'10Q',nw:true},
-    {k:'num',ic:'🔢',n:'Chiffres & Prix',q:'10Q',nw:true},{k:'sic',ic:'🏖️',n:'Culture sicilienne',q:'12Q',nw:true},
+    {k:'resto',ic:'🍕',n:'Restaurant & Café',q:'15Q',nw:1},{k:'transp',ic:'🚌',n:'Transports',q:'12Q',nw:1},
+    {k:'shop',ic:'🛒',n:'Shopping',q:'10Q',nw:1},{k:'urg',ic:'🆘',n:'Urgences & Santé',q:'10Q',nw:1},
+    {k:'num',ic:'🔢',n:'Chiffres & Prix',q:'10Q',nw:1},{k:'sic',ic:'🏖️',n:'Culture sicilienne',q:'12Q',nw:1},
     {k:'tout',ic:'🌟',n:'Tout mélangé',q:'200Q+'},{k:'fiche',ic:'📋',n:'Fiches de cours',q:'Référence'},
   ];
-  $('main').innerHTML=`
-    <div class="hero"><div class="fl">🇮🇹</div><div><h1>Benvenuto!</h1><p>Choisis un chapitre ☰ ou appuie sur une carte. Voix 🔊 et traduction 🔤 disponibles en haut.</p></div></div>
-    <div class="cgrid">${chs.map(c=>`<div class="cc${c.nw?' nw':''}" onclick="go('${c.k}')"><div class="ci">${c.ic}</div><div class="cn">${c.n}${c.nw?' ✨':''}</div><div class="cq">${c.q}</div><div class="cb"><div class="cf" style="width:0"></div></div></div>`).join('')}</div>`;
+  el('main').innerHTML='<div class="hero"><div class="fl">🇮🇹</div><div><h1>Benvenuto!</h1><p>Choisis un chapitre ci-dessous ou appuie sur ☰ pour le menu. 🔊 = voix · 🔤 = traducteur</p></div></div><div class="cgrid">'+chapters.map(c=>'<div class="cc'+(c.nw?' nw':'')+'" onclick="go(\''+c.k+'\')"><div class="ci">'+c.ic+'</div><div class="cn">'+c.n+'</div><div class="cq">'+c.q+'</div><div class="cb"><div class="cf" style="width:0%"></div></div></div>').join('')+'</div>';
 }
 
-// ── FICHES ─────────────────────────────────────────────────────
-function makeVocGrid(items){return`<div class="vgrd">${items.map(([it,fr])=>`<div class="vi"><span class="it">${it}</span><span class="fr">${fr}</span></div>`).join('')}</div>`;}
-function makeConjBox(keys){
-  return keys.map(k=>{
-    const v=VB[k]; if(!v) return '';
-    const bc=v.g==='irr'?'bg-irr':v.g==='mod'?'bg-mod':'bg-reg';
-    const bt=v.g==='irr'?'IRR':v.g==='mod'?'MOD':'REG';
-    return `<div class="cbox"><div class="vn">${v.it} <span class="${bc}">${bt}</span></div><div class="vt">${v.fr}</div>${PRON.map((p,i)=>`<div class="crow"><span class="pr">${p}</span><span class="fo">${v.c[i]}</span></div>`).join('')}</div>`;
-  }).join('');
-}
-
+// ── FICHES ────────────────────────────────────────────────────
 function renderFiche(){
-  $('main').innerHTML=`
-    <div class="rcard"><h3>✏️ Terminaisons présent indicatif</h3><p class="sub">io/tu/noi identiques · seul voi change -ERE/-IRE</p>
-      <table class="rtbl"><thead><tr><th>Pronom</th><th>-ARE</th><th>-ERE</th><th>-IRE</th></tr></thead>
-      <tbody>${PRON.map((p,i)=>{const a=['-o','-i','-a','-iamo','-ate','-ano'][i];const e=['-o','-i','-e','-iamo','-ete','-ono'][i];const ir=['-o','-i','-e','-iamo','-ite','-ono'][i];const diff=e!==ir;return`<tr><td class="mu">${p}</td><td>${a}</td><td>${e}</td><td${diff?' style="color:var(--r);font-weight:800"':''}>${ir}</td></tr>`;}).join('')}</tbody></table></div>
-    <div class="rcard"><h3>⚡ Verbes irréguliers prioritaires</h3><div class="cgrd">${makeConjBox(VI_KEYS)}</div></div>
-    <div class="rcard"><h3>🔧 Verbes modaux</h3><div class="cgrd">${makeConjBox(VM_KEYS)}</div></div>
-    <div class="rcard"><h3>✅ Verbes réguliers — Restaurant & Communication</h3><div class="cgrd">${makeConjBox(['mangiare','prendere','ordinare','pagare','portare','parlare','capire','chiedere'])}</div></div>
-    <div class="rcard"><h3>✅ Verbes réguliers — Déplacement</h3><div class="cgrd">${makeConjBox(['partire','arrivare','tornare','restare','seguire','guidare','prenotare','entrare'])}</div></div>
-    <div class="rcard"><h3>📐 Articles définis</h3>
-      <table class="rtbl"><thead><tr><th>Contexte</th><th>Singulier</th><th>Pluriel</th></tr></thead>
-      <tbody><tr><td class="mu">Masc. standard</td><td class="bd">il</td><td class="bd">i</td></tr><tr><td class="mu">Fém. standard</td><td class="bd">la</td><td class="bd">le</td></tr><tr><td class="mu">Devant voyelle</td><td class="bd">l'</td><td class="bd">gli / le</td></tr><tr><td class="mu">Masc. z/s+cons.</td><td class="bd">lo</td><td class="bd">gli</td></tr></tbody></table></div>
-    <div class="rcard"><h3>📐 Articles indéfinis</h3>
-      <table class="rtbl"><thead><tr><th>Contexte</th><th>Forme</th></tr></thead>
-      <tbody><tr><td class="mu">Masc. standard</td><td class="bd">un</td></tr><tr><td class="mu">Fém. standard</td><td class="bd">una</td></tr><tr><td class="mu">Fém. + voyelle</td><td class="bd">un'</td></tr><tr><td class="mu">Masc. z/s+cons.</td><td class="bd">uno</td></tr></tbody></table></div>
-    <div class="rcard"><h3>📐 Adjectifs possessifs</h3><p class="sub">S'accordent avec l'OBJET possédé</p>
-      <table class="rtbl"><thead><tr><th>Sujet</th><th>M. sg.</th><th>F. sg.</th><th>M. pl.</th><th>F. pl.</th></tr></thead>
-      <tbody><tr><td class="mu">io</td><td>il mio</td><td>la mia</td><td>i miei</td><td>le mie</td></tr><tr><td class="mu">tu</td><td>il tuo</td><td>la tua</td><td>i tuoi</td><td>le tue</td></tr><tr><td class="mu">lui/lei</td><td>il suo</td><td>la sua</td><td>i suoi</td><td>le sue</td></tr><tr><td class="mu">noi</td><td>il nostro</td><td>la nostra</td><td>i nostri</td><td>le nostre</td></tr><tr><td class="mu">voi</td><td>il vostro</td><td>la vostra</td><td>i vostri</td><td>le vostre</td></tr><tr><td class="mu">loro</td><td colspan="4" style="color:var(--r);font-weight:700">il/la/i/le loro — INVARIABLE</td></tr></tbody></table></div>
-    <div class="rcard"><h3>⏰ Expressions de temps</h3>${makeVocGrid([['Ieri','Hier'],["Oggi","Aujourd'hui"],['Domani','Demain'],["L'altro ieri",'Avant-hier'],['Dopodomani','Après-demain'],['...fa','Il y a...'],['Tra/fra...','Dans...'],['Settimana scorsa','Sem. dernière'],['Mese scorso','Mois dernier'],['Anno scorso','Année dernière'],['Subito','Tout de suite'],['Presto','Bientôt'],['Più tardi','Plus tard'],['Ora / Adesso','Maintenant'],['Stamattina','Ce matin'],['Stasera','Ce soir']])}</div>
-    <div class="rcard"><h3>💬 Formules essentielles</h3>${makeVocGrid([['Come sta ?','Comment allez-vous (poli)?'],['Come stai ?','Comment vas-tu ?'],['Sto bene, grazie','Je vais bien, merci'],['Mi chiamo...','Je m\'appelle...'],['Di dove sei ?','D\'où viens-tu ?'],['Vengo dalla Francia','Je viens de France'],['Dove vivi ?','Où vis-tu ?'],['Vivo a Parigi','Je vis à Paris'],['Scusi','Excusez-moi (poli)'],['Prego','De rien / S.v.p.'],['Grazie mille','Merci mille fois'],['Figurati','T\'inquiète !'],['A presto','À bientôt'],['Arrivederci','Au revoir'],['Buonanotte','Bonne nuit'],['Non capisco','Je ne comprends pas']])}</div>
-    <div class="rcard"><h3>🍕 Restaurant & Spécialités siciliennes</h3>${makeVocGrid([['Il conto',"L'addition"],['Il cameriere','Le serveur'],['Il menù','La carte'],['Buon appetito!','Bon appétit!'],['Altrettanto!','Pareillement!'],['Acqua naturale','Eau plate'],['Acqua frizzante','Eau pétillante'],['Senza glutine','Sans gluten'],["L'arancina",'Arancine (Sicile)'],['La granita','Granita glacée'],['La cassata','Gâteau sicilien'],['Il cannolo','Cannoli'],['Delizioso!','Délicieux!'],['Antipasto',"L'entrée"],['Primo piatto','Le plat principal'],['Dolce','Le dessert']])}</div>
-    <div class="rcard"><h3>🚌 Transports & Déplacements</h3>${makeVocGrid([['Il biglietto','Le billet'],['La fermata',"L'arrêt"],['Il treno','Le train'],['Il traghetto','Le ferry'],['Andata e ritorno','Aller-retour'],["Dov'è...?",'Où est...?'],['A che ora?','À quelle heure?'],['A sinistra','À gauche'],['A destra','À droite'],['Dritto','Tout droit'],['Il porto','Le port'],['La stazione','La gare'],['È diretto?','C\'est direct?'],['Noleggiare','Louer']])}</div>
-    <div class="rcard"><h3>🆘 Urgences & Santé</h3>${makeVocGrid([['Aiuto!','Au secours!'],['112','N° urgence EU'],['La farmacia','La pharmacie'],['Ho bisogno di...','J\'ai besoin de...'],['Mi fa male','J\'ai mal'],['Ho la febbre','J\'ai de la fièvre'],['Ho perso...','J\'ai perdu...'],['Il passaporto','Le passeport'],['È stato rubato','A été volé'],["L'ospedale","L'hôpital"],['Un medico','Un médecin'],['Sono allergico/a','Je suis allergique']])}</div>
-    <div class="rcard"><h3>🔢 Chiffres</h3>${makeVocGrid([['uno/una','1'],['due','2'],['tre','3'],['quattro','4'],['cinque','5'],['sei','6'],['sette','7'],['otto','8'],['nove','9'],['dieci','10'],['undici','11'],['dodici','12'],['quindici','15'],['venti','20'],['trenta','30'],['cinquanta','50'],['cento','100'],['mille','1000'],['primo/prima','1er/1ère'],['mezzo','demi']])}</div>
-    <div class="rcard"><h3>🏖️ Sicile — Vocabulaire essentiel</h3>${makeVocGrid([['La spiaggia','La plage'],["L'Etna",'Le volcan Etna'],['Il vulcano','Le volcan'],['La granita','Granita glacée'],["L'arancina",'Arancine'],['Palermo','Palerme (capitale)'],['Catania','Catane'],['Taormina','Taormina'],['Le isole Eolie','Îles Éoliennes'],['Fa caldo','Il fait chaud'],["C'è sole",'Il y a du soleil'],['Fa bello','Il fait beau'],['Il mare','La mer'],['La spiaggia è libera','La plage est libre'],['Il centro storico','Le centre historique'],['Il mercato','Le marché']])}</div>
-    <div class="rcard"><h3>💬 Phrases utiles en Sicile</h3>
-      <div class="phlist">
-        ${[["Dov'è il centro storico?","Où est le centre historique ?"],["Quanto costa un biglietto per Taormina?","Combien coûte un billet pour Taormina ?"],["Vorrei prenotare un tavolo per stasera.","Je voudrais réserver une table pour ce soir."],["Parla francese o inglese?","Parlez-vous français ou anglais ?"],["Posso pagare con la carta?","Puis-je payer par carte ?"],["Mi può consigliare un ristorante tipico?","Pouvez-vous me conseiller un restaurant typique ?"],["Voglio visitare l'Etna. C'è un tour organizzato?","Je veux visiter l'Etna. Y a-t-il un tour organisé ?"],["Ho bisogno di un medico.","J'ai besoin d'un médecin."],["È inclusa la colazione?","Le petit-déjeuner est-il inclus ?"],["Parli più lentamente, per favore.","Parlez plus lentement, s'il vous plaît."]].map(([it,fr])=>`<div class="phi"><div class="pi">${it}</div><div class="pf">${fr}</div></div>`).join('')}
-      </div>
-    </div>`;
+  const vgroups=[
+    {l:'⚡ Irréguliers prioritaires',keys:VI},
+    {l:'🔧 Verbes modaux',keys:VM},
+    {l:'✅ Restaurant / Déplacement',keys:['mangiare','prendere','ordinare','pagare','portare','partire','arrivare','tornare','restare']},
+    {l:'💬 Communication / Autres',keys:['parlare','capire','chiedere','seguire','guidare','prenotare','offrire','entrare']},
+  ];
+  function mv(title,items){return'<div class="rcard"><h3>'+title+'</h3><div class="vgrd">'+items.map(([it,fr])=>'<div class="vi"><span class="it">'+it+'</span><span class="fr">'+fr+'</span></div>').join('')+'</div></div>';}
+  const conjH=vgroups.map(g=>'<div class="rcard"><h3>'+g.l+'</h3><div class="cgrd">'+g.keys.map(k=>{const v=VB[k];if(!v)return'';const bc=v.g==='irr'?'bg-irr':v.g==='mod'?'bg-mod':'bg-reg';const bt=v.g==='irr'?'IRR':v.g==='mod'?'MOD':'REG';return'<div class="cbox"><div class="vn">'+v.it+' <span class="'+bc+'">'+bt+'</span></div><div class="vt">'+v.fr+'</div>'+PRON.map((p,i)=>'<div class="crow"><span class="pr">'+p+'</span><span class="fo">'+v.c[i]+'</span></div>').join('')+'</div>';}).join('')+'</div></div>').join('');
+  el('main').innerHTML=
+    '<div class="rcard"><h3>✏️ Terminaisons présent indicatif</h3><p class="sub">io/tu/noi identiques pour les 3 groupes · seul voi change</p><table class="rtbl"><thead><tr><th>Pronom</th><th>-ARE</th><th>-ERE</th><th>-IRE</th></tr></thead><tbody>'+PRON.map((p,i)=>{const a=['-o','-i','-a','-iamo','-ate','-ano'][i];const e=['-o','-i','-e','-iamo','-ete','-ono'][i];const ir=['-o','-i','-e','-iamo','-ite','-ono'][i];return'<tr><td class="mu">'+p+'</td><td>'+a+'</td><td>'+e+'</td><td'+(e!==ir?' style="color:var(--r);font-weight:800"':'')+'>'+ir+'</td></tr>';}).join('')+'</tbody></table></div>'
+    +conjH
+    +'<div class="rcard"><h3>📐 Articles définis</h3><table class="rtbl"><thead><tr><th>Contexte</th><th>Singulier</th><th>Pluriel</th></tr></thead><tbody><tr><td class="mu">Masc. standard</td><td class="bd">il</td><td class="bd">i</td></tr><tr><td class="mu">Fém. standard</td><td class="bd">la</td><td class="bd">le</td></tr><tr><td class="mu">Devant voyelle</td><td class="bd">l\'</td><td class="bd">gli / le</td></tr><tr><td class="mu">Masc. z/s+cons.</td><td class="bd">lo</td><td class="bd">gli</td></tr></tbody></table></div>'
+    +'<div class="rcard"><h3>📐 Articles indéfinis</h3><table class="rtbl"><thead><tr><th>Contexte</th><th>Forme</th></tr></thead><tbody><tr><td class="mu">Masc. standard</td><td class="bd">un</td></tr><tr><td class="mu">Fém. standard</td><td class="bd">una</td></tr><tr><td class="mu">Fém. + voyelle</td><td class="bd">un\'</td></tr><tr><td class="mu">Masc. z/s+cons.</td><td class="bd">uno</td></tr></tbody></table></div>'
+    +'<div class="rcard"><h3>📐 Adjectifs possessifs</h3><p class="sub">S\'accordent avec l\'OBJET possédé</p><table class="rtbl"><thead><tr><th>Sujet</th><th>M. sg.</th><th>F. sg.</th><th>M. pl.</th><th>F. pl.</th></tr></thead><tbody><tr><td class="mu">io</td><td>il mio</td><td>la mia</td><td>i miei</td><td>le mie</td></tr><tr><td class="mu">tu</td><td>il tuo</td><td>la tua</td><td>i tuoi</td><td>le tue</td></tr><tr><td class="mu">lui/lei</td><td>il suo</td><td>la sua</td><td>i suoi</td><td>le sue</td></tr><tr><td class="mu">noi</td><td>il nostro</td><td>la nostra</td><td>i nostri</td><td>le nostre</td></tr><tr><td class="mu">voi</td><td>il vostro</td><td>la vostra</td><td>i vostri</td><td>le vostre</td></tr><tr><td class="mu">loro</td><td colspan="4" style="color:var(--r);font-weight:700">il/la/i/le loro — INVARIABLE</td></tr></tbody></table></div>'
+    +mv('⏰ Expressions de temps',[['Ieri','Hier'],['Oggi',"Aujourd'hui"],['Domani','Demain'],["L'altro ieri",'Avant-hier'],['Dopodomani','Après-demain'],['...fa','Il y a...'],['Tra/fra...','Dans...'],['Settimana scorsa','Sem. dernière'],['Prossima settimana','Sem. prochaine'],['Mese scorso','Mois dernier'],['Anno scorso','Année dernière'],['Stamattina','Ce matin'],['Stasera','Ce soir'],['Subito','Tout de suite'],['Presto','Bientôt'],['Più tardi','Plus tard'],['Ora / Adesso','Maintenant'],['Sempre','Toujours'],['Mai','Jamais'],['Spesso','Souvent']])
+    +mv('💬 Formules essentielles',[['Come sta ?','Comment allez-vous ?'],['Come stai ?','Comment vas-tu ?'],['Sto bene, grazie','Je vais bien, merci'],['Mi chiamo...','Je m\'appelle...'],['Di dove sei ?','D\'où viens-tu ?'],['Vengo dalla Francia','Je viens de France'],['Dove vivi ?','Où vis-tu ?'],['Vivo a Parigi','Je vis à Paris'],['Scusi','Excusez-moi (poli)'],['Scusa','Excuse-moi (informel)'],['Prego','De rien / S\'il vous plaît'],['Grazie mille','Merci mille fois'],['Figurati','T\'inquiète'],['A presto','À bientôt'],['Arrivederci','Au revoir'],['Buonanotte','Bonne nuit'],['Buonasera','Bonsoir'],['Salve','Bonjour (neutre)']])
+    +mv('🍕 Restaurant & Café',[['Il conto',"L'addition"],['Il menù','La carte'],['Il cameriere','Le serveur'],['Il tavolo','La table'],["Buon appetito!",'Bon appétit!'],['Altrettanto!','Pareillement!'],['Acqua naturale','Eau plate'],['Acqua frizzante','Eau pétillante'],['Senza glutine','Sans gluten'],['Sono allergico/a','Je suis allergique'],['Delizioso!','Délicieux!'],["L'arancina",'Arancine (Sicile)'],['La granita','Granita glacée'],['La cassata','Gâteau sicilien'],['Il cornetto','Le croissant'],["L'espresso",'Le café espresso'],["L'aperitivo",'L\'apéritif']])
+    +mv('🚌 Transports & Urgences',[['Il biglietto','Le billet'],['La fermata',"L'arrêt"],['Il treno','Le train'],['Il traghetto','Le ferry'],['Andata e ritorno','Aller-retour'],["Dov'è...?",'Où est...?'],['A che ora?','À quelle heure?'],['Aiuto!','Au secours!'],['112','Numéro urgences EU'],['La farmacia','La pharmacie'],["L'ospedale",'L\'hôpital'],['Ho bisogno di...','J\'ai besoin de...'],['Mi fa male','J\'ai mal'],['Ho la febbre','J\'ai de la fièvre'],['Ho perso...','J\'ai perdu...'],['È stato rubato','A été volé'],['Il passaporto','Le passeport']])
+    +mv('🔢 Chiffres & Prix',[['uno/una','1'],['due','2'],['tre','3'],['quattro','4'],['cinque','5'],['sei','6'],['sette','7'],['otto','8'],['nove','9'],['dieci','10'],['undici','11'],['dodici','12'],['quindici','15'],['venti','20'],['trenta','30'],['cinquanta','50'],['cento','100'],['mille','1000'],['Quanto costa?','Combien ça coûte?'],['Il resto','La monnaie'],['Tenga il resto','Gardez la monnaie'],['primo/prima','1er/1ère'],['mezzo','demi']])
+    +mv('🏖️ Sicile & Météo',[['La spiaggia','La plage'],["L'Etna",'Le volcan Etna'],['La granita','Granita glacée'],["L'arancina",'Arancine'],['La cassata','Gâteau sicilien'],['Palermo','Palerme (capitale)'],['Catania','Catane'],['Taormina','Taormina'],['Siracusa','Syracuse'],['Le isole Eolie','Îles Éoliennes'],['Fa caldo','Il fait chaud'],['Fa freddo','Il fait froid'],["C'è sole",'Il fait soleil'],['Fa bello','Il fait beau'],["C'è vento",'Il y a du vent'],['Nuotare','Nager'],['La spiaggia è libera','La plage est libre'],['Il vulcano','Le volcan']])
+    +'<div class="rcard"><h3>💬 Phrases utiles en Sicile</h3><div class="phlist">'+[["Dov'è il centro storico?","Où est le centre historique ?"],["Vorrei prenotare un tavolo per stasera.","Je voudrais réserver une table pour ce soir."],["Parla francese o inglese?","Parlez-vous français ou anglais ?"],["Posso pagare con la carta?","Puis-je payer par carte ?"],["Mi può consigliare un ristorante tipico?","Pouvez-vous me conseiller un restaurant typique ?"],["È lontano da qui?","C'est loin d'ici ?"],["Vorrei visitare l'Etna.","Je voudrais visiter l'Etna."],["Ho bisogno di un medico.","J'ai besoin d'un médecin."],["È inclusa la colazione?","Le petit-déjeuner est-il inclus ?"],["Parli più lentamente, per favore.","Parlez plus lentement, s'il vous plaît."]].map(([it,fr])=>'<div class="phi"><div class="pi">'+it+'</div><div class="pf">'+fr+'</div></div>').join('')+'</div></div>';
 }
 
-// ── INIT ───────────────────────────────────────────────────────
-if(localStorage.getItem('ib')==='1') $('install-banner').classList.add('hidden');
+// ── PWA MANIFEST ──────────────────────────────────────────────
+function setupPWA(){
+  const manifest={name:'Italiano — Quiz',short_name:'Italiano',description:'Quiz et cours d\'italien pour la Sicile',start_url:'.',display:'standalone',background_color:'#f0f4f2',theme_color:'#1b4332',orientation:'portrait',icons:[{src:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%231b4332"/><text y=".9em" font-size="75" x="10">🇮🇹</text></svg>',sizes:'512x512',type:'image/svg+xml'}]};
+  try{const b=new Blob([JSON.stringify(manifest)],{type:'application/json'});const u=URL.createObjectURL(b);const l=document.createElement('link');l.rel='manifest';l.href=u;document.head.appendChild(l);}catch(e){}
+
+  // Show install banner only in browser (not standalone)
+  if(!window.navigator.standalone&&window.location.protocol!=='file:'){
+    const banner=el('install-banner');if(banner)banner.style.display='flex';
+  }
+}
+
+// ── BOOT ──────────────────────────────────────────────────────
 initTTS();
-
-// iOS: wake up speech synthesis on first touch (required)
-document.addEventListener('touchstart', function wakeTTS(){
-  if(window.speechSynthesis){
-    try{const u=new SpeechSynthesisUtterance('');u.volume=0;speechSynthesis.speak(u);}catch(e){}
-  }
-  document.removeEventListener('touchstart',wakeTTS);
-},{once:true,passive:true});
-
-// Prevent double-tap zoom on iOS
-let lastTap=0;
-document.addEventListener('touchend',e=>{
-  const now=Date.now();
-  if(now-lastTap<300&&e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA'){e.preventDefault();}
-  lastTap=now;
-},{passive:false});
-
-// Keep speechSynthesis alive on iOS (it pauses after 30s)
-setInterval(()=>{
-  if(window.speechSynthesis&&speechSynthesis.paused&&TTS_ON){
-    try{speechSynthesis.resume();}catch(e){}
-  }
-},10000);
-
+setupPWA();
 renderHome();
+
+// Handle modal close on bg tap
+el('trans-modal').addEventListener('click',function(e){if(e.target===this)closeTrans();});
+
+// Prevent Safari elastic scroll on modal
+el('trans-modal').querySelector('.modal').addEventListener('touchmove',e=>e.stopPropagation(),{passive:true});
 </script>
 </body>
 </html>
